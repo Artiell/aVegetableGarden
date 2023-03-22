@@ -34,6 +34,8 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoTerre;
     private ImageIcon icoVide;
     private ImageIcon icoMur;
+    private ImageIcon icoSaladePourri;
+    private ImageIcon icoGerme;
 
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -68,7 +70,9 @@ public class VueControleurPotager extends JFrame implements Observer {
     	// image libre de droits utilisée pour les légumes : https://www.vecteezy.com/vector-art/2559196-bundle-of-fruits-and-vegetables-icons	
     
 
-        icoSalade = chargerIcone("Images/data.png", 0, 0, 120, 120);//chargerIcone("Images/Pacman.png");
+        icoSalade = chargerIcone("Images/salade.png", 0, 0, 350, 350);//chargerIcone("Images/Pacman.png");
+        icoSaladePourri = chargerIcone("Images/saladePourri.png", 0, 0, 350, 350);//chargerIcone("Images/Pacman.png");
+        icoGerme = chargerIcone("Images/germe.png", 0, 0, 120, 120);//chargerIcone("Images/Pacman.png");
         icoVide = chargerIcone("Images/Vide.png");
         icoMur = chargerIcone("Images/Mur.png");
         icoTerre = chargerIcone("Images/Terre.png");
@@ -134,7 +138,7 @@ public class VueControleurPotager extends JFrame implements Observer {
                     if (legume != null) {
 
                         switch (legume.getVariete()) {
-                            case salade: tabJLabel[x][y].setIcon(icoSalade); break;
+                            case salade: tabJLabel[x][y].setIcon(icoGerme); break;
                         }
 
                     } else {
