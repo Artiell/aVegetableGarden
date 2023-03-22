@@ -1,8 +1,8 @@
-package modele.environnement;
+package modele.environnement.Case;
 
 import modele.SimulateurPotager;
-import modele.environnement.varietes.Legume;
-import modele.environnement.varietes.Salade;
+import modele.environnement.Legume.varietes.Legume;
+import modele.environnement.Legume.varietes.Salade;
 
 public class CaseCultivable extends Case {
 

@@ -1,4 +1,4 @@
-package modele.environnement.varietes;
+package modele.environnement.Legume.varietes;
 
 public abstract class Legume {
     public abstract Varietes getVariete();

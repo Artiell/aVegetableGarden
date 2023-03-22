@@ -14,8 +14,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import modele.SimulateurPotager;
-import modele.environnement.*;
-import modele.environnement.varietes.Legume;
+import modele.environnement.Case.CaseCultivable;
+import modele.environnement.Case.CaseNonCultivable;
+import modele.environnement.Legume.varietes.Legume;
 
 
 /** Cette classe a deux fonctions :

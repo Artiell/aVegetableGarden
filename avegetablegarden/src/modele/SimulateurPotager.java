@@ -6,9 +6,9 @@
 package modele;
 
 
-import modele.environnement.Case;
-import modele.environnement.CaseCultivable;
-import modele.environnement.CaseNonCultivable;
+import modele.environnement.Case.Case;
+import modele.environnement.Case.CaseCultivable;
+import modele.environnement.Case.CaseNonCultivable;
 
 import java.awt.Point;
 import java.util.Random;

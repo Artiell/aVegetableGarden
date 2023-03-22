@@ -1,4 +1,4 @@
-package modele.environnement.varietes;
+package modele.environnement.Legume.varietes;
 
 public class Salade extends Legume {
     @Override

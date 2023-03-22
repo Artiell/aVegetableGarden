@@ -1,4 +1,4 @@
-package modele.environnement;
+package modele.environnement.Case;
 
 import modele.SimulateurPotager;
 
