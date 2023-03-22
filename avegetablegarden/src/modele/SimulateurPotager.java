@@ -60,10 +60,10 @@ public class SimulateurPotager {
         for (int x = 5; x < 15; x++) {
             for (int y = 3; y < 7; y++) {
                 CaseCultivable cc = new CaseCultivable(this);
-                addEntite(cc , x, y);
+                addEntite(cc , x, y);/*
                 if (rnd.nextBoolean()) {
                     cc.actionUtilisateur();
-                }
+                }*/
 
                 Ordonnanceur.getOrdonnanceur().add(cc);
 

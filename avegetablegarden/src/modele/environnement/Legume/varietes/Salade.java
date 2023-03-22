@@ -9,6 +9,6 @@ public class Salade extends Legume {
     @Override
     protected void croissance() {
         // TODO
-        System.out.println("Une salade pousse !!");
+        //System.out.println("Une salade pousse !!");
     }
 }

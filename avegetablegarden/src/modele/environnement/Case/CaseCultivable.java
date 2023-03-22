@@ -17,8 +17,10 @@ public class CaseCultivable extends Case {
             legume = new Salade();
 
         } else {
+            System.out.println(legume.getCompteur().getSeconde());
             legume = null;
         }
+
     }
 
     public Legume getLegume() {
@@ -29,6 +31,7 @@ public class CaseCultivable extends Case {
     public void run() {
         if (legume != null) {
             legume.nextStep();
+            legume.vieillir();
         }
     }
 }

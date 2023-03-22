@@ -1,5 +1,6 @@
 package modele;
 
+import java.time.LocalTime;
 import java.util.Observable;
 import java.util.Vector;
 
@@ -37,7 +38,6 @@ public class Ordonnanceur extends Observable implements Runnable {
         boolean update = true;
 
         while(true) {
-
             for (Runnable r : lst) {
                 r.run();
             }
