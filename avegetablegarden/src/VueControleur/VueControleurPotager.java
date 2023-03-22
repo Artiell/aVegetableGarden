@@ -73,7 +73,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         icoSalade = chargerIcone("Images/salade.png", 0, 0, 350, 350);//chargerIcone("Images/Pacman.png");
         icoSaladePourri = chargerIcone("Images/saladePourri.png", 0, 0, 350, 350);//chargerIcone("Images/Pacman.png");
-        icoGerme = chargerIcone("Images/germe.png", 0, 0, 120, 120);//chargerIcone("Images/Pacman.png");
+        icoGerme = chargerIcone("Images/germe.png", 0, 0, 210, 250);//chargerIcone("Images/Pacman.png");
         icoVide = chargerIcone("Images/Vide.png");
         icoMur = chargerIcone("Images/Mur.png");
         icoTerre = chargerIcone("Images/Terre.png");
