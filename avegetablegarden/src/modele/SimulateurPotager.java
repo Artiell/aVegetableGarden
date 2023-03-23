@@ -60,7 +60,10 @@ public class SimulateurPotager {
         for (int x = 5; x < 15; x++) {
             for (int y = 3; y < 7; y++) {
                 CaseCultivable cc = new CaseCultivable(this);
-                addEntite(cc , x, y);/*
+                addEntite(cc , x, y);
+                /*
+                Permet d'afficher les germes dès le lancer de l'application sans cette parti on part seulement avec de la terre
+
                 if (rnd.nextBoolean()) {
                     cc.actionUtilisateur();
                 }*/

@@ -1,4 +1,4 @@
-package modele.environnement.Legume.varietes;
+package modele.outils;
 
 import java.time.LocalTime;
 
@@ -29,7 +29,7 @@ public class Compteur {
                 if (time2.getSecond() != cpt) {
                     seconde++;
                     cpt++;
-                    System.out.println(seconde);
+                    //System.out.println(seconde);
                 }
             } else {
                 System.out.println("Le compteur est arrivé au max ");
@@ -37,7 +37,8 @@ public class Compteur {
             }
         }
     }
+    /*
     public void arret(){
         estActif =false;
-    }
+    }*/
 }

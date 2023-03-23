@@ -139,7 +139,11 @@ public class VueControleurPotager extends JFrame implements Observer {
                     if (legume != null) {
 
                         switch (legume.getVariete()) {
-                            case salade: tabJLabel[x][y].setIcon(icoGerme); break;
+                            case salade: switch (legume.getEtatLegume()){
+                                case germe : tabJLabel[x][y].setIcon(icoGerme); break;
+                                case mature : tabJLabel[x][y].setIcon(icoSalade); break;
+                                case pourri: tabJLabel[x][y].setIcon(icoSaladePourri); break;
+                            } break;
                         }
 
                     } else {

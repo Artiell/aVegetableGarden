@@ -1,6 +1,7 @@
 package modele.environnement.Legume.varietes;
 
 import modele.environnement.Legume.EtatLegume;
+import modele.outils.Compteur;
 
 import java.time.LocalTime;
 
@@ -9,13 +10,13 @@ public abstract class Legume {
     protected float vitesseCroisssance; //pas utilisé encore
     protected int tempsDeVieMax;
     protected Compteur compteur;
-    private EtatLegume etatLegume; //pas utilisé encore
+    protected EtatLegume etatLegume; //pas utilisé encore
 
     private int Naissance; //nb de secondes à laquelle le légume est créer
     protected Legume() {
         LocalTime time = java.time.LocalTime.now();
         Naissance = time.getSecond();
-        tempsDeVieMax = 3;
+        tempsDeVieMax = 10;
         compteur = new Compteur(tempsDeVieMax);
         compteur.demarre();
         this.etatLegume = EtatLegume.germe;
