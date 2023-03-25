@@ -97,6 +97,7 @@ public class VueControleurPotager extends JFrame implements Observer {
        // Correspond à l'affichage d'info diverses
         infosDroite[0][0] = new JLabel();
         JTextField jtf = new JTextField("infos diverses"); // TODO inclure dans mettreAJourAffichage ...
+        jtf.setHorizontalAlignment(JTextField.CENTER);
         jtf.setEditable(false);
         grilleInfo.add(jtf);
 
@@ -116,6 +117,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         // Affichage de l'inventaire
         JTextField jtf2 = new JTextField("Inventaires des récoltes"); // TODO inclure dans mettreAJourAffichage ...
+        jtf2.setHorizontalAlignment(JTextField.CENTER);
         jtf2.setEditable(false);
         grilleInfo.add(jtf2);
 
