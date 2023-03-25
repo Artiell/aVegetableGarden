@@ -32,15 +32,19 @@ public class VueControleurPotager extends JFrame implements Observer {
 
     // icones affichées dans la grille
     private ImageIcon icoSalade;
+    private ImageIcon icoSaladeSansFond;
     private ImageIcon icoTerre;
+    private ImageIcon icoJeuneSalade;
     private ImageIcon icoVide;
     private ImageIcon icoMur;
     private ImageIcon icoSaladePourri;
     private ImageIcon icoGerme;
+    private ImageIcon icoPelle;
 
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
-
+    private JLabel[][] tabOutils;
+    private JLabel[][] tabInventaire;
 
     public VueControleurPotager(SimulateurPotager _simulateurPotager) {
         sizeX = simulateurPotager.SIZE_X;
@@ -70,13 +74,15 @@ public class VueControleurPotager extends JFrame implements Observer {
     private void chargerLesIcones() {
     	// image libre de droits utilisée pour les légumes : https://www.vecteezy.com/vector-art/2559196-bundle-of-fruits-and-vegetables-icons	
     
-
-        icoSalade = chargerIcone("Images/salade.png", 0, 0, 350, 350);//chargerIcone("Images/Pacman.png");
-        icoSaladePourri = chargerIcone("Images/saladePourri.png", 0, 0, 350, 350);//chargerIcone("Images/Pacman.png");
-        icoGerme = chargerIcone("Images/germe.png", 0, 0, 210, 250);//chargerIcone("Images/Pacman.png");
+        // Il faut rajouter SaladePourri
+        icoJeuneSalade = chargerIcone("Images/spriteTerrain/dirtCenterPousse.png", 0, 0, 50, 50);//chargerIcone("Images/Pacman.png");
+        icoSalade = chargerIcone("Images/spriteTerrain/dirtCenterSalade.png", 0, 0, 50, 50);//chargerIcone("Images/Pacman.png");
+        icoGerme = chargerIcone("Images/spriteTerrain/dirtCenterGerme.png", 0, 0, 50, 50);//chargerIcone("Images/Pacman.png");
         icoVide = chargerIcone("Images/Vide.png");
         icoMur = chargerIcone("Images/Mur.png");
-        icoTerre = chargerIcone("Images/Terre.png");
+        icoTerre = chargerIcone("Images/spriteTerrain/dirtCenter.png", 0, 0, 50, 50);
+        icoPelle = chargerIcone("Images/pelle.png", 0, 0, 135, 155);
+        icoSaladeSansFond = chargerIcone("Images/saladeSansFond.png");
     }
 
     private void placerLesComposantsGraphiques() {
@@ -84,15 +90,50 @@ public class VueControleurPotager extends JFrame implements Observer {
         setSize(540, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
-        JPanel infos = new JPanel();
+        //Permet l'affichage de la partie de droite
+        JLabel[][] infosDroite = new JLabel[3][1];
+        JComponent grilleInfo = new JPanel(new GridLayout(4, 1));
 
+       // Correspond à l'affichage d'info diverses
+        infosDroite[0][0] = new JLabel();
         JTextField jtf = new JTextField("infos diverses"); // TODO inclure dans mettreAJourAffichage ...
         jtf.setEditable(false);
-        infos.add(jtf);
+        grilleInfo.add(jtf);
 
-        add(infos, BorderLayout.EAST);
+        // Permet l'affichage de la grille d'outils à droite
+        int _x = 4;
+        int _y = 1;
+        JComponent grilleOutils = new JPanel(new GridLayout(_y, _x));
+        tabOutils = new JLabel[_y][_x];
 
+        for (int i=0; i<_y; i++){
+            for (int j= 0; j<_x; j++){
+                tabOutils[i][j] = new JLabel();
+                grilleOutils.add(tabOutils[i][j]);
+            }
+        }
+        grilleInfo.add(grilleOutils);
 
+        // Affichage de l'inventaire
+        JTextField jtf2 = new JTextField("Inventaires des récoltes"); // TODO inclure dans mettreAJourAffichage ...
+        jtf2.setEditable(false);
+        grilleInfo.add(jtf2);
+
+        int _x1 = 4;
+        int _y1 = 1;
+        JComponent grilleInventaire = new JPanel(new GridLayout(_y1, _x1));
+        tabInventaire = new JLabel[_y1][_x1];
+
+        for (int i=0; i<_y1; i++){
+            for (int j= 0; j<_x1; j++){
+                tabInventaire[i][j] = new JLabel();
+                grilleInventaire.add(tabInventaire[i][j]);
+            }
+        }
+        grilleInfo.add(grilleInventaire);
+
+        // met à droite notre grilleInfo
+        add(grilleInfo, BorderLayout.EAST);
 
         JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
 
@@ -129,6 +170,22 @@ public class VueControleurPotager extends JFrame implements Observer {
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
     private void mettreAJourAffichage() {
+        /*for (int i = 0; i<y; i++){
+            for (int j = 0; j< x; j++){
+
+            }
+        }*/
+
+        // Il faut mettre une classe dans le même style que SimulateurPotager pour les outils et pour l'inventaire
+        tabOutils[0][0].setIcon(icoPelle) ;
+        tabOutils [0][1].setIcon(icoMur);
+        tabOutils[0][2].setIcon(icoMur);
+        tabOutils[0][3].setIcon(icoMur);
+
+        tabInventaire[0][0].setIcon(icoSaladeSansFond) ;
+        tabInventaire [0][1].setIcon(icoMur);
+        tabInventaire[0][2].setIcon(icoMur);
+        tabInventaire[0][3].setIcon(icoMur);
 
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
@@ -141,8 +198,8 @@ public class VueControleurPotager extends JFrame implements Observer {
                         switch (legume.getVariete()) {
                             case salade: switch (legume.getEtatLegume()){
                                 case germe : tabJLabel[x][y].setIcon(icoGerme); break;
-                                case mature : tabJLabel[x][y].setIcon(icoSalade); break;
-                                case pourri: tabJLabel[x][y].setIcon(icoSaladePourri); break;
+                                case mature : tabJLabel[x][y].setIcon(icoJeuneSalade); break;
+                                case pourri: tabJLabel[x][y].setIcon(icoSalade); break;
                             } break;
                         }
 
