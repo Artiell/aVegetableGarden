@@ -1,26 +1,24 @@
 package modele;
-
+import modele.environnement.Button.Button;
+import modele.environnement.Button.ButtonGraine;
 import modele.environnement.Case.Case;
-import modele.environnement.Case.CaseGraine;
 import modele.environnement.Legume.varietes.Varietes;
 
 public class SimulateurGraines {
-    private SimulateurPotager simPotager; //En soit on en a pas besoin donc il faudrait pouvoir construire la classe sans
     public static final int NB_VARIETE_MAX = 3;
-    private CaseGraine[][] grilleDesGraines = new CaseGraine[1][NB_VARIETE_MAX]; //Va permettre de savoir si on a activé le bouton pour planter le légume ou pas
+    private ButtonGraine[][] grilleDesGraines = new ButtonGraine[1][NB_VARIETE_MAX]; //Va permettre de savoir si on a activé le bouton pour planter le légume ou pas
 
     public SimulateurGraines() {
-        simPotager = new SimulateurPotager();
         initialisationDesGraines();
     }
 
     private void initialisationDesGraines() {
-        grilleDesGraines[0][0] = new CaseGraine(simPotager, Varietes.salade);
-        grilleDesGraines[0][1] = new CaseGraine(simPotager, Varietes.carrotte);
-        grilleDesGraines[0][2] = new CaseGraine(simPotager, Varietes.salade);
+        grilleDesGraines[0][0] = new ButtonGraine(Varietes.salade);
+        grilleDesGraines[0][1] = new ButtonGraine(Varietes.carrotte);
+        grilleDesGraines[0][2] = new ButtonGraine(Varietes.salade);
     }
 
-    public Case[][] getGrilleDesGraines() {
+    public Button[][] getGrilleDesGraines() {
         return grilleDesGraines;
     }
 

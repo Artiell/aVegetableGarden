@@ -1,12 +1,12 @@
-package modele.environnement.Case;
+package modele.environnement.Button;
 
 import modele.SimulateurPotager;
 import modele.outils.Outil;
 
-public class CaseOutil extends Case {
+public class ButtonOutil extends Button{
     private Outil outil;
-    public CaseOutil(SimulateurPotager _simulateurPotager) {
-        super(_simulateurPotager);
+    public ButtonOutil() {
+        super();
     }
     @Override
     public void actionUtilisateur(){

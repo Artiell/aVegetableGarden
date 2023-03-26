@@ -16,7 +16,7 @@ import javax.swing.*;
 import modele.SimulateurGraines;
 import modele.SimulateurPotager;
 import modele.environnement.Case.CaseCultivable;
-import modele.environnement.Case.CaseGraine;
+import modele.environnement.Button.ButtonGraine;
 import modele.environnement.Case.CaseNonCultivable;
 import modele.environnement.Legume.varietes.Legume;
 import modele.environnement.Legume.varietes.Varietes;
@@ -246,7 +246,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         for (int y=0; y<1; y++){
             for (int x=0; x<NbVariete; x++){
-                CaseGraine graine = (CaseGraine) simulateurGraines.getGrilleDesGraines()[y][x];
+                ButtonGraine graine = (ButtonGraine) simulateurGraines.getGrilleDesGraines()[y][x];
                 switch (graine.getVariete()){
                     case salade :
                         if (graine.getActivite()){

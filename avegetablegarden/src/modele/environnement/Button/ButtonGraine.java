@@ -1,16 +1,13 @@
-package modele.environnement.Case;
+package modele.environnement.Button;
 
 import modele.SimulateurPotager;
-import modele.environnement.Legume.varietes.Legume;
 import modele.environnement.Legume.varietes.Varietes;
 
-public class CaseGraine extends Case {
-    private final Varietes typeLegumes;
-    private boolean estActif;
-    public CaseGraine(SimulateurPotager _simulateurPotager, Varietes _legume) {
-        super(_simulateurPotager);
+public class ButtonGraine extends Button {
+    private Varietes typeLegumes;
+    public ButtonGraine(Varietes _legume) {
+        super();
         typeLegumes = _legume;
-        estActif = false;
     }
 
     @Override
@@ -19,12 +16,6 @@ public class CaseGraine extends Case {
     }
     public Varietes getVariete (){
         return typeLegumes;
-    }
-    public boolean getActivite (){
-        return estActif;
-    }
-    public void setActivite (boolean b){
-        estActif = b;
     }
     @Override
     public void actionUtilisateur(){
