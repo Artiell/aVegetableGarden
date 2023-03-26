@@ -8,7 +8,10 @@ package modele;
 
 import modele.environnement.Case.Case;
 import modele.environnement.Case.CaseCultivable;
+import modele.environnement.Case.CaseGraine;
 import modele.environnement.Case.CaseNonCultivable;
+import modele.environnement.Legume.varietes.Salade;
+import modele.environnement.Legume.varietes.Varietes;
 
 import java.awt.Point;
 import java.util.Random;
@@ -23,11 +26,9 @@ public class SimulateurPotager {
 
     // private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
     private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
-
     public SimulateurPotager() {
 
         initialisationDesEntites();
-
         simMet = new SimulateurMeteo(this);
 
     }
@@ -37,7 +38,7 @@ public class SimulateurPotager {
     public Case[][] getPlateau() {
         return grilleCases;
     }
-    
+
     private void initialisationDesEntites() {
 
         // murs extérieurs horizontaux

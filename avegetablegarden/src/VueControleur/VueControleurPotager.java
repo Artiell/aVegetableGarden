@@ -13,10 +13,13 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import modele.SimulateurGraines;
 import modele.SimulateurPotager;
 import modele.environnement.Case.CaseCultivable;
+import modele.environnement.Case.CaseGraine;
 import modele.environnement.Case.CaseNonCultivable;
 import modele.environnement.Legume.varietes.Legume;
+import modele.environnement.Legume.varietes.Varietes;
 
 
 /** Cette classe a deux fonctions :
@@ -27,8 +30,11 @@ import modele.environnement.Legume.varietes.Legume;
 public class VueControleurPotager extends JFrame implements Observer {
     private SimulateurPotager simulateurPotager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
 
+    private SimulateurGraines simulateurGraines;
+
     private int sizeX; // taille de la grille affichée
     private int sizeY;
+    private int NbVariete;
 
     // icones affichées dans la grille
     private ImageIcon icoSalade;
@@ -45,10 +51,13 @@ public class VueControleurPotager extends JFrame implements Observer {
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
     private JLabel[][] tabOutils;
     private JLabel[][] tabInventaire;
+    private JLabel[][] tabGraines;
 
-    public VueControleurPotager(SimulateurPotager _simulateurPotager) {
+    public VueControleurPotager(SimulateurPotager _simulateurPotager, SimulateurGraines _simulateurGraines) {
         sizeX = simulateurPotager.SIZE_X;
         sizeY = _simulateurPotager.SIZE_Y;
+        NbVariete = _simulateurGraines.NB_VARIETE_MAX;
+        simulateurGraines = _simulateurGraines;
         simulateurPotager = _simulateurPotager;
 
         chargerLesIcones();
@@ -82,7 +91,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         icoMur = chargerIcone("Images/Mur.png");
         icoTerre = chargerIcone("Images/spriteTerrain/dirtCenter.png", 0, 0, 50, 50);
         icoPelle = chargerIcone("Images/pelle.png", 0, 0, 135, 155);
-        icoSaladeSansFond = chargerIcone("Images/saladeSansFond.png");
+        icoSaladeSansFond = chargerIcone("Images/saladeSansFond.png", 0, 0, 50, 50);
     }
 
     private void placerLesComposantsGraphiques() {
@@ -121,8 +130,8 @@ public class VueControleurPotager extends JFrame implements Observer {
         jtf2.setEditable(false);
         grilleInfo.add(jtf2);
 
-        int _x1 = 4;
-        int _y1 = 1;
+        int _x1 = 2;
+        int _y1 = 4;
         JComponent grilleInventaire = new JPanel(new GridLayout(_y1, _x1));
         tabInventaire = new JLabel[_y1][_x1];
 
@@ -137,6 +146,34 @@ public class VueControleurPotager extends JFrame implements Observer {
         // met à droite notre grilleInfo
         add(grilleInfo, BorderLayout.EAST);
 
+
+        //Permet l'affichage de la partie de gauche
+        JLabel[][] infosGauche = new JLabel[3][1];
+        JComponent grilleInfosGauche = new JPanel(new GridLayout(4, 1));
+
+        // Correspond à l'affichage d'info diverses
+        infosGauche[0][0] = new JLabel();
+        JTextField jtf3 = new JTextField("Choix des graines"); // TODO inclure dans mettreAJourAffichage ...
+        jtf3.setHorizontalAlignment(JTextField.CENTER);
+        jtf3.setEditable(false);
+        grilleInfosGauche.add(jtf3);
+
+        // Permet l'affichage de la grille d'outils à droite
+        int size_x_graine = 3;
+        int size_y_graine = 1;
+        JComponent grilleGraine = new JPanel(new GridLayout(_y, _x));
+        tabGraines = new JLabel[_y][_x];
+
+        for (int i=0; i<size_y_graine; i++){
+            for (int j= 0; j<size_x_graine; j++){
+                tabGraines[i][j] = new JLabel();
+                grilleGraine.add(tabGraines[i][j]);
+            }
+        }
+        grilleInfosGauche.add(grilleGraine);
+        add(grilleInfosGauche, BorderLayout.WEST);
+
+    // Affichage Partie du milieu
         JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
 
         tabJLabel = new JLabel[sizeX][sizeY];
@@ -165,6 +202,18 @@ public class VueControleurPotager extends JFrame implements Observer {
                 });
             }
         }
+        for (int y = 0; y < 1; y++) {
+            for (int x = 0; x < NbVariete; x++) {
+                final int xx = x; // constantes utiles au fonctionnement de la classe anonyme
+                final int yy = y;
+                tabGraines[y][x].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        simulateurGraines.actionUtilisateur(yy, xx);
+                    }
+                });
+            }
+        }
     }
 
     
@@ -185,9 +234,29 @@ public class VueControleurPotager extends JFrame implements Observer {
         tabOutils[0][3].setIcon(icoMur);
 
         tabInventaire[0][0].setIcon(icoSaladeSansFond) ;
-        tabInventaire [0][1].setIcon(icoMur);
-        tabInventaire[0][2].setIcon(icoMur);
-        tabInventaire[0][3].setIcon(icoMur);
+        tabInventaire [1][0].setIcon(icoMur);
+        tabInventaire[2][0].setIcon(icoMur);
+        tabInventaire[3][0].setIcon(icoMur);
+        tabInventaire[0][1].setText("nbSalade");
+
+        tabGraines[0][0].setIcon(icoSaladeSansFond);
+        tabGraines[0][1].setIcon(icoPelle);
+        tabGraines[0][2].setIcon(icoMur);
+        //tabGraines[0][3].setIcon(icoVide);
+
+        for (int y=0; y<1; y++){
+            for (int x=0; x<NbVariete; x++){
+                CaseGraine graine = (CaseGraine) simulateurGraines.getGrilleDesGraines()[y][x];
+                switch (graine.getVariete()){
+                    case salade :
+                        if (graine.getActivite()){
+                            tabGraines[y][x].setIcon(icoSalade);break;
+                        }else{
+                            tabGraines[y][x].setIcon(icoSaladeSansFond);break;
+                        }
+                }
+            }
+        }
 
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
