@@ -111,7 +111,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
     private void placerLesComposantsGraphiques() {
         setTitle("A vegetable garden");
-        setSize(1385, 548);
+        setSize(1385, 583);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
         //Permet l'affichage de la partie de droite
@@ -233,7 +233,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         // Affichage de la partie du bas concernant la vitesse d'éxécution de la simulation
 
         JComponent speedGrille = new JPanel(new GridBagLayout());
-        JTextField jtf4 = new JTextField("Vitesse de jeu :" + "ici sera présent la vitesse d'éxécution du jeu"); 
+        JTextField jtf4 = new JTextField("Vitesse de jeu :" + "ici sera présent la vitesse d'éxécution du jeu");
         jtf4.setOpaque(false);
         jtf4.setEditable(false);
         jtf4.setHorizontalAlignment(JTextField.CENTER);
