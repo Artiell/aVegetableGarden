@@ -48,6 +48,10 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoPelle;
     private ImageIcon gardenFence;
 
+    private ImageIcon icoPauseButton;
+    private ImageIcon icoPlayButton;
+    private ImageIcon icoLeftArrowButton;
+    private ImageIcon icoRightArrowButton;
 
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -97,6 +101,11 @@ public class VueControleurPotager extends JFrame implements Observer {
         icoSaladeSansFond = chargerIcone("Images/saladeSansFond.png");
 
         this.gardenFence = this.chargerIcone("Images/spriteTerrain/gardenFence.png");
+
+        this.icoLeftArrowButton = this.chargerIcone("Images/leftArrowButton.png");
+        this.icoRightArrowButton = this.chargerIcone("Images/rightArrowButton.png");
+        this.icoPauseButton = this.chargerIcone("Images/pauseButton.png");
+        this.icoPlayButton = this.chargerIcone("Images/playButton.png");
 
     }
 
@@ -220,6 +229,40 @@ public class VueControleurPotager extends JFrame implements Observer {
                 });
             }
         }
+
+        // Affichage de la partie du bas concernant la vitesse d'éxécution de la simulation
+
+        JComponent speedGrille = new JPanel(new GridBagLayout());
+        JTextField jtf4 = new JTextField("Vitesse de jeu :" + "ici sera présent la vitesse d'éxécution du jeu"); 
+        jtf4.setOpaque(false);
+        jtf4.setEditable(false);
+        jtf4.setHorizontalAlignment(JTextField.CENTER);
+        jtf4.setBorder(null);
+
+        speedGrille.add(jtf4);
+        JButton playButton = new JButton(this.icoPlayButton);
+        JButton pauseButton = new JButton(this.icoPauseButton);
+        JButton leftArrowButton = new JButton(this.icoLeftArrowButton);
+        JButton rightArrowButton = new JButton(this.icoRightArrowButton);
+
+        playButton.setContentAreaFilled(false);
+        pauseButton.setContentAreaFilled(false);
+        leftArrowButton.setContentAreaFilled(false);
+        rightArrowButton.setContentAreaFilled(false);
+
+        playButton.setBorderPainted(false);
+        pauseButton.setBorderPainted(false);
+        leftArrowButton.setBorderPainted(false);
+        rightArrowButton.setBorderPainted(false);
+
+        speedGrille.add(playButton);
+        speedGrille.add(pauseButton);
+        speedGrille.add(leftArrowButton);
+        speedGrille.add(rightArrowButton);
+
+        this.add(speedGrille, BorderLayout.SOUTH);
+
+
     }
 
     
