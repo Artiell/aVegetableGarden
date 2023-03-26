@@ -3,6 +3,7 @@ package modele.environnement.Case;
 import modele.SimulateurGraines;
 import modele.SimulateurPotager;
 import modele.environnement.Legume.EtatLegume;
+import modele.environnement.Legume.varietes.Carrotte;
 import modele.environnement.Legume.varietes.Legume;
 import modele.environnement.Legume.varietes.Salade;
 
@@ -15,16 +16,39 @@ public class CaseCultivable extends Case {
 
     @Override
     public void actionUtilisateur() {
-        if (legume == null) {
-            legume = new Salade();
+        if (simulateurGraines.getGrilleDesGraines()[0][0].getActivite()){
+            if (legume == null) {
+                legume = new Salade();
 
-        } else {
-            //System.out.println(legume.getCompteur().getSeconde());
-            switch (legume.getEtatLegume()){
-                case germe : legume.setEtatLegume(EtatLegume.mature); break;
-                case mature: legume.setEtatLegume(EtatLegume.pourri); break;
-                case pourri: legume = null;
+            } else {
+                //System.out.println(legume.getCompteur().getSeconde());
+                switch (legume.getEtatLegume()){
+                    case germe : legume.setEtatLegume(EtatLegume.mature); break;
+                    case mature: legume.setEtatLegume(EtatLegume.pourri); break;
+                    case pourri: legume = null;
+                }
             }
+        }
+        if (simulateurGraines.getGrilleDesGraines()[0][1].getActivite()){
+            if (legume == null) {
+                legume = new Carrotte();
+                System.out.println("On plante une nouvelle carotte");
+
+            } else {
+                // A coder
+            }
+        }
+        if (simulateurGraines.getGrilleDesGraines()[0][2].getActivite()){
+            if (legume == null) {
+                // A coder
+                System.out.println("On plante une nouvelle fleur");
+
+            } else {
+                // A coder
+            }
+        }
+        else {
+            System.out.println("pas appuyer sur le bouton avant");
         }
 
     }
