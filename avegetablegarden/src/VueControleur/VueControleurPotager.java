@@ -46,6 +46,8 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoSaladePourri;
     private ImageIcon icoGerme;
     private ImageIcon icoPelle;
+    private ImageIcon gardenFence;
+
 
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -90,13 +92,17 @@ public class VueControleurPotager extends JFrame implements Observer {
         icoVide = chargerIcone("Images/Vide.png");
         icoMur = chargerIcone("Images/Mur.png");
         icoTerre = chargerIcone("Images/spriteTerrain/dirtCenter.png", 0, 0, 50, 50);
-        icoPelle = chargerIcone("Images/pelle.png", 0, 0, 135, 155);
-        icoSaladeSansFond = chargerIcone("Images/saladeSansFond.png", 0, 0, 50, 50);
+
+        icoPelle = chargerIcone("Images/spriteTerrain/shovel.png", 0, 0, 50,50);
+        icoSaladeSansFond = chargerIcone("Images/saladeSansFond.png");
+
+        this.gardenFence = this.chargerIcone("Images/spriteTerrain/gardenFence.png");
+
     }
 
     private void placerLesComposantsGraphiques() {
         setTitle("A vegetable garden");
-        setSize(540, 250);
+        setSize(1385, 548);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
         //Permet l'affichage de la partie de droite
@@ -282,9 +288,8 @@ public class VueControleurPotager extends JFrame implements Observer {
                     //BufferedImage bi = getImage("Images/smick.png", 0, 0, 20, 20);
                     //tabJLabel[x][y].getGraphics().drawImage(bi, 0, 0, null);
                 } else if (simulateurPotager.getPlateau()[x][y] instanceof CaseNonCultivable) {
-                    tabJLabel[x][y].setIcon(icoMur);
+                    tabJLabel[x][y].setIcon(gardenFence);
                 } else {
-
                     tabJLabel[x][y].setIcon(icoVide);
                 }
             }
@@ -326,7 +331,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         // charger une sous partie de l'image à partir de ses coordonnées dans urlIcone
         BufferedImage bi = getSubImage(urlIcone, x, y, w, h);
         // adapter la taille de l'image a la taille du composant (ici : 20x20)
-        return new ImageIcon(bi.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
+        return new ImageIcon(bi.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
     }
 
     private BufferedImage getSubImage(String urlIcone, int x, int y, int w, int h) {

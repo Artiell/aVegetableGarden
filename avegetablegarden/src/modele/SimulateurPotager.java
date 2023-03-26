@@ -45,17 +45,26 @@ public class SimulateurPotager {
         // murs extérieurs horizontaux
         for (int x = 0; x < 20; x++) {
             addEntite(new CaseNonCultivable(this, simulateurGraines), x, 0);
-            addEntite(new CaseNonCultivable(this, simulateurGraines), x, 9);
+            addEntite(new CaseNonCultivable(this, simulateurGraines), x, SIZE_Y - 1);
         }
 
+
+
+        // PLUS DE MUR VERTICAUX
         // murs extérieurs verticaux
-        for (int y = 1; y < 9; y++) {
-            addEntite(new CaseNonCultivable(this, simulateurGraines), 0, y);
-            addEntite(new CaseNonCultivable(this, simulateurGraines), 19, y);
+//        for (int y = 1; y < 9; y++) {
+//            addEntite(new CaseNonCultivable(this), 0, y);
+//            addEntite(new CaseNonCultivable(this), 19, y);
+//        }
+
+        for(int i=0; i<20; i++){
+            for(int j=0; j<10; j++){
+                if(grilleCases[i][j] == null){
+                    addEntite(new CaseCultivable(this,simulateurGraines), i, j);
+                }
+            }
         }
 
-        addEntite(new CaseNonCultivable(this, simulateurGraines), 2, 6);
-        addEntite(new CaseNonCultivable(this, simulateurGraines), 3, 6);
 
         Random rnd = new Random();
 
