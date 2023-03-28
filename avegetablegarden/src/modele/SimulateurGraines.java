@@ -23,8 +23,7 @@ public class SimulateurGraines {
     }
 
     public void actionUtilisateur(int y, int x) {
-        System.out.println("Hey");
-        grilleDesGraines[0][0].setActivite(false);
+
         if (grilleDesGraines[y][x] != null) {
             grilleDesGraines[y][x].actionUtilisateur();
             // On met tous les autres boutons à false

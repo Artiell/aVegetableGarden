@@ -14,7 +14,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import modele.SimulateurGraines;
+import modele.SimulateurOutil;
 import modele.SimulateurPotager;
+import modele.environnement.Button.ButtonOutil;
 import modele.environnement.Case.CaseCultivable;
 import modele.environnement.Button.ButtonGraine;
 import modele.environnement.Case.CaseNonCultivable;
@@ -31,10 +33,12 @@ public class VueControleurPotager extends JFrame implements Observer {
     private SimulateurPotager simulateurPotager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
 
     private SimulateurGraines simulateurGraines;
+    private SimulateurOutil simulateurOutil;
 
     private int sizeX; // taille de la grille affichée
     private int sizeY;
     private int NbVariete;
+    private int NbOutils;
 
     // icones affichées dans la grille
     private ImageIcon icoSalade;
@@ -47,6 +51,10 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoGerme;
     private ImageIcon icoPelle;
     private ImageIcon gardenFence;
+    private ImageIcon icoBoutonSalade;
+    private ImageIcon icoBoutonAppuyerSalade;
+    private ImageIcon icoBoutonPelle;
+    private ImageIcon icoBoutonAppuyerPelle;
 
     private ImageIcon icoPauseButton;
     private ImageIcon icoPlayButton;
@@ -59,12 +67,14 @@ public class VueControleurPotager extends JFrame implements Observer {
     private JLabel[][] tabInventaire;
     private JLabel[][] tabGraines;
 
-    public VueControleurPotager(SimulateurPotager _simulateurPotager, SimulateurGraines _simulateurGraines) {
+    public VueControleurPotager(SimulateurPotager _simulateurPotager, SimulateurGraines _simulateurGraines, SimulateurOutil _simulateurOutil) {
         sizeX = simulateurPotager.SIZE_X;
         sizeY = _simulateurPotager.SIZE_Y;
         NbVariete = _simulateurGraines.NB_VARIETE_MAX;
+        NbOutils = _simulateurOutil.NB_OUTIL_MAX;
         simulateurGraines = _simulateurGraines;
         simulateurPotager = _simulateurPotager;
+        simulateurOutil = _simulateurOutil;
 
         chargerLesIcones();
         placerLesComposantsGraphiques();
@@ -99,6 +109,8 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         icoPelle = chargerIcone("Images/spriteTerrain/shovel.png", 0, 0, 50,50);
         icoSaladeSansFond = chargerIcone("Images/saladeSansFond.png");
+        icoBoutonSalade = chargerIcone("Images/spriteTerrain/BoutonSalade.png");
+        icoBoutonAppuyerSalade = chargerIcone("Images/spriteTerrain/BoutonAppuyerSalade.png");
 
         this.gardenFence = this.chargerIcone("Images/spriteTerrain/gardenFence.png");
 
@@ -106,7 +118,8 @@ public class VueControleurPotager extends JFrame implements Observer {
         this.icoRightArrowButton = this.chargerIcone("Images/rightArrowButton.png");
         this.icoPauseButton = this.chargerIcone("Images/pauseButton.png");
         this.icoPlayButton = this.chargerIcone("Images/playButton.png");
-
+        icoBoutonPelle = chargerIcone("Images/spriteTerrain/BoutonPelle.png");
+        icoBoutonAppuyerPelle = chargerIcone("Images/spriteTerrain/BoutonAppuyerPelle.png");
     }
 
     private void placerLesComposantsGraphiques() {
@@ -230,6 +243,19 @@ public class VueControleurPotager extends JFrame implements Observer {
             }
         }
 
+        for (int y = 0; y < 1; y++) {
+            for (int x = 0; x < NbOutils; x++) {
+                final int xx = x; // constantes utiles au fonctionnement de la classe anonyme
+                final int yy = y;
+                tabOutils[y][x].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        simulateurOutil.actionUtilisateur(yy, xx);
+                    }
+                });
+            }
+        }
+
         // Affichage de la partie du bas concernant la vitesse d'éxécution de la simulation
 
         JComponent speedGrille = new JPanel(new GridBagLayout());
@@ -270,17 +296,6 @@ public class VueControleurPotager extends JFrame implements Observer {
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
     private void mettreAJourAffichage() {
-        /*for (int i = 0; i<y; i++){
-            for (int j = 0; j< x; j++){
-
-            }
-        }*/
-
-        // Il faut mettre une classe dans le même style que SimulateurPotager pour les outils et pour l'inventaire
-        tabOutils[0][0].setIcon(icoPelle) ;
-        tabOutils [0][1].setIcon(icoMur);
-        tabOutils[0][2].setIcon(icoMur);
-        tabOutils[0][3].setIcon(icoMur);
 
         tabInventaire[0][0].setIcon(icoSaladeSansFond) ;
         tabInventaire [1][0].setIcon(icoMur);
@@ -288,20 +303,41 @@ public class VueControleurPotager extends JFrame implements Observer {
         tabInventaire[3][0].setIcon(icoMur);
         tabInventaire[0][1].setText("nbSalade");
 
-        tabGraines[0][0].setIcon(icoSaladeSansFond);
-        tabGraines[0][1].setIcon(icoPelle);
-        tabGraines[0][2].setIcon(icoMur);
-        //tabGraines[0][3].setIcon(icoVide);
-
         for (int y=0; y<1; y++){
             for (int x=0; x<NbVariete; x++){
                 ButtonGraine graine = (ButtonGraine) simulateurGraines.getGrilleDesGraines()[y][x];
                 switch (graine.getVariete()){
                     case salade :
                         if (graine.getActivite()){
-                            tabGraines[y][x].setIcon(icoSalade);break;
+                            tabGraines[y][x].setIcon(icoBoutonAppuyerSalade);break;
                         }else{
-                            tabGraines[y][x].setIcon(icoSaladeSansFond);break;
+                            tabGraines[y][x].setIcon(icoBoutonSalade);break;
+                        }
+                    case carrotte:
+                        if (graine.getActivite()){
+                            tabGraines[y][x].setIcon(icoPelle);break;
+                        }else{
+                            tabGraines[y][x].setIcon(icoMur);break;
+                        }
+                }
+            }
+        }
+
+        for (int y=0; y<1; y++){
+            for (int x=0; x<NbOutils; x++){
+                ButtonOutil outil = (ButtonOutil) simulateurOutil.getGrilleDesOutils()[y][x];
+                switch (outil.getTypeOutil()){
+                    case pelle:
+                        if (outil.getActivite()){
+                            tabOutils[y][x].setIcon(icoBoutonAppuyerPelle);break;
+                        }else{
+                            tabOutils[y][x].setIcon(icoBoutonPelle);break;
+                        }
+                    case rateau:
+                        if (outil.getActivite()){
+                            tabOutils[y][x].setIcon(icoPelle);break;
+                        }else{
+                            tabOutils[y][x].setIcon(icoMur);break;
                         }
                 }
             }

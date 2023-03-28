@@ -2,6 +2,7 @@
 import VueControleur.VueControleurPotager;
 import modele.Ordonnanceur;
 import modele.SimulateurGraines;
+import modele.SimulateurOutil;
 import modele.SimulateurPotager;
 
 /*
@@ -14,8 +15,9 @@ import modele.SimulateurPotager;
 public class Main {
     public static void main(String[] args) {
         SimulateurGraines simulateurGraines = new SimulateurGraines();
-        SimulateurPotager simulateurPotager = new SimulateurPotager(simulateurGraines);
-        VueControleurPotager vc = new VueControleurPotager(simulateurPotager, simulateurGraines);
+        SimulateurOutil simulateurOutil = new SimulateurOutil();
+        SimulateurPotager simulateurPotager = new SimulateurPotager(simulateurGraines, simulateurOutil);
+        VueControleurPotager vc = new VueControleurPotager(simulateurPotager, simulateurGraines, simulateurOutil);
         vc.setVisible(true);
         Ordonnanceur.getOrdonnanceur().addObserver(vc);
         Ordonnanceur.getOrdonnanceur().start(300);

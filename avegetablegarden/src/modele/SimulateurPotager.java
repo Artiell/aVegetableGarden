@@ -23,12 +23,13 @@ public class SimulateurPotager {
 
     private SimulateurMeteo simMet;
     private SimulateurGraines simulateurGraines;
+    private SimulateurOutil simulateurOutil;
 
     // private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
     private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
-    public SimulateurPotager(SimulateurGraines _simulateurGraines) {
+    public SimulateurPotager(SimulateurGraines _simulateurGraines, SimulateurOutil _simOutils) {
         simulateurGraines = _simulateurGraines;
-
+        simulateurOutil = _simOutils;
         initialisationDesEntites();
         simMet = new SimulateurMeteo(this);
 
@@ -44,8 +45,8 @@ public class SimulateurPotager {
 
         // murs extérieurs horizontaux
         for (int x = 0; x < 20; x++) {
-            addEntite(new CaseNonCultivable(this, simulateurGraines), x, 0);
-            addEntite(new CaseNonCultivable(this, simulateurGraines), x, SIZE_Y - 1);
+            addEntite(new CaseNonCultivable(this, simulateurGraines, simulateurOutil), x, 0);
+            addEntite(new CaseNonCultivable(this, simulateurGraines, simulateurOutil), x, SIZE_Y - 1);
         }
 
 
@@ -60,7 +61,7 @@ public class SimulateurPotager {
         for(int i=0; i<20; i++){
             for(int j=0; j<10; j++){
                 if(grilleCases[i][j] == null){
-                    addEntite(new CaseCultivable(this,simulateurGraines), i, j);
+                    addEntite(new CaseCultivable(this,simulateurGraines, simulateurOutil), i, j);
                 }
             }
         }
@@ -68,9 +69,9 @@ public class SimulateurPotager {
 
         Random rnd = new Random();
 
-        for (int x = 5; x < 15; x++) {
-            for (int y = 3; y < 7; y++) {
-                CaseCultivable cc = new CaseCultivable(this, simulateurGraines);
+        for (int x = 0; x < SIZE_X; x++) {
+            for (int y = 1; y < SIZE_Y-1; y++) {
+                CaseCultivable cc = new CaseCultivable(this, simulateurGraines, simulateurOutil);
                 addEntite(cc , x, y);
 
                 /*Permet d'afficher les germes dès le lancer de l'application sans cette parti on part seulement avec de la terre
