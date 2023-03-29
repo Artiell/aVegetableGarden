@@ -58,6 +58,8 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoBoutonAppuyerSalade;
     private ImageIcon icoBoutonPelle;
     private ImageIcon icoBoutonAppuyerPelle;
+    private ImageIcon icoBoutonRateau;
+    private ImageIcon icoBoutonAppuyerRateau;
 
     private ImageIcon icoPauseButton;
     private ImageIcon icoPlayButton;
@@ -111,6 +113,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         icoVide = chargerIcone("Images/Vide.png");
         icoMur = chargerIcone("Images/Mur.png");
         icoTerre = chargerIcone("Images/spriteTerrain/dirtCenter.png", 0, 0, 50, 50);
+        icoSaladePourri = chargerIcone("Images/spriteTerrain/SaladePourri.png");
 
         icoPelle = chargerIcone("Images/spriteTerrain/shovel.png", 0, 0, 50,50);
         icoSaladeSansFond = chargerIcone("Images/saladeSansFond.png");
@@ -125,6 +128,8 @@ public class VueControleurPotager extends JFrame implements Observer {
         this.icoPlayButton = this.chargerIcone("Images/playButton.png");
         icoBoutonPelle = chargerIcone("Images/spriteTerrain/BoutonPelle.png");
         icoBoutonAppuyerPelle = chargerIcone("Images/spriteTerrain/BoutonAppuyerPelle.png");
+        icoBoutonRateau = chargerIcone("Images/spriteTerrain/BoutonRateau.png");
+        icoBoutonAppuyerRateau = chargerIcone("Images/spriteTerrain/BoutonAppuyerRateau.png");
         icoBuisson = chargerIcone("Images/spriteTerrain/bush1.png");
 
     }
@@ -342,9 +347,9 @@ public class VueControleurPotager extends JFrame implements Observer {
                         }
                     case rateau:
                         if (outil.getActivite()){
-                            tabOutils[y][x].setIcon(icoPelle);break;
+                            tabOutils[y][x].setIcon(icoBoutonAppuyerRateau);break;
                         }else{
-                            tabOutils[y][x].setIcon(icoMur);break;
+                            tabOutils[y][x].setIcon(icoBoutonRateau);break;
                         }
                 }
             }
@@ -361,8 +366,9 @@ public class VueControleurPotager extends JFrame implements Observer {
                         switch (legume.getVariete()) {
                             case salade: switch (legume.getEtatLegume()){
                                 case germe : tabJLabel[x][y].setIcon(icoGerme); break;
-                                case mature : tabJLabel[x][y].setIcon(icoJeuneSalade); break;
-                                case pourri: tabJLabel[x][y].setIcon(icoSalade); break;
+                                case jeune : tabJLabel[x][y].setIcon(icoJeuneSalade); break;
+                                case mature: tabJLabel[x][y].setIcon(icoSalade); break;
+                                case pourri: tabJLabel[x][y].setIcon(icoSaladePourri); break;
                             } break;
                         }
 

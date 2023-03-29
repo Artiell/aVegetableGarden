@@ -11,9 +11,12 @@ public class Salade extends Legume {
     @Override
     protected void croissance() {
         if (compteur.getSeconde() == 3){
-            etatLegume = EtatLegume.mature;
+            etatLegume = EtatLegume.jeune;
         }
         if (compteur.getSeconde() == 6){
+            etatLegume = EtatLegume.mature;
+        }
+        if (compteur.getSeconde() == 20){
             etatLegume = EtatLegume.pourri;
         }
         System.out.println(compteur.getSeconde());

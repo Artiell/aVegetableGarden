@@ -16,7 +16,7 @@ public abstract class Legume {
     protected Legume() {
         LocalTime time = java.time.LocalTime.now();
         Naissance = time.getSecond();
-        tempsDeVieMax = 10;
+        tempsDeVieMax = 25;
         compteur = new Compteur(tempsDeVieMax);
         compteur.demarre();
         this.etatLegume = EtatLegume.germe;
