@@ -4,10 +4,13 @@ import modele.environnement.Button.Button;
 import modele.environnement.Button.ButtonGraine;
 import modele.environnement.Button.ButtonOutil;
 import modele.environnement.Legume.varietes.Varietes;
+import modele.outils.Outil;
 import modele.outils.TypeOutil;
 
+import java.lang.reflect.Type;
+
 public class SimulateurOutil {
-    public static final int NB_OUTIL_MAX = 3;
+    public static final int NB_OUTIL_MAX = TypeOutil.values().length;
     private ButtonOutil[][] grilleDesOutils = new ButtonOutil[1][NB_OUTIL_MAX]; //Va permettre de savoir si on a activé le bouton pour planter le légume ou pas
 
     public SimulateurOutil() {
@@ -17,7 +20,8 @@ public class SimulateurOutil {
     private void initialisationDesOutils() {
         grilleDesOutils[0][0] = new ButtonOutil(TypeOutil.pelle);
         grilleDesOutils[0][1] = new ButtonOutil(TypeOutil.rateau);
-        grilleDesOutils[0][2] = new ButtonOutil(TypeOutil.pelle);
+        grilleDesOutils[0][2] = new ButtonOutil(TypeOutil.botte);
+        grilleDesOutils[0][3] = new ButtonOutil(TypeOutil.poubelle);
     }
 
     public Button[][] getGrilleDesOutils() {

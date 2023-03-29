@@ -14,35 +14,33 @@ public class CaseCultivable extends Case {
     public CaseCultivable(SimulateurPotager _simulateurPotager, SimulateurGraines _simulateurGraines, SimulateurOutil _simOutils) {
         super(_simulateurPotager, _simulateurGraines, _simOutils);
     }
-
+    
     @Override
     public void actionUtilisateur() {
 
+        //si le premier outil est activé (la pelle)
         if (simulateurOutil.getGrilleDesOutils()[0][0].getActivite()){
-            if (legume != null){
+            if (legume != null && legume.getEtatLegume() == EtatLegume.mature){
                 switch (legume.getVariete()){
 
                     case salade : this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[0]++;
                         legume = null;
-                    break;
-
+                        break;
                     case carrotte: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[1]++;
                         legume = null;
-                    break;
-
+                        break;
                     case betrave: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[2]++;
                         legume = null;
-                    break;
-
+                        break;
                     case tomate: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[3]++;
                         legume = null;
-                    break;
-
+                        break;
                     case courgette: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[4]++;
                         legume = null;
                 }
             }
         }
+
         // On vérifie qu'on a selectionné la bonne graine et que la pelle n'est pas sélectionnée
         if (simulateurGraines.getGrilleDesGraines()[0][0].getActivite() && !simulateurOutil.getGrilleDesOutils()[0][0].getActivite()){
             if (legume == null) {
