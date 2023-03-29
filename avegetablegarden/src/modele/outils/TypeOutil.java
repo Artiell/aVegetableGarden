@@ -1,5 +1,5 @@
 package modele.outils;
 
 public enum TypeOutil {
-    pelle, rateau
+    pelle, rateau, botte
 }
