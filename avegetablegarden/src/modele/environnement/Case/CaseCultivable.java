@@ -17,9 +17,30 @@ public class CaseCultivable extends Case {
 
     @Override
     public void actionUtilisateur() {
+
         if (simulateurOutil.getGrilleDesOutils()[0][0].getActivite()){
             if (legume != null){
-                legume = null;
+                switch (legume.getVariete()){
+
+                    case salade : this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[0]++;
+                        legume = null;
+                    break;
+
+                    case carrotte: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[1]++;
+                        legume = null;
+                    break;
+
+                    case betrave: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[2]++;
+                        legume = null;
+                    break;
+
+                    case tomate: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[3]++;
+                        legume = null;
+                    break;
+
+                    case courgette: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[4]++;
+                        legume = null;
+                }
             }
         }
         // On vérifie qu'on a selectionné la bonne graine et que la pelle n'est pas sélectionnée

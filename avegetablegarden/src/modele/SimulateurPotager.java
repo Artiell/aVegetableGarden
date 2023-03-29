@@ -25,6 +25,12 @@ public class SimulateurPotager {
     private SimulateurGraines simulateurGraines;
     private SimulateurOutil simulateurOutil;
 
+    public int[] getTabInventaireLegume() {
+        return tabInventaireLegume;
+    }
+
+    private int[] tabInventaireLegume;
+
     // private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
     private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
     public SimulateurPotager() {
@@ -32,6 +38,13 @@ public class SimulateurPotager {
         simulateurOutil = new SimulateurOutil();
         initialisationDesEntites();
         simMet = new SimulateurMeteo(this);
+
+        //initialisation de l'inventaire
+        this.tabInventaireLegume = new int[Varietes.values().length];
+        //on initialise toutes les cases à 0
+        for(int i=0; i<Varietes.values().length; i++){
+            tabInventaireLegume[i] = 0;
+        }
 
     }
 
