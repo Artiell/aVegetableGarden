@@ -10,6 +10,9 @@ import modele.outils.TypeOutil;
 import java.lang.reflect.Type;
 
 public class SimulateurOutil {
+
+    private boolean outilActif = false;
+
     public static final int NB_OUTIL_MAX = TypeOutil.values().length;
     private ButtonOutil[][] grilleDesOutils = new ButtonOutil[1][NB_OUTIL_MAX]; //Va permettre de savoir si on a activé le bouton pour planter le légume ou pas
 
@@ -17,7 +20,28 @@ public class SimulateurOutil {
         initialisationDesOutils();
     }
 
+    public boolean isOutilActif() {
+        return outilActif;
+    }
+    public void updateOutilActif(){
+        outilActif = false;
+        for (int _y=0; _y<1; _y++) {
+            for (int _x = 0; _x < NB_OUTIL_MAX; _x++) {
+                if(grilleDesOutils[_y][_x].getActivite()){
+                    outilActif = true;
+                }
+            }
+        }
+    }
+
+    public void setAllOutilFalse() {
+        for(int i = 0; i < NB_OUTIL_MAX; i++) {
+            grilleDesOutils[0][i].setActivite(false);
+        }
+    }
+
     private void initialisationDesOutils() {
+
         grilleDesOutils[0][0] = new ButtonOutil(TypeOutil.pelle);
         grilleDesOutils[0][1] = new ButtonOutil(TypeOutil.rateau);
         grilleDesOutils[0][2] = new ButtonOutil(TypeOutil.botte);
@@ -29,6 +53,8 @@ public class SimulateurOutil {
     }
 
     public void actionUtilisateur(int y, int x) {
+
+        this.updateOutilActif();
 
         if (grilleDesOutils[y][x] != null) {
             grilleDesOutils[y][x].actionUtilisateur();

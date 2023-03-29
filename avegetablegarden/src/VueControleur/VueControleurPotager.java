@@ -151,7 +151,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         grilleInfo.add(jtf);
 
         // Permet l'affichage de la grille d'outils à droite
-        int _x = 4;
+        int _x = NbOutils;
         int _y = 1;
         JComponent grilleOutils = new JPanel(new GridLayout(_y, _x));
         tabOutils = new JLabel[_y][_x];
@@ -199,10 +199,10 @@ public class VueControleurPotager extends JFrame implements Observer {
         grilleInfosGauche.add(jtf3);
 
         // Permet l'affichage de la grille d'outils à droite
-        int size_x_graine = 3;
+        int size_x_graine = simulateurGraines.NB_VARIETE_MAX;
         int size_y_graine = 1;
-        JComponent grilleGraine = new JPanel(new GridLayout(_y, _x));
-        tabGraines = new JLabel[_y][_x];
+        JComponent grilleGraine = new JPanel(new GridLayout(size_y_graine, size_x_graine));
+        tabGraines = new JLabel[size_y_graine][size_x_graine];
 
         for (int i=0; i<size_y_graine; i++){
             for (int j= 0; j<size_x_graine; j++){
@@ -249,6 +249,13 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabGraines[y][x].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
+
+                        simulateurOutil.updateOutilActif();
+
+                        if(simulateurOutil.isOutilActif()){
+                            simulateurOutil.setAllOutilFalse();
+
+                        }
                         simulateurGraines.actionUtilisateur(yy, xx);
                     }
                 });
@@ -262,6 +269,12 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabOutils[y][x].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
+
+                        simulateurGraines.updateGraineActif();
+
+                        if(simulateurGraines.isGraineActif()){
+                            simulateurGraines.setGraineAllFalse();
+                        }
                         simulateurOutil.actionUtilisateur(yy, xx);
                     }
                 });

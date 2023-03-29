@@ -5,8 +5,34 @@ import modele.environnement.Case.Case;
 import modele.environnement.Legume.varietes.Varietes;
 
 public class SimulateurGraines {
-    public static final int NB_VARIETE_MAX = 3;
+    public static final int NB_VARIETE_MAX = Varietes.values().length;
     private ButtonGraine[][] grilleDesGraines = new ButtonGraine[1][NB_VARIETE_MAX]; //Va permettre de savoir si on a activé le bouton pour planter le légume ou pas
+
+    private boolean graineActif = false;
+    public boolean isGraineActif() {
+        return graineActif;
+    }
+
+
+
+    public void updateGraineActif(){
+        graineActif = false;
+        for (int _y=0; _y<1; _y++) {
+            for (int _x = 0; _x < NB_VARIETE_MAX; _x++) {
+                if(grilleDesGraines[_y][_x].getActivite()){
+                    graineActif = true;
+                }
+            }
+        }
+    }
+
+    public void setGraineAllFalse() {
+        for(int i = 0; i < NB_VARIETE_MAX; i++) {
+            grilleDesGraines[0][i].setActivite(false);
+        }
+    }
+
+
 
     public SimulateurGraines() {
         initialisationDesGraines();
@@ -15,7 +41,9 @@ public class SimulateurGraines {
     private void initialisationDesGraines() {
         grilleDesGraines[0][0] = new ButtonGraine(Varietes.salade);
         grilleDesGraines[0][1] = new ButtonGraine(Varietes.carrotte);
-        grilleDesGraines[0][2] = new ButtonGraine(Varietes.salade);
+        grilleDesGraines[0][2] = new ButtonGraine(Varietes.betrave);
+        grilleDesGraines[0][3] = new ButtonGraine(Varietes.tomate);
+        grilleDesGraines[0][4] = new ButtonGraine(Varietes.courgette);
     }
 
     public Button[][] getGrilleDesGraines() {
@@ -23,6 +51,8 @@ public class SimulateurGraines {
     }
 
     public void actionUtilisateur(int y, int x) {
+
+        this.updateGraineActif();
 
         if (grilleDesGraines[y][x] != null) {
             grilleDesGraines[y][x].actionUtilisateur();
