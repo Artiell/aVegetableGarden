@@ -6,9 +6,7 @@
 package modele;
 
 
-import modele.environnement.Case.Case;
-import modele.environnement.Case.CaseCultivable;
-import modele.environnement.Case.CaseNonCultivable;
+import modele.environnement.Case.*;
 import modele.environnement.Legume.varietes.Salade;
 import modele.environnement.Legume.varietes.Varietes;
 
@@ -64,43 +62,35 @@ public class SimulateurPotager {
 
         // murs extérieurs horizontaux
         for (int x = 0; x < 20; x++) {
-            addEntite(new CaseNonCultivable(this, simulateurGraines, simulateurOutil), x, 0);
-            addEntite(new CaseNonCultivable(this, simulateurGraines, simulateurOutil), x, SIZE_Y - 1);
+            Case cc = new CaseMur(this,simulateurGraines, simulateurOutil);
+            Case cc1 = new CaseMur(this,simulateurGraines, simulateurOutil);
+            addEntite(cc, x, 0);
+            addEntite(cc1, x, SIZE_Y - 1);
+            Ordonnanceur.getOrdonnanceur().add(cc);
+            Ordonnanceur.getOrdonnanceur().add(cc1);
+        }
+
+        for (int x = 0; x < 20; x++) {
+            Case cc = new CaseNonRatisser(this,simulateurGraines, simulateurOutil);
+            Case cc1 = new CaseNonRatisser(this,simulateurGraines, simulateurOutil);
+            addEntite(cc, x, 1);
+            addEntite(cc1, x, SIZE_Y - 2);
+            Ordonnanceur.getOrdonnanceur().add(cc);
+            Ordonnanceur.getOrdonnanceur().add(cc1);
         }
 
 
 
         // PLUS DE MUR VERTICAUX
         // murs extérieurs verticaux
-//        for (int y = 1; y < 9; y++) {
-//            addEntite(new CaseNonCultivable(this), 0, y);
-//            addEntite(new CaseNonCultivable(this), 19, y);
-//        }
 
         for(int i=0; i<20; i++){
             for(int j=0; j<10; j++){
                 if(grilleCases[i][j] == null){
-                    addEntite(new CaseCultivable(this,simulateurGraines, simulateurOutil), i, j);
+                    CaseCultivable cc = new CaseCultivable(this,simulateurGraines, simulateurOutil);
+                    addEntite(cc, i, j);
+                    Ordonnanceur.getOrdonnanceur().add(cc);
                 }
-            }
-        }
-
-
-        Random rnd = new Random();
-
-        for (int x = 0; x < SIZE_X; x++) {
-            for (int y = 1; y < SIZE_Y-1; y++) {
-                CaseCultivable cc = new CaseCultivable(this, simulateurGraines, simulateurOutil);
-                addEntite(cc , x, y);
-
-                /*Permet d'afficher les germes dès le lancer de l'application sans cette parti on part seulement avec de la terre
-
-                if (rnd.nextBoolean()) {
-                    cc.actionUtilisateur();
-                }*/
-
-                Ordonnanceur.getOrdonnanceur().add(cc);
-
             }
         }
 
@@ -109,6 +99,13 @@ public class SimulateurPotager {
     public void actionUtilisateur(int x, int y) {
         if (grilleCases[x][y] != null) {
             grilleCases[x][y].actionUtilisateur();
+        }
+        //Gère l'outil le rateau
+        if (simulateurOutil.getGrilleDesOutils()[0][1].getActivite()){
+            if (grilleCases[x][y] instanceof CaseNonRatisser){
+                grilleCases[x][y] = null;
+                addEntite(new CaseCultivable(this,simulateurGraines, simulateurOutil), x, y);
+            }
         }
     }
 

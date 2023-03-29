@@ -19,7 +19,9 @@ import modele.SimulateurPotager;
 import modele.environnement.Button.ButtonOutil;
 import modele.environnement.Case.CaseCultivable;
 import modele.environnement.Button.ButtonGraine;
+import modele.environnement.Case.CaseMur;
 import modele.environnement.Case.CaseNonCultivable;
+import modele.environnement.Case.CaseNonRatisser;
 import modele.environnement.Legume.varietes.Legume;
 import modele.environnement.Legume.varietes.Varietes;
 
@@ -51,6 +53,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoGerme;
     private ImageIcon icoPelle;
     private ImageIcon gardenFence;
+    private ImageIcon icoBuisson;
     private ImageIcon icoBoutonSalade;
     private ImageIcon icoBoutonAppuyerSalade;
     private ImageIcon icoBoutonPelle;
@@ -122,6 +125,8 @@ public class VueControleurPotager extends JFrame implements Observer {
         this.icoPlayButton = this.chargerIcone("Images/playButton.png");
         icoBoutonPelle = chargerIcone("Images/spriteTerrain/BoutonPelle.png");
         icoBoutonAppuyerPelle = chargerIcone("Images/spriteTerrain/BoutonAppuyerPelle.png");
+        icoBuisson = chargerIcone("Images/spriteTerrain/bush1.png");
+
     }
 
     private void placerLesComposantsGraphiques() {
@@ -368,9 +373,11 @@ public class VueControleurPotager extends JFrame implements Observer {
                     // si transparence : images avec canal alpha + dessins manuels (voir ci-dessous + créer composant qui redéfinie paint(Graphics g)), se documenter
                     //BufferedImage bi = getImage("Images/smick.png", 0, 0, 20, 20);
                     //tabJLabel[x][y].getGraphics().drawImage(bi, 0, 0, null);
-                } else if (simulateurPotager.getPlateau()[x][y] instanceof CaseNonCultivable) {
+                } else if (simulateurPotager.getPlateau()[x][y] instanceof CaseMur) {
                     tabJLabel[x][y].setIcon(gardenFence);
-                } else {
+                } else if (simulateurPotager.getPlateau()[x][y] instanceof CaseNonRatisser) {
+                    tabJLabel[x][y].setIcon(icoBuisson);
+                }else {
                     tabJLabel[x][y].setIcon(icoVide);
                 }
             }
