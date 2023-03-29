@@ -104,7 +104,9 @@ public class SimulateurPotager {
         if (simulateurOutil.getGrilleDesOutils()[0][1].getActivite()){
             if (grilleCases[x][y] instanceof CaseNonRatisser){
                 grilleCases[x][y] = null;
-                addEntite(new CaseCultivable(this,simulateurGraines, simulateurOutil), x, y);
+                CaseCultivable cc = new CaseCultivable(this,simulateurGraines, simulateurOutil);
+                addEntite(cc, x, y);
+                Ordonnanceur.getOrdonnanceur().add(cc);
             }
         }
     }

@@ -1,6 +1,6 @@
 package modele.environnement.Button;
 
-public abstract class Button implements  Runnable{
+public abstract class Button{
     protected boolean estActif;
     public Button (){
         estActif = false;

@@ -14,15 +14,11 @@ public class ButtonOutil extends Button{
         return typeOutil;
     }
     @Override
-    public void actionUtilisateur(){
-        if (estActif){
+    public void actionUtilisateur() {
+        if (estActif) {
             estActif = false;
-        }else {
+        } else {
             estActif = true;
         }
-    }
-    @Override
-    public void run() {
-
     }
 }

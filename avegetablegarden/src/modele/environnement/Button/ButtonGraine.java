@@ -10,10 +10,6 @@ public class ButtonGraine extends Button {
         typeLegumes = _legume;
     }
 
-    @Override
-    public void run() {
-
-    }
     public Varietes getVariete (){
         return typeLegumes;
     }
