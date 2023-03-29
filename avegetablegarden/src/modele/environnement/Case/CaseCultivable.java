@@ -18,7 +18,6 @@ public class CaseCultivable extends Case {
     @Override
     public void actionUtilisateur() {
         if (simulateurOutil.getGrilleDesOutils()[0][0].getActivite()){
-            System.out.println("On a la pelle et normalement on détruit le légume");
             if (legume != null){
                 legume = null;
             }

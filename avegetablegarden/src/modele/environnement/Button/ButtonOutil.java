@@ -15,7 +15,6 @@ public class ButtonOutil extends Button{
     }
     @Override
     public void actionUtilisateur(){
-        System.out.println("Je viens de cliquer sur une case de mes outils");
         if (estActif){
             estActif = false;
         }else {

@@ -19,7 +19,6 @@ public class ButtonGraine extends Button {
     }
     @Override
     public void actionUtilisateur(){
-        System.out.println("Je viens de cliquer sur une case de mes graines");
         if (estActif){
             estActif = false;
         }else {

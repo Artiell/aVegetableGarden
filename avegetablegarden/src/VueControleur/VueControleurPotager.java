@@ -67,14 +67,16 @@ public class VueControleurPotager extends JFrame implements Observer {
     private JLabel[][] tabInventaire;
     private JLabel[][] tabGraines;
 
-    public VueControleurPotager(SimulateurPotager _simulateurPotager, SimulateurGraines _simulateurGraines, SimulateurOutil _simulateurOutil) {
+    public VueControleurPotager(SimulateurPotager _simulateurPotager) {
         sizeX = simulateurPotager.SIZE_X;
         sizeY = _simulateurPotager.SIZE_Y;
-        NbVariete = _simulateurGraines.NB_VARIETE_MAX;
-        NbOutils = _simulateurOutil.NB_OUTIL_MAX;
-        simulateurGraines = _simulateurGraines;
+
         simulateurPotager = _simulateurPotager;
-        simulateurOutil = _simulateurOutil;
+        simulateurGraines = simulateurPotager.getSimulateurGraines();
+        simulateurOutil = simulateurPotager.getSimulateurOutil();
+
+        NbVariete = simulateurGraines.NB_VARIETE_MAX;
+        NbOutils = simulateurOutil.NB_OUTIL_MAX;
 
         chargerLesIcones();
         placerLesComposantsGraphiques();

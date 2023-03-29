@@ -7,7 +7,6 @@ public class Compteur {
     private boolean estActif;
     private int valMax;
     public Compteur(int max){
-        System.out.println("Le compteur est créer");
         valMax = max;
         seconde = 0;
         estActif = false;
@@ -19,7 +18,6 @@ public class Compteur {
     }
 
     public void demarre (){
-        System.out.println("Le compteur démarre");
         estActif = true;
     }
     public void incremente (int cpt){
@@ -29,10 +27,8 @@ public class Compteur {
                 if (time2.getSecond() != cpt) {
                     seconde++;
                     cpt++;
-                    //System.out.println(seconde);
                 }
             } else {
-                System.out.println("Le compteur est arrivé au max ");
                 estActif = false;
             }
         }

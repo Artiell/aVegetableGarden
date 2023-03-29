@@ -27,15 +27,21 @@ public class SimulateurPotager {
 
     // private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
     private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
-    public SimulateurPotager(SimulateurGraines _simulateurGraines, SimulateurOutil _simOutils) {
-        simulateurGraines = _simulateurGraines;
-        simulateurOutil = _simOutils;
+    public SimulateurPotager() {
+        simulateurGraines = new SimulateurGraines();
+        simulateurOutil = new SimulateurOutil();
         initialisationDesEntites();
         simMet = new SimulateurMeteo(this);
 
     }
 
+    public SimulateurGraines getSimulateurGraines(){
+        return simulateurGraines;
+    }
 
+    public SimulateurOutil getSimulateurOutil(){
+        return simulateurOutil;
+    }
     
     public Case[][] getPlateau() {
         return grilleCases;

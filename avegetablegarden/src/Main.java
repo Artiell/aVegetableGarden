@@ -14,10 +14,8 @@ import modele.SimulateurPotager;
 
 public class Main {
     public static void main(String[] args) {
-        SimulateurGraines simulateurGraines = new SimulateurGraines();
-        SimulateurOutil simulateurOutil = new SimulateurOutil();
-        SimulateurPotager simulateurPotager = new SimulateurPotager(simulateurGraines, simulateurOutil);
-        VueControleurPotager vc = new VueControleurPotager(simulateurPotager, simulateurGraines, simulateurOutil);
+        SimulateurPotager simulateurPotager = new SimulateurPotager();
+        VueControleurPotager vc = new VueControleurPotager(simulateurPotager);
         vc.setVisible(true);
         Ordonnanceur.getOrdonnanceur().addObserver(vc);
         Ordonnanceur.getOrdonnanceur().start(300);
