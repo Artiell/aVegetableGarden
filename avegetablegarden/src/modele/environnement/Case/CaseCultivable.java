@@ -37,6 +37,13 @@ public class CaseCultivable extends Case {
             }
         }
 
+        // Gère la botte
+        if (simulateurOutil.getGrilleDesOutils()[0][2].getActivite()){
+            if(legume != null){
+                legume = null;
+            }
+        }
+
         // On vérifie qu'on a selectionné la bonne graine et que la pelle n'est pas sélectionnée
         if (simulateurGraines.getGrilleDesGraines()[0][0].getActivite() && !simulateurOutil.getGrilleDesOutils()[0][0].getActivite()){
             if (legume == null) {

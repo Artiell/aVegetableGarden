@@ -64,6 +64,8 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoBoutonAppuyerPelle;
     private ImageIcon icoBoutonRateau;
     private ImageIcon icoBoutonAppuyerRateau;
+    private ImageIcon icoBoutonBotte;
+    private ImageIcon icoBoutonAppuyerBotte;
 
     private ImageIcon icoPauseButton;
     private ImageIcon icoPlayButton;
@@ -139,6 +141,8 @@ public class VueControleurPotager extends JFrame implements Observer {
         icoBoutonAppuyerPelle = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerPelle.png");
         icoBoutonRateau = chargerIcone("Images/Bouton/BoutonRateau.png");
         icoBoutonAppuyerRateau = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerRateau.png");
+        icoBoutonBotte = chargerIcone("Images/Bouton/BoutonBotte.png");
+        icoBoutonAppuyerBotte = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerBotte.png");
         icoBuisson = chargerIcone("Images/spriteTerrain/bush1.png");
 
     }
@@ -372,6 +376,12 @@ public class VueControleurPotager extends JFrame implements Observer {
                             tabOutils[y][x].setIcon(icoBoutonAppuyerRateau);break;
                         }else{
                             tabOutils[y][x].setIcon(icoBoutonRateau);break;
+                        }
+                    case botte:
+                        if (outil.getActivite()){
+                            tabOutils[y][x].setIcon(icoBoutonAppuyerBotte);break;
+                        }else{
+                            tabOutils[y][x].setIcon(icoBoutonBotte);break;
                         }
                 }
             }
