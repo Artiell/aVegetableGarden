@@ -40,7 +40,7 @@ public class SimulateurGraines {
 
     private void initialisationDesGraines() {
         grilleDesGraines[0][0] = new ButtonGraine(Varietes.salade);
-        grilleDesGraines[0][1] = new ButtonGraine(Varietes.carrotte);
+        grilleDesGraines[0][1] = new ButtonGraine(Varietes.carotte);
         grilleDesGraines[0][2] = new ButtonGraine(Varietes.tomate);
     }
 

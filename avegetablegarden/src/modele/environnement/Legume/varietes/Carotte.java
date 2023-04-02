@@ -2,10 +2,11 @@ package modele.environnement.Legume.varietes;
 
 import modele.environnement.Legume.EtatLegume;
 
-public class Salade extends Legume {
+public class Carotte extends Legume{
+
     @Override
     public Varietes getVariete() {
-        return Varietes.salade;
+        return Varietes.carotte;
     }
 
     @Override

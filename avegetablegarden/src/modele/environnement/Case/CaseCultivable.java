@@ -4,7 +4,7 @@ import modele.SimulateurGraines;
 import modele.SimulateurOutil;
 import modele.SimulateurPotager;
 import modele.environnement.Legume.EtatLegume;
-import modele.environnement.Legume.varietes.Carrotte;
+import modele.environnement.Legume.varietes.Carotte;
 import modele.environnement.Legume.varietes.Legume;
 import modele.environnement.Legume.varietes.Salade;
 
@@ -26,7 +26,7 @@ public class CaseCultivable extends Case {
                     case salade : this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[0]++;
                         legume = null;
                         break;
-                    case carrotte: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[1]++;
+                    case carotte: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[1]++;
                         legume = null;
                         break;
                     case tomate: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[3]++;
@@ -53,7 +53,7 @@ public class CaseCultivable extends Case {
         }
         if (simulateurGraines.getGrilleDesGraines()[0][1].getActivite()){
             if (legume == null) {
-                legume = new Carrotte();
+                legume = new Carotte();
                 System.out.println("On plante une nouvelle carotte");
 
             } else {
