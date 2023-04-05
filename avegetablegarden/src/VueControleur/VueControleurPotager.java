@@ -152,7 +152,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
     private void placerLesComposantsGraphiques() {
         setTitle("A vegetable garden");
-        setSize(1385, 583);
+        setSize(1365, 820);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
         //Permet l'affichage de la partie de droite
@@ -339,10 +339,12 @@ public class VueControleurPotager extends JFrame implements Observer {
     private void mettreAJourAffichage() {
 
         tabInventaire[0][0].setIcon(icoBoutonSalade) ;
-        tabInventaire [1][0].setIcon(icoMur);
+        tabInventaire [1][0].setIcon(icoBoutonCarotte);
         tabInventaire[2][0].setIcon(icoMur);
         tabInventaire[3][0].setIcon(icoMur);
-        tabInventaire[0][1].setText("nbSalade");
+        tabInventaire[0][1].setText(String.valueOf(simulateurPotager.getTabInventaireLegume()[0]));
+        tabInventaire[1][1].setText(String.valueOf(simulateurPotager.getTabInventaireLegume()[1]));
+        //tabInventaire[0][3].setText(String.valueOf(simulateurPotager.getTabInventaireLegume()[2]));
 
         for (int y=0; y<1; y++){
             for (int x=0; x<NbVariete; x++){

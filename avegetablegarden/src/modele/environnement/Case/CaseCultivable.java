@@ -23,13 +23,13 @@ public class CaseCultivable extends Case {
             if (legume != null && legume.getEtatLegume() == EtatLegume.mature){
                 switch (legume.getVariete()){
 
-                    case salade : this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[0]++;
+                    case salade : this.simulateurPotager.incrTabInventaireLegume(0);
                         legume = null;
                         break;
-                    case carotte: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[1]++;
+                    case carotte: this.simulateurPotager.incrTabInventaireLegume(1);
                         legume = null;
                         break;
-                    case tomate: this.simulateurPotager.getTabInventaireLegume()[0] = this.simulateurPotager.getTabInventaireLegume()[3]++;
+                    case tomate: this.simulateurPotager.incrTabInventaireLegume(2);
                         legume = null;
                         break;
 
@@ -83,10 +83,6 @@ public class CaseCultivable extends Case {
                 // A coder
             }
         }
-        else {
-            System.out.println("pas appuyer sur le bouton avant");
-        }
-
     }
 
     public Legume getLegume() {

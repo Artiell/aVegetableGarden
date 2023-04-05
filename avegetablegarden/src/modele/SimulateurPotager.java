@@ -17,7 +17,7 @@ import java.util.Random;
 public class SimulateurPotager {
 
     public static final int SIZE_X = 20;
-    public static final int SIZE_Y = 10;
+    public static final int SIZE_Y = 15;
 
     private SimulateurMeteo simMet;
     private SimulateurGraines simulateurGraines;
@@ -25,6 +25,9 @@ public class SimulateurPotager {
 
     public int[] getTabInventaireLegume() {
         return tabInventaireLegume;
+    }
+    public void incrTabInventaireLegume(int x) {
+        tabInventaireLegume[x]++;
     }
 
     private int[] tabInventaireLegume;
@@ -84,8 +87,8 @@ public class SimulateurPotager {
         // PLUS DE MUR VERTICAUX
         // murs extérieurs verticaux
 
-        for(int i=0; i<20; i++){
-            for(int j=0; j<10; j++){
+        for(int i=0; i<SIZE_X; i++){
+            for(int j=0; j<SIZE_Y; j++){
                 if(grilleCases[i][j] == null){
                     CaseCultivable cc = new CaseCultivable(this,simulateurGraines, simulateurOutil);
                     addEntite(cc, i, j);
