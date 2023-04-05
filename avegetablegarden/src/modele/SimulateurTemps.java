@@ -4,6 +4,17 @@ public class SimulateurTemps {
 
     //singleton
     private static SimulateurTemps instance = null;
+    private int vitesseAvantPause;
+
+    private int vitesseSimulation = 1;
+
+    public int getVitesseSimulation() {
+        return vitesseSimulation;
+    }
+
+    public void setVitesseSimulation(int vitesseSimulation) {
+        this.vitesseSimulation = vitesseSimulation;
+    }
 
     //Représente les ms, secondes, minutes, heurs, jours écoulés depuis le début de la simulation
     private int ms;
@@ -19,6 +30,8 @@ public class SimulateurTemps {
     private SimulateurTemps() {
         this.ms = 0;
         this.s = 0;
+        this.vitesseAvantPause = 0;
+        this.vitesseSimulation = 1;
     }
 
     public static SimulateurTemps getSimuTemps() {
@@ -32,7 +45,7 @@ public class SimulateurTemps {
         this.ms += time;
         if (this.ms >= 1000) {
             this.ms = 0;
-            this.s += 1;
+            this.s += vitesseSimulation;
         }
     }
 
@@ -49,7 +62,58 @@ public class SimulateurTemps {
     }
 
 
+    public void stop(){
+        this.vitesseAvantPause = vitesseSimulation;
+        vitesseSimulation = 0;
+    }
 
+    public void play(){
+        this.vitesseSimulation = this.vitesseAvantPause;
+    }
 
+    public void accelerer(){
+        switch (vitesseSimulation){
+            case 1:
+                this.setVitesseSimulation(2);
+            break;
+
+            case 2:
+                this.setVitesseSimulation(5);
+            break;
+
+            case 5:
+                this.setVitesseSimulation(10);
+            break;
+
+            case 10:
+                this.setVitesseSimulation(50);
+            break;
+
+            default:
+                this.setVitesseSimulation(this.vitesseSimulation);
+        }
+    }
+    public void decelerer(){
+        switch (vitesseSimulation){
+            case 50:
+                this.setVitesseSimulation(10);
+                break;
+
+            case 10:
+                this.setVitesseSimulation(5);
+                break;
+
+            case 5:
+                this.setVitesseSimulation(2);
+                break;
+
+            case 2:
+                this.setVitesseSimulation(1);
+                break;
+
+            default:
+                this.setVitesseSimulation(this.vitesseSimulation);
+        }
+    }
 
 }
