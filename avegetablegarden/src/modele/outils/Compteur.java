@@ -33,8 +33,4 @@ public class Compteur {
             }
         }
     }
-    /*
-    public void arret(){
-        estActif =false;
-    }*/
 }

@@ -39,7 +39,7 @@ public class CaseCultivable extends Case {
 
         // Gère la botte
         if (simulateurOutil.getGrilleDesOutils()[0][2].getActivite()){
-            if(legume != null){
+            if(legume != null && legume.getEtatLegume() != EtatLegume.pourri){
                 legume = null;
             }
         }
