@@ -54,6 +54,9 @@ public class Ordonnanceur extends Observable implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            //ajout de 300ms écoulé pour le simulateur de temps après le sleep
+            SimulateurTemps.getSimuTemps().Incr(300);
         }
 
     }
