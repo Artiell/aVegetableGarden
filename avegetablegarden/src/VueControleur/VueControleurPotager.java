@@ -72,11 +72,15 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoPlayButton;
     private ImageIcon icoLeftArrowButton;
     private ImageIcon icoRightArrowButton;
+    private ImageIcon icoSoleil;
+    private ImageIcon icoNuage;
+    private ImageIcon icoPluie;
 
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
     private JLabel[][] tabOutils;
     private JLabel[][] tabInventaire;
+    private JLabel[] tabMeteo;
     private JLabel[][] tabGraines;
 
     public VueControleurPotager(SimulateurPotager _simulateurPotager) {
@@ -147,7 +151,9 @@ public class VueControleurPotager extends JFrame implements Observer {
         icoBoutonPoubelle = chargerIcone("Images/Bouton/BoutonPoubelle.png");
         icoBoutonAppuyerPoubelle = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerPoubelle.png");
         icoBuisson = chargerIcone("Images/spriteTerrain/bush1.png");
-
+        icoSoleil = chargerIcone("Images/Meteo/Soleil.png");
+        icoNuage = chargerIcone("Images/Meteo/Nuage.png");
+        icoPluie = chargerIcone("Images/Meteo/Pluie.png");
     }
 
     private void placerLesComposantsGraphiques() {
@@ -329,6 +335,17 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         this.add(speedGrille, BorderLayout.SOUTH);
 
+        // Affichage Partie du Nord
+
+        JComponent MeteoGrille = new JPanel(new GridBagLayout());
+        int sizeMeteo =3;
+        tabMeteo = new JLabel[sizeMeteo];
+        for (int i = 0; i<sizeMeteo; i++){
+            tabMeteo[i] = new JLabel();
+            MeteoGrille.add(tabMeteo[i]);
+        }
+
+        add(MeteoGrille, BorderLayout.NORTH);
 
     }
 
@@ -337,7 +354,12 @@ public class VueControleurPotager extends JFrame implements Observer {
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
     private void mettreAJourAffichage() {
+        // Affiche les boutons de la météo
+        tabMeteo[0].setIcon(icoSoleil);
+        tabMeteo[1].setIcon(icoNuage);
+        tabMeteo[2].setIcon(icoPluie);
 
+        // Affiche l'inventaire
         tabInventaire[0][0].setIcon(icoBoutonSalade) ;
         tabInventaire [1][0].setIcon(icoBoutonCarotte);
         tabInventaire[2][0].setIcon(icoMur);
