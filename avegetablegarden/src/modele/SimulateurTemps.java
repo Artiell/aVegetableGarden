@@ -15,7 +15,7 @@ public class SimulateurTemps {
     }
 
 
-    public void setVitesseSimulation(int vitesseSimulation) {
+    private void setVitesseSimulation(int vitesseSimulation) {
         this.vitesseSimulation = vitesseSimulation;
     }
 
