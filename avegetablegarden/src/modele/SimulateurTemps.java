@@ -8,9 +8,12 @@ public class SimulateurTemps {
 
     private int vitesseSimulation = 1;
 
+    private boolean isStop;
+
     public int getVitesseSimulation() {
         return vitesseSimulation;
     }
+
 
     public void setVitesseSimulation(int vitesseSimulation) {
         this.vitesseSimulation = vitesseSimulation;
@@ -32,6 +35,7 @@ public class SimulateurTemps {
         this.s = 0;
         this.vitesseAvantPause = 0;
         this.vitesseSimulation = 1;
+        this.isStop = false;
     }
 
     public static SimulateurTemps getSimuTemps() {
@@ -63,12 +67,16 @@ public class SimulateurTemps {
 
 
     public void stop(){
+        isStop = true;
         this.vitesseAvantPause = vitesseSimulation;
         vitesseSimulation = 0;
     }
 
     public void play(){
-        this.vitesseSimulation = this.vitesseAvantPause;
+        if(this.isStop){
+            this.vitesseSimulation = this.vitesseAvantPause;
+        }
+        isStop = false;
     }
 
     public void accelerer(){
