@@ -11,14 +11,14 @@ public class Carotte extends Legume{
 
     @Override
     protected void croissance() {
-        if (compteur.getSeconde() == 3){
-            etatLegume = EtatLegume.jeune;
+        if (this.getTempsDeVieActuel() == 3){
+            this.setEtatLegume(EtatLegume.jeune);
         }
-        if (compteur.getSeconde() == 6){
-            etatLegume = EtatLegume.mature;
+        if (this.getTempsDeVieActuel() == 6){
+            this.setEtatLegume(EtatLegume.mature);
         }
-        if (compteur.getSeconde() == 20){
-            etatLegume = EtatLegume.pourri;
+        if (this.getTempsDeVieActuel() == 20){
+            this.setEtatLegume(EtatLegume.pourri);
         }
     }
 }

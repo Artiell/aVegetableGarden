@@ -1,5 +1,6 @@
 package modele.environnement.Legume.varietes;
 
+import modele.SimulateurTemps;
 import modele.environnement.Legume.EtatLegume;
 import modele.outils.Compteur;
 
@@ -7,23 +8,35 @@ import java.time.LocalTime;
 
 public abstract class Legume {
 
-    protected float vitesseCroisssance; //pas utilisé encore
-    protected int tempsDeVieMax;
-    protected Compteur compteur;
-    protected EtatLegume etatLegume; //pas utilisé encore
+    public void setVitesseCroisssance(float vitesseCroisssance) {
+        this.vitesseCroisssance = vitesseCroisssance;
+    }
 
+    private float vitesseCroisssance; //pas utilisé encore
+    private int tempsDeVieMax;
+    private int tempsDeVieActuel;
+    private EtatLegume etatLegume; //pas utilisé encore
     private int Naissance; //nb de secondes à laquelle le légume est créer
-    protected Legume() {
-        LocalTime time = java.time.LocalTime.now();
-        Naissance = time.getSecond();
-        tempsDeVieMax = 25;
-        compteur = new Compteur(tempsDeVieMax);
-        compteur.demarre();
+
+    public float getVitesseCroisssance() {
+        return vitesseCroisssance;
+    }
+
+    public int getNaissance() {
+        return Naissance;
+    }
+
+    public Legume() {
+
+        this.Naissance = SimulateurTemps.getSimuTemps().getS();
+        this.tempsDeVieMax = 25;
+        this.tempsDeVieActuel = 0;
         this.etatLegume = EtatLegume.germe;
+        this.vitesseCroisssance = 1;
+
     }
     public void vieillir (){
-        compteur.incremente(Naissance);
-        //tempsDeVieMax += d;
+        this.tempsDeVieActuel = SimulateurTemps.getSimuTemps().getS() - Naissance;
     }
     public EtatLegume getEtatLegume() {
         return etatLegume;
@@ -33,13 +46,15 @@ public abstract class Legume {
         this.etatLegume = etatLegume;
     }
 
-    public Compteur getCompteur (){ return compteur; }
+    public int getTempsDeVieActuel() {
+        return tempsDeVieActuel;
+    }
 
     public abstract Varietes getVariete();
+
     public void nextStep() {
         croissance();
     }
-
 
     protected abstract void croissance(); // définir selon les conditions
 }
