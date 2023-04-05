@@ -16,6 +16,9 @@ import javax.swing.*;
 import modele.SimulateurGraines;
 import modele.SimulateurOutil;
 import modele.SimulateurPotager;
+import modele.SimulateurMeteo2;
+import modele.TypeMeteo;
+import modele.environnement.Button.ButtonMeteo;
 import modele.environnement.Button.ButtonOutil;
 import modele.environnement.Case.CaseCultivable;
 import modele.environnement.Button.ButtonGraine;
@@ -36,7 +39,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
     private SimulateurGraines simulateurGraines;
     private SimulateurOutil simulateurOutil;
-
+    private SimulateurMeteo2 simulateurMeteo2;
     private int sizeX; // taille de la grille affichée
     private int sizeY;
     private int NbVariete;
@@ -72,9 +75,12 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoPlayButton;
     private ImageIcon icoLeftArrowButton;
     private ImageIcon icoRightArrowButton;
-    private ImageIcon icoSoleil;
-    private ImageIcon icoNuage;
-    private ImageIcon icoPluie;
+    private ImageIcon icoBoutonSoleil;
+    private ImageIcon icoBoutonAppuyerSoleil;
+    private ImageIcon icoBoutonNuage;
+    private ImageIcon icoBoutonAppuyerNuage;
+    private ImageIcon icoBoutonPluie;
+    private ImageIcon icoBoutonAppuyerPluie;
 
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -90,6 +96,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         simulateurPotager = _simulateurPotager;
         simulateurGraines = simulateurPotager.getSimulateurGraines();
         simulateurOutil = simulateurPotager.getSimulateurOutil();
+        simulateurMeteo2 = simulateurPotager.getSimulateurMeteo2();
 
         NbVariete = simulateurGraines.NB_VARIETE_MAX;
         NbOutils = simulateurOutil.NB_OUTIL_MAX;
@@ -151,9 +158,12 @@ public class VueControleurPotager extends JFrame implements Observer {
         icoBoutonPoubelle = chargerIcone("Images/Bouton/BoutonPoubelle.png");
         icoBoutonAppuyerPoubelle = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerPoubelle.png");
         icoBuisson = chargerIcone("Images/spriteTerrain/bush1.png");
-        icoSoleil = chargerIcone("Images/Meteo/Soleil.png");
-        icoNuage = chargerIcone("Images/Meteo/Nuage.png");
-        icoPluie = chargerIcone("Images/Meteo/Pluie.png");
+        icoBoutonSoleil = chargerIcone("Images/Bouton/BoutonSoleil.png");
+        icoBoutonAppuyerSoleil = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerSoleil.png");
+        icoBoutonNuage = chargerIcone("Images/Bouton/BoutonNuage.png");
+        icoBoutonAppuyerNuage = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerNuage.png");
+        icoBoutonPluie = chargerIcone("Images/Bouton/BoutonPluie.png");
+        icoBoutonAppuyerPluie = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerPluie.png");
     }
 
     private void placerLesComposantsGraphiques() {
@@ -338,11 +348,20 @@ public class VueControleurPotager extends JFrame implements Observer {
         // Affichage Partie du Nord
 
         JComponent MeteoGrille = new JPanel(new GridBagLayout());
-        int sizeMeteo =3;
+        int sizeMeteo = simulateurMeteo2.NB_METEO_MAX;
         tabMeteo = new JLabel[sizeMeteo];
         for (int i = 0; i<sizeMeteo; i++){
             tabMeteo[i] = new JLabel();
             MeteoGrille.add(tabMeteo[i]);
+        }
+        for (int x = 0; x <sizeMeteo; x++) {
+            final int xx = x; // constantes utiles au fonctionnement de la classe anonyme
+            tabMeteo[x].addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    simulateurMeteo2.actionUtilisateur(0, xx);
+                }
+            });
         }
 
         add(MeteoGrille, BorderLayout.NORTH);
@@ -355,9 +374,30 @@ public class VueControleurPotager extends JFrame implements Observer {
      */
     private void mettreAJourAffichage() {
         // Affiche les boutons de la météo
-        tabMeteo[0].setIcon(icoSoleil);
-        tabMeteo[1].setIcon(icoNuage);
-        tabMeteo[2].setIcon(icoPluie);
+
+            for (int x = 0; x< simulateurMeteo2.NB_METEO_MAX; x++){
+                ButtonMeteo meteo = (ButtonMeteo) simulateurMeteo2.getGrilleDeMeteo()[x];
+                switch (meteo.getTypeMeteo()){
+                    case soleil :
+                        if (meteo.getActivite()){
+                            tabMeteo[x].setIcon(icoBoutonAppuyerSoleil);break;
+                        }else{
+                            tabMeteo[x].setIcon(icoBoutonSoleil);break;
+                        }
+                    case nuage:
+                        if (meteo.getActivite()){
+                            tabMeteo[x].setIcon(icoBoutonAppuyerNuage);break;
+                        }else{
+                            tabMeteo[x].setIcon(icoBoutonNuage);break;
+                        }
+                    case pluie:
+                        if (meteo.getActivite()){
+                            tabMeteo[x].setIcon(icoBoutonAppuyerPluie);break;
+                        }else{
+                            tabMeteo[x].setIcon(icoBoutonPluie);break;
+                        }
+                }
+            }
 
         // Affiche l'inventaire
         tabInventaire[0][0].setIcon(icoBoutonSalade) ;

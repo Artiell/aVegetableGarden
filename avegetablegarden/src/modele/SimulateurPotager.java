@@ -19,9 +19,9 @@ public class SimulateurPotager {
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 15;
 
-    private SimulateurMeteo simMet;
     private SimulateurGraines simulateurGraines;
     private SimulateurOutil simulateurOutil;
+    private SimulateurMeteo2 simulateurMeteo2;
 
     public int[] getTabInventaireLegume() {
         return tabInventaireLegume;
@@ -37,8 +37,8 @@ public class SimulateurPotager {
     public SimulateurPotager() {
         simulateurGraines = new SimulateurGraines();
         simulateurOutil = new SimulateurOutil();
+        simulateurMeteo2 = new SimulateurMeteo2();
         initialisationDesEntites();
-        simMet = new SimulateurMeteo(this);
 
         //initialisation de l'inventaire
         this.tabInventaireLegume = new int[Varietes.values().length];
@@ -56,7 +56,7 @@ public class SimulateurPotager {
     public SimulateurOutil getSimulateurOutil(){
         return simulateurOutil;
     }
-    
+    public SimulateurMeteo2 getSimulateurMeteo2() { return simulateurMeteo2; }
     public Case[][] getPlateau() {
         return grilleCases;
     }

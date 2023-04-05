@@ -11,7 +11,6 @@ import modele.SimulateurPotager;
  * and open the template in the editor.
  */
 
-
 public class Main {
     public static void main(String[] args) {
         SimulateurPotager simulateurPotager = new SimulateurPotager();

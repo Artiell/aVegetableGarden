@@ -2,6 +2,9 @@ package modele;
 
 import modele.Ordonnanceur;
 import modele.SimulateurPotager;
+import modele.environnement.Button.Button;
+import modele.environnement.Button.ButtonOutil;
+import modele.outils.TypeOutil;
 
 public class SimulateurMeteo implements Runnable {
     private SimulateurPotager simPot;
@@ -10,10 +13,8 @@ public class SimulateurMeteo implements Runnable {
         simPot = _simPot;
 
     }
-
     @Override
-    public void run() {
+    public void run(){
 
-        // TODO
     }
 }
