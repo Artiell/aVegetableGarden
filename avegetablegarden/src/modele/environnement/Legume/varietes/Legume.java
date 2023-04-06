@@ -1,6 +1,7 @@
 package modele.environnement.Legume.varietes;
 
 import modele.SimulateurTemps;
+import modele.TypeSol;
 import modele.environnement.Legume.EtatLegume;
 import modele.outils.Compteur;
 
@@ -52,9 +53,9 @@ public abstract class Legume {
 
     public abstract Varietes getVariete();
 
-    public void nextStep() {
-        croissance();
+    public void nextStep(TypeSol sol) {
+        croissance(sol);
     }
 
-    protected abstract void croissance(); // définir selon les conditions
+    protected abstract void croissance(TypeSol sol); // définir selon les conditions
 }

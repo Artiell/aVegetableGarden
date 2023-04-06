@@ -3,6 +3,7 @@ package modele.environnement.Case;
 import modele.SimulateurGraines;
 import modele.SimulateurOutil;
 import modele.SimulateurPotager;
+import modele.TypeSol;
 import modele.environnement.Legume.EtatLegume;
 import modele.environnement.Legume.varietes.Carotte;
 import modele.environnement.Legume.varietes.Legume;
@@ -11,8 +12,10 @@ import modele.environnement.Legume.varietes.Salade;
 public class CaseCultivable extends Case {
 
     private Legume legume;
+    private TypeSol typeSol;
     public CaseCultivable(SimulateurPotager _simulateurPotager, SimulateurGraines _simulateurGraines, SimulateurOutil _simOutils) {
         super(_simulateurPotager, _simulateurGraines, _simOutils);
+        typeSol = TypeSol.normal;
     }
 
     @Override
@@ -88,12 +91,12 @@ public class CaseCultivable extends Case {
     public Legume getLegume() {
         return legume;
     }
-
     @Override
     public void run() {
         if (legume != null) {
-            legume.nextStep();
+            legume.nextStep(simulateurPotager.getSol());
             legume.vieillir();
         }
+        simulateurPotager.updateSol();
     }
 }

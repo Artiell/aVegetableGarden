@@ -22,6 +22,7 @@ public class SimulateurPotager {
     private SimulateurGraines simulateurGraines;
     private SimulateurOutil simulateurOutil;
     private SimulateurMeteo2 simulateurMeteo2;
+    TypeSol sol;
 
     public int[] getTabInventaireLegume() {
         return tabInventaireLegume;
@@ -38,7 +39,9 @@ public class SimulateurPotager {
         simulateurGraines = new SimulateurGraines();
         simulateurOutil = new SimulateurOutil();
         simulateurMeteo2 = new SimulateurMeteo2();
+        Ordonnanceur.getOrdonnanceur().add(simulateurMeteo2);
         initialisationDesEntites();
+        sol = TypeSol.normal;
 
         //initialisation de l'inventaire
         this.tabInventaireLegume = new int[Varietes.values().length];
@@ -47,6 +50,9 @@ public class SimulateurPotager {
             tabInventaireLegume[i] = 0;
         }
 
+    }
+    public TypeSol getSol (){
+        return sol;
     }
 
     public SimulateurGraines getSimulateurGraines(){
@@ -117,6 +123,16 @@ public class SimulateurPotager {
     private void addEntite(Case e, int x, int y) {
         grilleCases[x][y] = e;
         //map.put(e, new Point(x, y));
+    }
+
+    public void updateSol (){
+        if (simulateurMeteo2.getHumidite() > 75){
+            sol = TypeSol.humide;
+        } else if (simulateurMeteo2.getHumidite() < 25){
+            sol = TypeSol.sec;
+        }else {
+            sol = TypeSol.normal;
+        }
     }
 
 
