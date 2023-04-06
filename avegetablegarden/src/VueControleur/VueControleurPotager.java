@@ -118,7 +118,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 */
 
     private void chargerLesIcones() {
-    	// image libre de droits utilisée pour les légumes : https://www.vecteezy.com/vector-art/2559196-bundle-of-fruits-and-vegetables-icons	
+        // image libre de droits utilisée pour les légumes : https://www.vecteezy.com/vector-art/2559196-bundle-of-fruits-and-vegetables-icons
     
         // Il faut rajouter SaladePourri
         //icoJeuneSalade = chargerIcone("Images/spriteTerrain/Salade/dirtCenterPousse.png", 0, 0, 50, 50);//chargerIcone("Images/Pacman.png");
@@ -319,17 +319,49 @@ public class VueControleurPotager extends JFrame implements Observer {
         // Affichage de la partie du bas concernant la vitesse d'éxécution de la simulation
 
         JComponent speedGrille = new JPanel(new GridBagLayout());
-        JTextField jtf4 = new JTextField("Vitesse de jeu :" + "ici sera présent la vitesse d'éxécution du jeu");
+        JTextField jtf4 = new JTextField("Vitesse de jeu : x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
         jtf4.setOpaque(false);
         jtf4.setEditable(false);
         jtf4.setHorizontalAlignment(JTextField.CENTER);
         jtf4.setBorder(null);
 
         speedGrille.add(jtf4);
+
         JButton playButton = new JButton(this.icoPlayButton);
+        playButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SimulateurTemps.getSimuTemps().play();
+                System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
+            }
+        });
+
         JButton pauseButton = new JButton(this.icoPauseButton);
+        pauseButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SimulateurTemps.getSimuTemps().stop();
+                System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
+            }
+        });
+
         JButton leftArrowButton = new JButton(this.icoLeftArrowButton);
+        leftArrowButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SimulateurTemps.getSimuTemps().decelerer();
+                System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
+            }
+        });
+
         JButton rightArrowButton = new JButton(this.icoRightArrowButton);
+        rightArrowButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SimulateurTemps.getSimuTemps().accelerer();
+                System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
+            }
+        });
 
         playButton.setContentAreaFilled(false);
         pauseButton.setContentAreaFilled(false);
