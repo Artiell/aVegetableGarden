@@ -42,41 +42,20 @@ public class VueControleurPotager extends JFrame implements Observer {
     private int NbOutils;
 
     // icones affichées dans la grille
-    private ImageIcon icoJeuneSalade;
     private ImageIcon[][] icoSalade;
-    private ImageIcon icoSaladePourri;
-    private ImageIcon icoJeuneCarotte;
-    private ImageIcon icoCarotte;
-    private ImageIcon icoCarottePourri;
-    private ImageIcon icoTerre;
+    private ImageIcon[][] icoCarotte;
+    private ImageIcon[] icoTerre;
+    private ImageIcon[][] icoOutils;
+    private ImageIcon[][] icoGraine;
+    private ImageIcon[][] icoMeteo;
     private ImageIcon icoVide;
     private ImageIcon icoMur;
-    private ImageIcon icoGerme;
-    //private ImageIcon icoPelle;
     private ImageIcon gardenFence;
     private ImageIcon icoBuisson;
-    private ImageIcon icoBoutonSalade;
-    private ImageIcon icoBoutonAppuyerSalade;
-    private ImageIcon icoBoutonAppuyerCarotte;
-    private ImageIcon icoBoutonCarotte;
-    private ImageIcon icoBoutonPelle;
-    private ImageIcon icoBoutonAppuyerPelle;
-    private ImageIcon icoBoutonRateau;
-    private ImageIcon icoBoutonAppuyerRateau;
-    private ImageIcon icoBoutonBotte;
-    private ImageIcon icoBoutonAppuyerBotte;
-    private ImageIcon icoBoutonPoubelle;
-    private ImageIcon icoBoutonAppuyerPoubelle;
     private ImageIcon icoPauseButton;
     private ImageIcon icoPlayButton;
     private ImageIcon icoLeftArrowButton;
     private ImageIcon icoRightArrowButton;
-    private ImageIcon icoBoutonSoleil;
-    private ImageIcon icoBoutonAppuyerSoleil;
-    private ImageIcon icoBoutonNuage;
-    private ImageIcon icoBoutonAppuyerNuage;
-    private ImageIcon icoBoutonPluie;
-    private ImageIcon icoBoutonAppuyerPluie;
 
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -124,27 +103,47 @@ public class VueControleurPotager extends JFrame implements Observer {
         //icoJeuneSalade = chargerIcone("Images/spriteTerrain/Salade/dirtCenterPousse.png", 0, 0, 50, 50);//chargerIcone("Images/Pacman.png");
         //icoSalade = chargerIcone("Images/spriteTerrain/Salade/dirtCenterSalade.png", 0, 0, 50, 50);//chargerIcone("Images/Pacman.png");
         icoSalade = new ImageIcon[4][3];
-        for (int j = 0; j< 4; j++){
-            for (int i = 0; i<3; i++){
+        icoCarotte = new ImageIcon[4][3];
+        for (int j = 0; j< 4; j++) {
+            for (int i = 0; i < 3; i++) {
                 icoSalade[j][i] = new ImageIcon();
-                icoSalade[j][i] = chargerIcone("Images/spriteTerrain/Salade/"+i+"dirtCenterSalade"+j+".png");
+                icoCarotte[j][i] = new ImageIcon();
+                icoSalade[j][i] = chargerIcone("Images/spriteTerrain/Salade/" + i + "dirtCenterSalade" + j + ".png");
+                icoCarotte[j][i] = chargerIcone("Images/spriteTerrain/Carotte/" + i + "dirtCenterCarotte" + j + ".png");
             }
         }
-        //icoSaladePourri = chargerIcone("Images/spriteTerrain/Salade/SaladePourri.png");
-        icoGerme = chargerIcone("Images/spriteTerrain/dirtCenterGerme.png", 0, 0, 50, 50);//chargerIcone("Images/Pacman.png");
+        icoTerre = new ImageIcon[3];
+        for (int i = 0; i < 3; i++) {
+            icoTerre[i] = new ImageIcon();
+            icoTerre[i] = chargerIcone("Images/spriteTerrain/dirtCenter"+i+".png");
+        }
+
+        icoOutils = new ImageIcon[4][2];
+        for (int j = 0; j< 4; j++) {
+            for (int i = 0; i < 2; i++) {
+                icoOutils[j][i] = new ImageIcon();
+                icoOutils[j][i] = chargerIcone("Images/Outils/Outils"+j+"Etat"+ i + ".png");
+            }
+        }
+
+        icoGraine = new ImageIcon[2][2];
+        for (int j = 0; j< 2; j++) {
+            for (int i = 0; i < 2; i++) {
+                icoGraine[j][i] = new ImageIcon();
+                icoGraine[j][i] = chargerIcone("Images/Graines/Graine"+j+"Etat"+ i + ".png");
+            }
+        }
+
+        icoMeteo = new ImageIcon[3][2];
+        for (int j = 0; j< 3; j++) {
+            for (int i = 0; i < 2; i++) {
+                icoMeteo[j][i] = new ImageIcon();
+                icoMeteo[j][i] = chargerIcone("Images/Meteo/Meteo"+j+"Etat"+ i + ".png");
+            }
+        }
+
         icoVide = chargerIcone("Images/Vide.png");
         icoMur = chargerIcone("Images/Mur.png");
-        icoTerre = chargerIcone("Images/spriteTerrain/dirtCenter.png", 0, 0, 50, 50);
-        icoJeuneCarotte = chargerIcone("Images/spriteTerrain/Carotte/dirtCenterPousseCarotte.png", 0, 0, 50, 50);//chargerIcone("Images/Pacman.png");
-        icoCarotte = chargerIcone("Images/spriteTerrain/Carotte/dirtCenterCarotte.png", 0, 0, 50, 50);//chargerIcone("Images/Pacman.png");
-        icoCarottePourri = chargerIcone("Images/spriteTerrain/Carotte/dirtCenterCarottePourri.png");
-
-        //icoPelle = chargerIcone("Images/spriteTerrain/shovel.png", 0, 0, 50,50);
-        //icoSaladeSansFond = chargerIcone("Images/saladeSansFond.png");
-        icoBoutonSalade = chargerIcone("Images/Bouton/BouttonSalade.png");
-        icoBoutonAppuyerSalade = chargerIcone("Images/BoutonAppuyer/BouttonAppuyerSalade.png");
-        icoBoutonCarotte = chargerIcone("Images/Bouton/BoutonCarotte.png");
-        icoBoutonAppuyerCarotte = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerCarotte.png");
 
         this.gardenFence = this.chargerIcone("Images/spriteTerrain/gardenFence.png");
 
@@ -152,21 +151,8 @@ public class VueControleurPotager extends JFrame implements Observer {
         this.icoRightArrowButton = this.chargerIcone("Images/rightArrowButton.png");
         this.icoPauseButton = this.chargerIcone("Images/pauseButton.png");
         this.icoPlayButton = this.chargerIcone("Images/playButton.png");
-        icoBoutonPelle = chargerIcone("Images/Bouton/BoutonPelle.png");
-        icoBoutonAppuyerPelle = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerPelle.png");
-        icoBoutonRateau = chargerIcone("Images/Bouton/BoutonRateau.png");
-        icoBoutonAppuyerRateau = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerRateau.png");
-        icoBoutonBotte = chargerIcone("Images/Bouton/BoutonBotte.png");
-        icoBoutonAppuyerBotte = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerBotte.png");
-        icoBoutonPoubelle = chargerIcone("Images/Bouton/BoutonPoubelle.png");
-        icoBoutonAppuyerPoubelle = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerPoubelle.png");
+
         icoBuisson = chargerIcone("Images/spriteTerrain/bush1.png");
-        icoBoutonSoleil = chargerIcone("Images/Bouton/BoutonSoleil.png");
-        icoBoutonAppuyerSoleil = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerSoleil.png");
-        icoBoutonNuage = chargerIcone("Images/Bouton/BoutonNuage.png");
-        icoBoutonAppuyerNuage = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerNuage.png");
-        icoBoutonPluie = chargerIcone("Images/Bouton/BoutonPluie.png");
-        icoBoutonAppuyerPluie = chargerIcone("Images/BoutonAppuyer/BoutonAppuyerPluie.png");
     }
 
     private void placerLesComposantsGraphiques() {
@@ -412,65 +398,40 @@ public class VueControleurPotager extends JFrame implements Observer {
         // Affiche les boutons de la météo
         for (int x = 0; x < simulateurMeteo2.NB_METEO_MAX; x++) {
             ButtonMeteo meteo = (ButtonMeteo) simulateurMeteo2.getGrilleDeMeteo()[x];
+            int i=0;
+            int j=-1;
             switch (meteo.getTypeMeteo()) {
-                case soleil:
-                    if (meteo.getActivite()) {
-                        tabMeteo[x].setIcon(icoBoutonAppuyerSoleil);
-                        break;
-                    } else {
-                        tabMeteo[x].setIcon(icoBoutonSoleil);
-                        break;
-                    }
-                case nuage:
-                    if (meteo.getActivite()) {
-                        tabMeteo[x].setIcon(icoBoutonAppuyerNuage);
-                        break;
-                    } else {
-                        tabMeteo[x].setIcon(icoBoutonNuage);
-                        break;
-                    }
-                case pluie:
-                    if (meteo.getActivite()) {
-                        tabMeteo[x].setIcon(icoBoutonAppuyerPluie);
-                        break;
-                    } else {
-                        tabMeteo[x].setIcon(icoBoutonPluie);
-                        break;
-                    }
+                case soleil: j=0; break;
+                case nuage: j=1; break;
+                case pluie: j=2; break;
             }
+            if (meteo.getActivite()) {
+                i=1;
+            }
+            tabMeteo[x].setIcon(icoMeteo[j][i]);
         }
 
         // Affiche l'inventaire
-        tabInventaire[0][0].setIcon(icoBoutonSalade);
-        tabInventaire[1][0].setIcon(icoBoutonCarotte);
-        tabInventaire[2][0].setIcon(icoMur);
-        tabInventaire[3][0].setIcon(icoMur);
-        tabInventaire[0][1].setText(String.valueOf(simulateurPotager.getTabInventaireLegume()[0]));
-        tabInventaire[1][1].setText(String.valueOf(simulateurPotager.getTabInventaireLegume()[1]));
-        //tabInventaire[0][3].setText(String.valueOf(simulateurPotager.getTabInventaireLegume()[2]));
+        // A chnager !! il faut que ça aille jusqu'à NbVariete
+        for (int x = 0; x < NbVariete-1; x++) {
+            tabInventaire[x][0].setIcon(icoGraine[x][0]);
+            tabInventaire[x][1].setText(String.valueOf(simulateurPotager.getTabInventaireLegume()[x]));
+        }
 
         // Affiche la partie sur les sprite des graines
         for (int y = 0; y < 1; y++) {
             for (int x = 0; x < NbVariete; x++) {
                 ButtonGraine graine = (ButtonGraine) simulateurGraines.getGrilleDesGraines()[y][x];
+                int i=0;
+                int j=0;
                 switch (graine.getVariete()) {
-                    case salade:
-                        if (graine.getActivite()) {
-                            tabGraines[y][x].setIcon(icoBoutonAppuyerSalade);
-                            break;
-                        } else {
-                            tabGraines[y][x].setIcon(icoBoutonSalade);
-                            break;
-                        }
-                    case carotte:
-                        if (graine.getActivite()) {
-                            tabGraines[y][x].setIcon(icoBoutonAppuyerCarotte);
-                            break;
-                        } else {
-                            tabGraines[y][x].setIcon(icoBoutonCarotte);
-                            break;
-                        }
+                    case salade: j=0; break;
+                    case carotte: j=1; break;
                 }
+                if (graine.getActivite()) {
+                    i=1;
+                }
+                tabGraines[y][x].setIcon(icoGraine[j][i]);
             }
         }
 
@@ -478,40 +439,18 @@ public class VueControleurPotager extends JFrame implements Observer {
         for (int y = 0; y < 1; y++) {
             for (int x = 0; x < NbOutils; x++) {
                 ButtonOutil outil = (ButtonOutil) simulateurOutil.getGrilleDesOutils()[y][x];
+                int i=0;
+                int j=-1;
                 switch (outil.getTypeOutil()) {
-                    case pelle:
-                        if (outil.getActivite()) {
-                            tabOutils[y][x].setIcon(icoBoutonAppuyerPelle);
-                            break;
-                        } else {
-                            tabOutils[y][x].setIcon(icoBoutonPelle);
-                            break;
-                        }
-                    case rateau:
-                        if (outil.getActivite()) {
-                            tabOutils[y][x].setIcon(icoBoutonAppuyerRateau);
-                            break;
-                        } else {
-                            tabOutils[y][x].setIcon(icoBoutonRateau);
-                            break;
-                        }
-                    case botte:
-                        if (outil.getActivite()) {
-                            tabOutils[y][x].setIcon(icoBoutonAppuyerBotte);
-                            break;
-                        } else {
-                            tabOutils[y][x].setIcon(icoBoutonBotte);
-                            break;
-                        }
-                    case poubelle:
-                        if (outil.getActivite()) {
-                            tabOutils[y][x].setIcon(icoBoutonAppuyerPoubelle);
-                            break;
-                        } else {
-                            tabOutils[y][x].setIcon(icoBoutonPoubelle);
-                            break;
-                        }
+                    case pelle: j =0; break;
+                    case rateau: j=1; break;
+                    case botte: j=2; break;
+                    case poubelle: j=3; break;
                 }
+                if (outil.getActivite()) {
+                    i=1;
+                }
+                tabOutils[y][x].setIcon(icoOutils[j][i]);
             }
         }
 
@@ -519,59 +458,32 @@ public class VueControleurPotager extends JFrame implements Observer {
             for (int y = 0; y < sizeY; y++) {
                 if (simulateurPotager.getPlateau()[x][y] instanceof CaseCultivable) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
 
+                    int j = -1;
+                    switch (simulateurPotager.getSol()) {
+                        case normal: j = 0; break;
+                        case sec: j = 1; break;
+                        case humide: j = 2; break;
+                    }
                     Legume legume = ((CaseCultivable) simulateurPotager.getPlateau()[x][y]).getLegume();
                     int i = -1;
-                    int j = -1;
                     if (legume != null) {
-                        switch (simulateurPotager.getSol()) {
-                            case normal:
-                                j = 0;
-                                break;
-                            case sec:
-                                j = 1;
-                                break;
-                            case humide:
-                                j = 2;
-                                break;
-                        }
                         switch (legume.getEtatLegume()) {
-                            case germe:
-                                i = 0;
-                                break;
-                            case jeune:
-                                i = 1;
-                                break;
-                            case mature:
-                                i = 2;
-                                break;
-                            case pourri:
-                                i = 3;
-                                break;
+                            case germe: i = 0; break;
+                            case jeune: i = 1; break;
+                            case mature: i = 2; break;
+                            case pourri: i = 3; break;
                         }
                         switch (legume.getVariete()) {
                             case salade:
                                 tabJLabel[x][y].setIcon(icoSalade[i][j]);
                                 break;
                             case carotte:
-                                switch (legume.getEtatLegume()) {
-                                    case germe:
-                                        tabJLabel[x][y].setIcon(icoGerme);
-                                        break;
-                                    case jeune:
-                                        tabJLabel[x][y].setIcon(icoJeuneCarotte);
-                                        break;
-                                    case mature:
-                                        tabJLabel[x][y].setIcon(icoCarotte);
-                                        break;
-                                    case pourri:
-                                        tabJLabel[x][y].setIcon(icoCarottePourri);
-                                        break;
-                                }
+                                tabJLabel[x][y].setIcon(icoCarotte[i][j]);
                                 break;
                         }
 
                     } else {
-                        tabJLabel[x][y].setIcon(icoTerre);
+                        tabJLabel[x][y].setIcon(icoTerre[j]);
                     }
 
                     // si transparence : images avec canal alpha + dessins manuels (voir ci-dessous + créer composant qui redéfinie paint(Graphics g)), se documenter
