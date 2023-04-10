@@ -65,6 +65,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     private JLabel[][] tabGraines;
     JTextField vitesseDuJeu;
     JTextField tempsDuJeu;
+    JTextField pourcentageHumidite;
 
     public VueControleurPotager(SimulateurPotager _simulateurPotager) {
         sizeX = simulateurPotager.SIZE_X;
@@ -366,7 +367,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         speedGrille.add(leftArrowButton);
         speedGrille.add(rightArrowButton);
 
-        tempsDuJeu = new JTextField("hey");
+        tempsDuJeu = new JTextField();
         tempsDuJeu.setOpaque(false);
         tempsDuJeu.setEditable(false);
         tempsDuJeu.setHorizontalAlignment(JTextField.CENTER);
@@ -378,13 +379,17 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         // Affichage Partie du Nord
 
-        JComponent MeteoGrille = new JPanel(new GridBagLayout());
+        JComponent MeteoGrille = new JPanel(new GridLayout());
+
         int sizeMeteo = simulateurMeteo2.NB_METEO_MAX;
+        JPanel panelMeteo = new JPanel();
         tabMeteo = new JLabel[sizeMeteo];
+
         for (int i = 0; i<sizeMeteo; i++){
             tabMeteo[i] = new JLabel();
-            MeteoGrille.add(tabMeteo[i]);
+            panelMeteo.add(tabMeteo[i]);
         }
+
         for (int x = 0; x <sizeMeteo; x++) {
             final int xx = x; // constantes utiles au fonctionnement de la classe anonyme
             tabMeteo[x].addMouseListener(new MouseAdapter() {
@@ -394,6 +399,15 @@ public class VueControleurPotager extends JFrame implements Observer {
                 }
             });
         }
+
+        MeteoGrille.add(panelMeteo);
+
+        pourcentageHumidite = new JTextField();
+        pourcentageHumidite.setOpaque(false);
+        pourcentageHumidite.setEditable(false);
+        pourcentageHumidite.setHorizontalAlignment(JTextField.CENTER);
+        pourcentageHumidite.setBorder(null);
+        MeteoGrille.add(pourcentageHumidite);
 
         add(MeteoGrille, BorderLayout.NORTH);
 
@@ -408,6 +422,9 @@ public class VueControleurPotager extends JFrame implements Observer {
         vitesseDuJeu.setText("Vitesse de jeu : x" + SimulateurTemps.getSimuTemps().getVitesseSimulation() + "   ");
         tempsDuJeu.setText(SimulateurTemps.getSimuTemps().getHour()+ "  :  "+ SimulateurTemps.getSimuTemps().getMinu()%60+"  :  "
                 + SimulateurTemps.getSimuTemps().getS()%60 + "       ");
+
+        //Mise à jour du pourcentage d'humidite
+        pourcentageHumidite.setText("Pourcentage d'humidité : "+ simulateurMeteo2.getHumidite()+ "   ");
 
         // Affiche les boutons de la météo
         for (int x = 0; x < simulateurMeteo2.NB_METEO_MAX; x++) {
