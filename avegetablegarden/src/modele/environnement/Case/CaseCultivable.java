@@ -8,6 +8,7 @@ import modele.environnement.Legume.EtatLegume;
 import modele.environnement.Legume.varietes.Carotte;
 import modele.environnement.Legume.varietes.Legume;
 import modele.environnement.Legume.varietes.Salade;
+import modele.environnement.Legume.varietes.Tomate;
 
 public class CaseCultivable extends Case {
 
@@ -59,13 +60,6 @@ public class CaseCultivable extends Case {
             if (legume == null) {
                 legume = new Salade();
 
-            } else {
-                //System.out.println(legume.getCompteur().getSeconde());
-                switch (legume.getEtatLegume()){/* permet de faire changer d'état le légume en cliquant
-                    case germe : legume.setEtatLegume(EtatLegume.mature); break;
-                    case mature: legume.setEtatLegume(EtatLegume.pourri); break;
-                    case pourri: legume = null;*/
-                }
             }
         }
         if (simulateurGraines.getGrilleDesGraines()[0][1].getActivite()){
@@ -73,17 +67,12 @@ public class CaseCultivable extends Case {
                 legume = new Carotte();
                 System.out.println("On plante une nouvelle carotte");
 
-            } else {
-                // A coder
             }
         }
         if (simulateurGraines.getGrilleDesGraines()[0][2].getActivite()){
             if (legume == null) {
-                // A coder
-                System.out.println("On plante une nouvelle fleur");
+                legume = new Tomate();
 
-            } else {
-                // A coder
             }
         }
     }

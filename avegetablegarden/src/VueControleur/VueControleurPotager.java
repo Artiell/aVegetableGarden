@@ -44,6 +44,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     // icones affichées dans la grille
     private ImageIcon[][] icoSalade;
     private ImageIcon[][] icoCarotte;
+    private ImageIcon[][] icoTomate;
     private ImageIcon[] icoTerre;
     private ImageIcon[][] icoOutils;
     private ImageIcon[][] icoGraine;
@@ -101,18 +102,18 @@ public class VueControleurPotager extends JFrame implements Observer {
 
     private void chargerLesIcones() {
         // image libre de droits utilisée pour les légumes : https://www.vecteezy.com/vector-art/2559196-bundle-of-fruits-and-vegetables-icons
-    
-        // Il faut rajouter SaladePourri
-        //icoJeuneSalade = chargerIcone("Images/spriteTerrain/Salade/dirtCenterPousse.png", 0, 0, 50, 50);//chargerIcone("Images/Pacman.png");
-        //icoSalade = chargerIcone("Images/spriteTerrain/Salade/dirtCenterSalade.png", 0, 0, 50, 50);//chargerIcone("Images/Pacman.png");
+
         icoSalade = new ImageIcon[4][3];
         icoCarotte = new ImageIcon[4][3];
+        icoTomate = new ImageIcon[4][3];
         for (int j = 0; j< 4; j++) {
             for (int i = 0; i < 3; i++) {
                 icoSalade[j][i] = new ImageIcon();
                 icoCarotte[j][i] = new ImageIcon();
+                icoTomate[j][i] = new ImageIcon();
                 icoSalade[j][i] = chargerIcone("Images/spriteTerrain/Salade/" + i + "dirtCenterSalade" + j + ".png");
                 icoCarotte[j][i] = chargerIcone("Images/spriteTerrain/Carotte/" + i + "dirtCenterCarotte" + j + ".png");
+                icoTomate[j][i] = chargerIcone("Images/spriteTerrain/Tomate/" + i + "dirtCenterTomate" + j + ".png");
             }
         }
         icoTerre = new ImageIcon[3];
@@ -129,8 +130,8 @@ public class VueControleurPotager extends JFrame implements Observer {
             }
         }
 
-        icoGraine = new ImageIcon[2][2];
-        for (int j = 0; j< 2; j++) {
+        icoGraine = new ImageIcon[NbVariete][2];
+        for (int j = 0; j< 3; j++) {
             for (int i = 0; i < 2; i++) {
                 icoGraine[j][i] = new ImageIcon();
                 icoGraine[j][i] = chargerIcone("Images/Graines/Graine"+j+"Etat"+ i + ".png");
@@ -443,8 +444,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         }
 
         // Affiche l'inventaire
-        // A chnager !! il faut que ça aille jusqu'à NbVariete
-        for (int x = 0; x < NbVariete-1; x++) {
+        for (int x = 0; x < NbVariete; x++) {
             tabInventaire[x][0].setIcon(icoGraine[x][0]);
             tabInventaire[x][1].setText(String.valueOf(simulateurPotager.getTabInventaireLegume()[x]));
         }
@@ -458,6 +458,7 @@ public class VueControleurPotager extends JFrame implements Observer {
                 switch (graine.getVariete()) {
                     case salade: j=0; break;
                     case carotte: j=1; break;
+                    case tomate: j=2; break;
                 }
                 if (graine.getActivite()) {
                     i=1;
@@ -510,6 +511,9 @@ public class VueControleurPotager extends JFrame implements Observer {
                                 break;
                             case carotte:
                                 tabJLabel[x][y].setIcon(icoCarotte[i][j]);
+                                break;
+                            case tomate:
+                                tabJLabel[x][y].setIcon(icoTomate[i][j]);
                                 break;
                         }
 
