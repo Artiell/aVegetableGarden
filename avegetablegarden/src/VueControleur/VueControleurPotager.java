@@ -63,6 +63,8 @@ public class VueControleurPotager extends JFrame implements Observer {
     private JLabel[][] tabInventaire;
     private JLabel[] tabMeteo;
     private JLabel[][] tabGraines;
+    JTextField vitesseDuJeu;
+    JTextField tempsDuJeu;
 
     public VueControleurPotager(SimulateurPotager _simulateurPotager) {
         sizeX = simulateurPotager.SIZE_X;
@@ -305,13 +307,13 @@ public class VueControleurPotager extends JFrame implements Observer {
         // Affichage de la partie du bas concernant la vitesse d'éxécution de la simulation
 
         JComponent speedGrille = new JPanel(new GridBagLayout());
-        JTextField jtf4 = new JTextField("Vitesse de jeu : x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
-        jtf4.setOpaque(false);
-        jtf4.setEditable(false);
-        jtf4.setHorizontalAlignment(JTextField.CENTER);
-        jtf4.setBorder(null);
+        vitesseDuJeu = new JTextField();
+        vitesseDuJeu.setOpaque(false);
+        vitesseDuJeu.setEditable(false);
+        vitesseDuJeu.setHorizontalAlignment(JTextField.CENTER);
+        vitesseDuJeu.setBorder(null);
 
-        speedGrille.add(jtf4);
+        speedGrille.add(vitesseDuJeu);
 
         JButton playButton = new JButton(this.icoPlayButton);
         playButton.addMouseListener(new MouseAdapter() {
@@ -364,6 +366,14 @@ public class VueControleurPotager extends JFrame implements Observer {
         speedGrille.add(leftArrowButton);
         speedGrille.add(rightArrowButton);
 
+        tempsDuJeu = new JTextField("hey");
+        tempsDuJeu.setOpaque(false);
+        tempsDuJeu.setEditable(false);
+        tempsDuJeu.setHorizontalAlignment(JTextField.CENTER);
+        tempsDuJeu.setBorder(null);
+
+        speedGrille.add(tempsDuJeu);
+
         this.add(speedGrille, BorderLayout.SOUTH);
 
         // Affichage Partie du Nord
@@ -394,6 +404,10 @@ public class VueControleurPotager extends JFrame implements Observer {
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
     private void mettreAJourAffichage() {
+        //Mise à jour de l'accélération et du temps
+        vitesseDuJeu.setText("Vitesse de jeu : x" + SimulateurTemps.getSimuTemps().getVitesseSimulation() + "   ");
+        tempsDuJeu.setText(SimulateurTemps.getSimuTemps().getHour()+ "  :  "+ SimulateurTemps.getSimuTemps().getMinu()%60+"  :  "
+                + SimulateurTemps.getSimuTemps().getS()%60 + "       ");
 
         // Affiche les boutons de la météo
         for (int x = 0; x < simulateurMeteo2.NB_METEO_MAX; x++) {
