@@ -51,7 +51,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon[][] icoMeteo;
     private ImageIcon icoVide;
     private ImageIcon icoMur;
-    private ImageIcon gardenFence;
+    private ImageIcon[][] gardenFence;
     private ImageIcon icoBuisson;
     private ImageIcon icoPauseButton;
     private ImageIcon icoPlayButton;
@@ -130,6 +130,14 @@ public class VueControleurPotager extends JFrame implements Observer {
             }
         }
 
+        gardenFence = new ImageIcon[3][8];
+        for (int j = 0; j< 8; j++) {
+            for (int i = 0; i < 3; i++) {
+                gardenFence[i][j] = new ImageIcon();
+                gardenFence[i][j] = chargerIcone("Images/spriteTerrain/"+i+"fence"+ j + ".png");
+            }
+        }
+
         icoGraine = new ImageIcon[NbVariete][2];
         for (int j = 0; j< 3; j++) {
             for (int i = 0; i < 2; i++) {
@@ -149,7 +157,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         icoVide = chargerIcone("Images/Vide.png");
         icoMur = chargerIcone("Images/Mur.png");
 
-        this.gardenFence = this.chargerIcone("Images/spriteTerrain/gardenFence.png");
+        //this.gardenFence = this.chargerIcone("Images/spriteTerrain/gardenFence.png");
 
         this.icoLeftArrowButton = this.chargerIcone("Images/leftArrowButton.png");
         this.icoRightArrowButton = this.chargerIcone("Images/rightArrowButton.png");
@@ -488,14 +496,14 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
+                int j = -1;
+                switch (simulateurPotager.getSol()) {
+                    case normal: j = 0; break;
+                    case sec: j = 1; break;
+                    case humide: j = 2; break;
+                }
                 if (simulateurPotager.getPlateau()[x][y] instanceof CaseCultivable) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
 
-                    int j = -1;
-                    switch (simulateurPotager.getSol()) {
-                        case normal: j = 0; break;
-                        case sec: j = 1; break;
-                        case humide: j = 2; break;
-                    }
                     Legume legume = ((CaseCultivable) simulateurPotager.getPlateau()[x][y]).getLegume();
                     int i = -1;
                     if (legume != null) {
@@ -525,7 +533,18 @@ public class VueControleurPotager extends JFrame implements Observer {
                     //BufferedImage bi = getImage("Images/smick.png", 0, 0, 20, 20);
                     //tabJLabel[x][y].getGraphics().drawImage(bi, 0, 0, null)
                 }else if (simulateurPotager.getPlateau()[x][y] instanceof CaseMur) {
-                    tabJLabel[x][y].setIcon(gardenFence);
+                    int i = -1;
+                    switch (((CaseMur) simulateurPotager.getPlateau()[x][y]).getTypeMur()){
+                        case tournantHautGauche : i = 0;break;
+                        case haut: i= 1; break;
+                        case tournantHautDroit: i = 2;break;
+                        case droit: i=3; break;
+                        case tournantBasDroit: i=4; break;
+                        case bas: i=5; break;
+                        case tournantBasGauche: i=6;break;
+                        case gauche:i=7; break;
+                    }
+                    tabJLabel[x][y].setIcon(gardenFence[j][i]);
                 } else if (simulateurPotager.getPlateau()[x][y] instanceof CaseNonRatisser) {
                     tabJLabel[x][y].setIcon(icoBuisson);
                 } else {

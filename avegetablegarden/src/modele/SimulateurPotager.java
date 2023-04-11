@@ -70,15 +70,33 @@ public class SimulateurPotager {
     private void initialisationDesEntites() {
 
         // murs extérieurs horizontaux
-        for (int x = 0; x < 20; x++) {
-            Case cc = new CaseMur(this,simulateurGraines, simulateurOutil);
-            Case cc1 = new CaseMur(this,simulateurGraines, simulateurOutil);
+        for (int x = 1; x < SIZE_X-1; x++) {
+            Case cc = new CaseMur(this,simulateurGraines, simulateurOutil, TypeMur.haut);
+            Case cc1 = new CaseMur(this,simulateurGraines, simulateurOutil, TypeMur.bas);
             addEntite(cc, x, 0);
             addEntite(cc1, x, SIZE_Y - 1);
             Ordonnanceur.getOrdonnanceur().add(cc);
             Ordonnanceur.getOrdonnanceur().add(cc1);
         }
 
+        for (int y = 1; y < SIZE_Y-1; y++) {
+            Case cc = new CaseMur(this,simulateurGraines, simulateurOutil, TypeMur.gauche);
+            Case cc1 = new CaseMur(this,simulateurGraines, simulateurOutil, TypeMur.droit);
+            addEntite(cc, 0, y);
+            addEntite(cc1, SIZE_X-1, y);
+            Ordonnanceur.getOrdonnanceur().add(cc);
+            Ordonnanceur.getOrdonnanceur().add(cc1);
+        }
+        //Mur des coins
+        Case cc1 = new CaseMur(this,simulateurGraines, simulateurOutil, TypeMur.tournantHautGauche);
+        Case cc2 = new CaseMur(this,simulateurGraines, simulateurOutil, TypeMur.tournantHautDroit);
+        Case cc3 = new CaseMur(this,simulateurGraines, simulateurOutil, TypeMur.tournantBasGauche);
+        Case cc4 = new CaseMur(this,simulateurGraines, simulateurOutil, TypeMur.tournantBasDroit);
+        addEntite(cc1, 0, 0);
+        addEntite(cc2, SIZE_X-1, 0);
+        addEntite(cc3,0, SIZE_Y - 1);
+        addEntite(cc4, SIZE_X-1, SIZE_Y - 1);
+/*
         for (int x = 0; x < 20; x++) {
             Case cc = new CaseNonRatisser(this,simulateurGraines, simulateurOutil);
             Case cc1 = new CaseNonRatisser(this,simulateurGraines, simulateurOutil);
@@ -86,15 +104,15 @@ public class SimulateurPotager {
             addEntite(cc1, x, SIZE_Y - 2);
             Ordonnanceur.getOrdonnanceur().add(cc);
             Ordonnanceur.getOrdonnanceur().add(cc1);
-        }
+        }*/
 
 
 
         // PLUS DE MUR VERTICAUX
         // murs extérieurs verticaux
 
-        for(int i=0; i<SIZE_X; i++){
-            for(int j=0; j<SIZE_Y; j++){
+        for(int i=1; i<SIZE_X-1; i++){
+            for(int j=1; j<SIZE_Y-1; j++){
                 if(grilleCases[i][j] == null){
                     CaseCultivable cc = new CaseCultivable(this,simulateurGraines, simulateurOutil);
                     addEntite(cc, i, j);
