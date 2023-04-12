@@ -23,6 +23,7 @@ import modele.environnement.Case.CaseNonCultivable;
 import modele.environnement.Case.CaseNonRatisser;
 import modele.environnement.Legume.varietes.Legume;
 import modele.environnement.Legume.varietes.Varietes;
+import modele.outils.*;
 
 
 /** Cette classe a deux fonctions :
@@ -32,9 +33,6 @@ import modele.environnement.Legume.varietes.Varietes;
  */
 public class VueControleurPotager extends JFrame implements Observer {
     private SimulateurPotager simulateurPotager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
-
-    private SimulateurGraines simulateurGraines;
-    private SimulateurOutil simulateurOutil;
     private SimulateurMeteo simulateurMeteo;
     private int sizeX; // taille de la grille affichée
     private int sizeY;
@@ -73,12 +71,10 @@ public class VueControleurPotager extends JFrame implements Observer {
         sizeY = _simulateurPotager.SIZE_Y;
 
         simulateurPotager = _simulateurPotager;
-        simulateurGraines = simulateurPotager.getSimulateurGraines();
-        simulateurOutil = simulateurPotager.getSimulateurOutil();
         simulateurMeteo = simulateurPotager.getSimulateurMeteo();
 
-        NbVariete = simulateurGraines.NB_VARIETE_MAX;
-        NbOutils = simulateurOutil.NB_OUTIL_MAX;
+        NbVariete = Varietes.values().length;
+        NbOutils = TypeOutil.values().length;
 
         chargerLesIcones();
         placerLesComposantsGraphiques();
@@ -233,7 +229,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         grilleInfosGauche.add(jtf3);
 
         // Permet l'affichage de la grille d'outils à droite
-        int size_x_graine = simulateurGraines.NB_VARIETE_MAX;
+        int size_x_graine = NbVariete;
         int size_y_graine = 1;
         JComponent grilleGraine = new JPanel(new GridLayout(size_y_graine, size_x_graine));
         tabGraines = new JLabel[size_y_graine][size_x_graine];
@@ -283,14 +279,17 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabGraines[y][x].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-
-                        simulateurOutil.updateOutilActif();
-
-                        if(simulateurOutil.isOutilActif()){
-                            simulateurOutil.setAllOutilFalse();
-
+                        // TODO : désactiver n'est peut être pas nécessaire
+                        if (simulateurPotager.getFonctionnalite() != null){
+                            simulateurPotager.getFonctionnalite().desactiver();
                         }
-                        simulateurGraines.actionUtilisateur(yy, xx);
+                        switch (xx){
+                            case 0: simulateurPotager.setFonctionnalite(new GraineSalade());break;
+                            case 1: simulateurPotager.setFonctionnalite(new GraineCarotte());break;
+                            case 2: simulateurPotager.setFonctionnalite(new GraineTomate());break;
+                        }
+                        simulateurPotager.getFonctionnalite().activer();
+
                     }
                 });
             }
@@ -303,13 +302,16 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabOutils[y][x].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-
-                        simulateurGraines.updateGraineActif();
-
-                        if(simulateurGraines.isGraineActif()){
-                            simulateurGraines.setGraineAllFalse();
+                        if (simulateurPotager.getFonctionnalite() != null){
+                            simulateurPotager.getFonctionnalite().desactiver();
                         }
-                        simulateurOutil.actionUtilisateur(yy, xx);
+                        switch (xx){
+                            case 0: simulateurPotager.setFonctionnalite(new Pelle());break;
+                            case 1: simulateurPotager.setFonctionnalite(new Rateau());break;
+                            case 2: simulateurPotager.setFonctionnalite(new Botte());break;
+                            case 3: simulateurPotager.setFonctionnalite(new Poubelle());break;
+                        }
+                        simulateurPotager.getFonctionnalite().activer();
                     }
                 });
             }
@@ -458,40 +460,27 @@ public class VueControleurPotager extends JFrame implements Observer {
             tabInventaire[x][1].setText(String.valueOf(simulateurPotager.getTabInventaireLegume()[x]));
         }
 
-        // Affiche la partie sur les sprite des graines
+        // Affiche la partie sur les sprite des graine
         for (int y = 0; y < 1; y++) {
             for (int x = 0; x < NbVariete; x++) {
-                ButtonGraine graine = (ButtonGraine) simulateurGraines.getGrilleDesGraines()[y][x];
-                int i=0;
-                int j=0;
-                switch (graine.getVariete()) {
-                    case salade: j=0; break;
-                    case carotte: j=1; break;
-                    case tomate: j=2; break;
-                }
-                if (graine.getActivite()) {
-                    i=1;
-                }
-                tabGraines[y][x].setIcon(icoGraine[j][i]);
+                int j = 0;
+                if (simulateurPotager.getFonctionnalite() instanceof GraineSalade && x == 0) j=1;
+                if (simulateurPotager.getFonctionnalite() instanceof GraineCarotte && x == 1) j=1;
+                if (simulateurPotager.getFonctionnalite() instanceof GraineTomate && x == 2) j=1;
+                tabGraines[y][x].setIcon(icoGraine[x][j]);
             }
         }
 
         // Affiche les sprites des outils
         for (int y = 0; y < 1; y++) {
             for (int x = 0; x < NbOutils; x++) {
-                ButtonOutil outil = (ButtonOutil) simulateurOutil.getGrilleDesOutils()[y][x];
-                int i=0;
-                int j=-1;
-                switch (outil.getTypeOutil()) {
-                    case pelle: j =0; break;
-                    case rateau: j=1; break;
-                    case botte: j=2; break;
-                    case poubelle: j=3; break;
-                }
-                if (outil.getActivite()) {
-                    i=1;
-                }
-                tabOutils[y][x].setIcon(icoOutils[j][i]);
+                int j=0;
+                if (simulateurPotager.getFonctionnalite() instanceof Pelle && x==0) j= 1;
+                if (simulateurPotager.getFonctionnalite() instanceof Rateau && x==1) j= 1;
+                if (simulateurPotager.getFonctionnalite() instanceof Botte && x==2) j= 1;
+                if (simulateurPotager.getFonctionnalite() instanceof Poubelle && x==3) j= 1;
+
+                tabOutils[y][x].setIcon(icoOutils[x][j]);
             }
         }
 

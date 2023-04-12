@@ -1,80 +1,33 @@
 package modele.environnement.Case;
 
-import modele.SimulateurGraines;
-import modele.SimulateurOutil;
 import modele.SimulateurPotager;
 import modele.TypeSol;
-import modele.environnement.Legume.EtatLegume;
-import modele.environnement.Legume.varietes.Carotte;
 import modele.environnement.Legume.varietes.Legume;
-import modele.environnement.Legume.varietes.Salade;
-import modele.environnement.Legume.varietes.Tomate;
+import modele.outils.Outil;
+import modele.outils.Plante;
 
 public class CaseCultivable extends Case {
 
     private Legume legume;
-    private TypeSol typeSol;
-    public CaseCultivable(SimulateurPotager _simulateurPotager, SimulateurGraines _simulateurGraines, SimulateurOutil _simOutils) {
-        super(_simulateurPotager, _simulateurGraines, _simOutils);
-        typeSol = TypeSol.normal;
+    SimulateurPotager simulateurPotager;
+    public CaseCultivable(SimulateurPotager _simulateurPotager) {
+        super();
+        simulateurPotager = _simulateurPotager;
     }
 
     @Override
     public void actionUtilisateur() {
 
-        //si le premier outil est activé (la pelle)
-        if (simulateurOutil.getGrilleDesOutils()[0][0].getActivite()){
-            if (legume != null && legume.getEtatLegume() == EtatLegume.mature){
-                switch (legume.getVariete()){
+        // gere la pelle la botte et la poubelle
 
-                    case salade : this.simulateurPotager.incrTabInventaireLegume(0);
-                        legume = null;
-                        break;
-                    case carotte: this.simulateurPotager.incrTabInventaireLegume(1);
-                        legume = null;
-                        break;
-                    case tomate: this.simulateurPotager.incrTabInventaireLegume(2);
-                        legume = null;
-                        break;
-
-                }
-            }
+        if (simulateurPotager.getFonctionnalite() instanceof Outil) {
+            Outil outil = (Outil) simulateurPotager.getFonctionnalite();
+            legume = outil.actionOutil(legume, simulateurPotager);
+        } else if (simulateurPotager.getFonctionnalite() instanceof Plante) {
+            Plante plante = (Plante) simulateurPotager.getFonctionnalite();
+            legume = plante.action();
         }
 
-        // Gère la botte
-        if (simulateurOutil.getGrilleDesOutils()[0][2].getActivite()){
-            if(legume != null && legume.getEtatLegume() != EtatLegume.pourri){
-                legume = null;
-            }
-        }
-
-        // Gère la poubelle
-        if (simulateurOutil.getGrilleDesOutils()[0][3].getActivite()){
-            if(legume != null && legume.getEtatLegume() == EtatLegume.pourri){
-                legume = null;
-            }
-        }
-
-        // On vérifie qu'on a selectionné la bonne graine et que la pelle n'est pas sélectionnée
-        if (simulateurGraines.getGrilleDesGraines()[0][0].getActivite() && !simulateurOutil.getGrilleDesOutils()[0][0].getActivite()){
-            if (legume == null) {
-                legume = new Salade();
-
-            }
-        }
-        if (simulateurGraines.getGrilleDesGraines()[0][1].getActivite()){
-            if (legume == null) {
-                legume = new Carotte();
-                System.out.println("On plante une nouvelle carotte");
-
-            }
-        }
-        if (simulateurGraines.getGrilleDesGraines()[0][2].getActivite()){
-            if (legume == null) {
-                legume = new Tomate();
-
-            }
-        }
     }
 
     public Legume getLegume() {
@@ -86,6 +39,5 @@ public class CaseCultivable extends Case {
             legume.nextStep(simulateurPotager.getSol());
             legume.vieillir();
         }
-        simulateurPotager.updateSol();
     }
 }
