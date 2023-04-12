@@ -1,6 +1,4 @@
 package modele;
-
-import java.time.LocalTime;
 import java.util.Observable;
 import java.util.Vector;
 
@@ -32,13 +30,17 @@ public class Ordonnanceur extends Observable implements Runnable {
     }
 
     public void add(Runnable r) {lst.add(r);}
+    public void remove(Runnable r) {lst.remove(r);}
 
     @Override
     public void run() {
         boolean update = true;
 
         while(true) {
-            for (Runnable r : lst) {
+
+            Vector<Runnable> CopieLst = new Vector<Runnable>(this.lst); // copie de la liste pour éviter les problèmes de concurrence
+
+            for (Runnable r : CopieLst) {
                 r.run();
             }
 
@@ -58,6 +60,5 @@ public class Ordonnanceur extends Observable implements Runnable {
             //ajout de 300ms écoulé pour le simulateur de temps après le sleep
             SimulateurTemps.getSimuTemps().Incr(300);
         }
-
     }
 }

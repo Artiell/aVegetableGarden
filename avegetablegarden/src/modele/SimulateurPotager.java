@@ -14,7 +14,7 @@ import java.awt.Point;
 import java.util.Random;
 
 
-public class SimulateurPotager {
+public class SimulateurPotager implements Runnable{
 
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 15;
@@ -160,4 +160,36 @@ public class SimulateurPotager {
         return grilleCases[p.x][p.y];
     }
 
+    public synchronized void updateBush(){
+        for(int i=0; i<SIZE_X; i++){
+            for(int j=0; j<SIZE_Y; j++){
+
+                if(grilleCases[i][j] instanceof CaseCultivable){
+                    if(((CaseCultivable) grilleCases[i][j]).getLegume() != null){
+                        System.out.println(((CaseCultivable) grilleCases[i][j]).getLegume().getTempsPourri());
+                        if(((CaseCultivable) grilleCases[i][j]).getLegume().getTempsPourri() >= 20){
+
+                            //on supprime premièrement la case du run de l'ordo pour eviter un nullpointer exception sur la methode run d'une case qui n'est plus dans le vecteur
+                            Ordonnanceur.getOrdonnanceur().remove(grilleCases[i][j]);
+                            //on passe la case en question a null
+                            grilleCases[i][j] = null;
+
+                            //on crée une nouvelle case et on l'ajoute au tableau et a l'ordo
+                            CaseNonRatisser cnt = new CaseNonRatisser(this, this.simulateurGraines, this.simulateurOutil);
+                            this.addEntite(cnt, i, j);
+                            System.out.println("case non ratisser");
+                            Ordonnanceur.getOrdonnanceur().add(cnt);
+
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        this.updateBush();
+    }
 }

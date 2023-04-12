@@ -4,20 +4,22 @@ import modele.SimulateurTemps;
 import modele.TypeSol;
 import modele.environnement.Legume.EtatLegume;
 
+import java.time.LocalTime;
+
 public abstract class Legume {
 
-    public void setVitesseCroisssance(float vitesseCroisssance) {
-        this.vitesseCroisssance = vitesseCroisssance;
-    }
-
-    private float vitesseCroisssance; //pas utilisé encore
-    private int tempsDeVieMax;
     private int tempsDeVieActuel;
     private EtatLegume etatLegume; //pas utilisé encore
     private int Naissance; //nb de secondes à laquelle le légume est créer
 
-    public float getVitesseCroisssance() {
-        return vitesseCroisssance;
+    public void setTempsPourri(int tempsPourri) {
+        this.tempsPourri = tempsPourri;
+    }
+
+    private int tempsPourri;
+
+    public int getTempsPourri() {
+        return tempsPourri;
     }
 
     public int getNaissance() {
@@ -27,10 +29,9 @@ public abstract class Legume {
     public Legume() {
 
         this.Naissance = SimulateurTemps.getSimuTemps().getS();
-        this.tempsDeVieMax = 25;
         this.tempsDeVieActuel = 0;
         this.etatLegume = EtatLegume.germe;
-        this.vitesseCroisssance = 1;
+        this.tempsPourri = 0;
 
     }
     public void vieillir (){
