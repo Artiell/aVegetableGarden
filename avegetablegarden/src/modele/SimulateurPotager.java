@@ -96,15 +96,15 @@ public class SimulateurPotager {
         addEntite(cc2, SIZE_X-1, 0);
         addEntite(cc3,0, SIZE_Y - 1);
         addEntite(cc4, SIZE_X-1, SIZE_Y - 1);
-/*
-        for (int x = 0; x < 20; x++) {
+
+        for (int x = 1; x < SIZE_X-1; x++) {
             Case cc = new CaseNonRatisser(this,simulateurGraines, simulateurOutil);
-            Case cc1 = new CaseNonRatisser(this,simulateurGraines, simulateurOutil);
+            //Case cc1 = new CaseNonRatisser(this,simulateurGraines, simulateurOutil);
             addEntite(cc, x, 1);
-            addEntite(cc1, x, SIZE_Y - 2);
+            //addEntite(cc1, x, SIZE_Y - 2);
             Ordonnanceur.getOrdonnanceur().add(cc);
             Ordonnanceur.getOrdonnanceur().add(cc1);
-        }*/
+        }
 
 
 

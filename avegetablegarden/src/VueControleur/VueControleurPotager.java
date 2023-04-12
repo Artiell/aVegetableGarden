@@ -52,7 +52,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoVide;
     private ImageIcon icoMur;
     private ImageIcon[][] gardenFence;
-    private ImageIcon icoBuisson;
+    private ImageIcon[] icoBuisson;
     private ImageIcon icoPauseButton;
     private ImageIcon icoPlayButton;
     private ImageIcon icoLeftArrowButton;
@@ -117,9 +117,12 @@ public class VueControleurPotager extends JFrame implements Observer {
             }
         }
         icoTerre = new ImageIcon[3];
+        icoBuisson = new ImageIcon[3];
         for (int i = 0; i < 3; i++) {
             icoTerre[i] = new ImageIcon();
+            icoBuisson[i] = new ImageIcon();
             icoTerre[i] = chargerIcone("Images/spriteTerrain/dirtCenter"+i+".png");
+            icoBuisson[i] = chargerIcone("Images/spriteTerrain/"+i+"buisson.png");
         }
 
         icoOutils = new ImageIcon[4][2];
@@ -163,8 +166,6 @@ public class VueControleurPotager extends JFrame implements Observer {
         this.icoRightArrowButton = this.chargerIcone("Images/rightArrowButton.png");
         this.icoPauseButton = this.chargerIcone("Images/pauseButton.png");
         this.icoPlayButton = this.chargerIcone("Images/playButton.png");
-
-        icoBuisson = chargerIcone("Images/spriteTerrain/bush1.png");
     }
 
     private void placerLesComposantsGraphiques() {
@@ -546,7 +547,7 @@ public class VueControleurPotager extends JFrame implements Observer {
                     }
                     tabJLabel[x][y].setIcon(gardenFence[j][i]);
                 } else if (simulateurPotager.getPlateau()[x][y] instanceof CaseNonRatisser) {
-                    tabJLabel[x][y].setIcon(icoBuisson);
+                    tabJLabel[x][y].setIcon(icoBuisson[j]);
                 } else {
                     tabJLabel[x][y].setIcon(icoVide);
                 }
