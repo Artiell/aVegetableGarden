@@ -10,11 +10,11 @@ public class Botte extends Outil{
         super();
     }
     public Legume actionOutil(Legume legume, SimulateurPotager simulateurPotager){
-        if (actif){
+
             if(legume != null && legume.getEtatLegume() != EtatLegume.pourri){
                 legume = null;
             }
-        }
+
         return legume;
     }
 }

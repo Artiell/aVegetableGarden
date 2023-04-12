@@ -135,6 +135,65 @@ public class SimulateurPotager implements Runnable{
         }
 
     }
+    public void actionUtilisateurOutils(int x) {
+        switch (x){
+            case 0:
+                if (fonctionnalite instanceof Pelle){
+                    fonctionnalite = null;
+                }else {
+                    fonctionnalite = new Pelle();
+                }
+                break;
+            case 1:
+                if (fonctionnalite instanceof Rateau){
+                    fonctionnalite = null;
+                }else {
+                    fonctionnalite = new Rateau();
+                }
+                break;
+            case 2:
+                if (fonctionnalite instanceof Botte){
+                    fonctionnalite = null;
+                }else {
+                    fonctionnalite = new Botte();
+                }
+                break;
+            case 3:
+                if (fonctionnalite instanceof Poubelle){
+                    fonctionnalite = null;
+                }else {
+                    fonctionnalite = new Poubelle();
+                }
+                break;
+        }
+
+    }
+
+    public void actionUtilisateurGraines(int _x) {
+        switch (_x) {
+            case 0:
+                if (fonctionnalite instanceof GraineSalade) {
+                    fonctionnalite = null;
+                }else {
+                    fonctionnalite = new GraineSalade();
+                }
+                break;
+            case 1:
+                if (fonctionnalite instanceof GraineCarotte) {
+                    fonctionnalite = null;
+                }else{
+                    fonctionnalite = new GraineCarotte();
+                }
+                break;
+            case 2:
+                if (fonctionnalite instanceof GraineTomate) {
+                    fonctionnalite = null;
+                }else {
+                    fonctionnalite = new GraineTomate();
+                }
+                break;
+        }
+    }
 
     public void addEntite(Case e, int x, int y) {
         grilleCases[x][y] = e;

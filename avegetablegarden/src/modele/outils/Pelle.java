@@ -9,10 +9,8 @@ public class Pelle extends Outil {
 
     public Pelle (){
         super();
-        actif = true;
     }
     public Legume actionOutil(Legume legume, SimulateurPotager simulateurPotager){
-        if (actif){
             System.out.println("PELLLE");
             if (legume != null && legume.getEtatLegume() == EtatLegume.mature){
                 switch (legume.getVariete()){
@@ -29,7 +27,7 @@ public class Pelle extends Outil {
 
                 }
             }
-        }
+
         return legume;
     }
 }

@@ -279,16 +279,7 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabGraines[y][x].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        // TODO : désactiver n'est peut être pas nécessaire
-                        if (simulateurPotager.getFonctionnalite() != null){
-                            simulateurPotager.getFonctionnalite().desactiver();
-                        }
-                        switch (xx){
-                            case 0: simulateurPotager.setFonctionnalite(new GraineSalade());break;
-                            case 1: simulateurPotager.setFonctionnalite(new GraineCarotte());break;
-                            case 2: simulateurPotager.setFonctionnalite(new GraineTomate());break;
-                        }
-                        simulateurPotager.getFonctionnalite().activer();
+                        simulateurPotager.actionUtilisateurGraines(xx);
 
                     }
                 });
@@ -302,16 +293,7 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabOutils[y][x].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if (simulateurPotager.getFonctionnalite() != null){
-                            simulateurPotager.getFonctionnalite().desactiver();
-                        }
-                        switch (xx){
-                            case 0: simulateurPotager.setFonctionnalite(new Pelle());break;
-                            case 1: simulateurPotager.setFonctionnalite(new Rateau());break;
-                            case 2: simulateurPotager.setFonctionnalite(new Botte());break;
-                            case 3: simulateurPotager.setFonctionnalite(new Poubelle());break;
-                        }
-                        simulateurPotager.getFonctionnalite().activer();
+                        simulateurPotager.actionUtilisateurOutils(xx);
                     }
                 });
             }

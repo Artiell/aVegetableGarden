@@ -10,15 +10,15 @@ public class Rateau extends Fonctionnalite{
     public Rateau (){
        super();
     }
+    public Fonctionnalite actionUtilisateur (int xx){return null;}
     public void actionUtilisateur(Case cases,int x, int y, SimulateurPotager simulateurPotager){
-        if (actif){
-            System.out.println("Rateau");
-            if (cases instanceof CaseNonRatisser){
-                cases = null;
-                CaseCultivable cc = new CaseCultivable(simulateurPotager);
-                simulateurPotager.addEntite(cc, x, y);
-                Ordonnanceur.getOrdonnanceur().add(cc);
-            }
+
+        System.out.println("Rateau");
+        if (cases instanceof CaseNonRatisser){
+            cases = null;
+            CaseCultivable cc = new CaseCultivable(simulateurPotager);
+            simulateurPotager.addEntite(cc, x, y);
+            Ordonnanceur.getOrdonnanceur().add(cc);
         }
     }
 }
