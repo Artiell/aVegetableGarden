@@ -2,8 +2,9 @@ package modele.environnement.Legume.varietes;
 
 import modele.TypeSol;
 import modele.environnement.Legume.EtatLegume;
+import modele.environnement.Legume.Legume;
 
-public class Tomate extends Legume{
+public class Tomate extends Legume {
     @Override
     public Varietes getVariete() {
         return Varietes.tomate;
@@ -45,5 +46,6 @@ public class Tomate extends Legume{
                 }
                 break;
         }
+        this.updatePourri();
     }
 }

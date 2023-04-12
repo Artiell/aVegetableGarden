@@ -1,10 +1,9 @@
 package modele.environnement.Case;
 
 import modele.SimulateurPotager;
-import modele.TypeSol;
-import modele.environnement.Legume.varietes.Legume;
-import modele.outils.Outil;
-import modele.outils.Plante;
+import modele.environnement.Legume.Legume;
+import modele.fonctionnalite.outils.Outil;
+import modele.fonctionnalite.plantes.Plante;
 
 public class CaseCultivable extends Case {
 

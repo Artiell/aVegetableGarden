@@ -1,7 +1,6 @@
 package modele.environnement.Button;
 
 import modele.TypeMeteo;
-import modele.outils.TypeOutil;
 
 public class ButtonMeteo extends Button{
     private TypeMeteo typeMeteo;

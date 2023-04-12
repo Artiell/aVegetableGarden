@@ -1,6 +1,6 @@
 package modele.environnement.Button;
 
-import modele.outils.TypeOutil;
+import modele.fonctionnalite.outils.TypeOutil;
 
 public class ButtonOutil extends Button{
     private TypeOutil typeOutil;

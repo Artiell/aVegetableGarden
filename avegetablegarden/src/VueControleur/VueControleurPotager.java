@@ -15,15 +15,15 @@ import javax.swing.*;
 
 import modele.*;
 import modele.environnement.Button.ButtonMeteo;
-import modele.environnement.Button.ButtonOutil;
 import modele.environnement.Case.CaseCultivable;
-import modele.environnement.Button.ButtonGraine;
 import modele.environnement.Case.CaseMur;
-import modele.environnement.Case.CaseNonCultivable;
 import modele.environnement.Case.CaseNonRatisser;
-import modele.environnement.Legume.varietes.Legume;
+import modele.environnement.Legume.Legume;
 import modele.environnement.Legume.varietes.Varietes;
-import modele.outils.*;
+import modele.fonctionnalite.outils.*;
+import modele.fonctionnalite.plantes.GraineCarotte;
+import modele.fonctionnalite.plantes.GraineSalade;
+import modele.fonctionnalite.plantes.GraineTomate;
 
 
 /** Cette classe a deux fonctions :

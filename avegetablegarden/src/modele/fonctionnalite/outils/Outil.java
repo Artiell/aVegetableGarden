@@ -1,9 +1,10 @@
-package modele.outils;
+package modele.fonctionnalite.outils;
 
 import modele.SimulateurPotager;
-import modele.environnement.Legume.varietes.Legume;
+import modele.environnement.Legume.Legume;
+import modele.fonctionnalite.Fonctionnalite;
 
-public abstract class Outil extends Fonctionnalite{
+public abstract class Outil extends Fonctionnalite {
     public Outil(){
         super();
     }

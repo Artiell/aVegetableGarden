@@ -2,6 +2,7 @@ package modele.environnement.Legume.varietes;
 
 import modele.TypeSol;
 import modele.environnement.Legume.EtatLegume;
+import modele.environnement.Legume.Legume;
 
 public class Salade extends Legume {
     @Override
@@ -45,5 +46,6 @@ public class Salade extends Legume {
                 }
                 break;
         }
+        this.updatePourri();
     }
 }

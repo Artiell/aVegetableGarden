@@ -7,12 +7,15 @@ package modele;
 
 
 import modele.environnement.Case.*;
-import modele.environnement.Legume.varietes.Salade;
 import modele.environnement.Legume.varietes.Varietes;
-import modele.outils.*;
-
-import java.awt.Point;
-import java.util.Random;
+import modele.fonctionnalite.*;
+import modele.fonctionnalite.outils.Botte;
+import modele.fonctionnalite.outils.Pelle;
+import modele.fonctionnalite.outils.Poubelle;
+import modele.fonctionnalite.outils.Rateau;
+import modele.fonctionnalite.plantes.GraineCarotte;
+import modele.fonctionnalite.plantes.GraineSalade;
+import modele.fonctionnalite.plantes.GraineTomate;
 
 
 public class SimulateurPotager implements Runnable{
@@ -197,7 +200,6 @@ public class SimulateurPotager implements Runnable{
 
     public void addEntite(Case e, int x, int y) {
         grilleCases[x][y] = e;
-        //map.put(e, new Point(x, y));
     }
 
     public void updateSol (){
@@ -210,13 +212,36 @@ public class SimulateurPotager implements Runnable{
         }
     }
 
+    public synchronized void updateBush() {
+        for (int i = 0; i < SIZE_X; i++) {
+            for (int j = 0; j < SIZE_Y; j++) {
 
-    private Case objetALaPosition(Point p) {
-        Case retour = null;
-        return grilleCases[p.x][p.y];
+                if (grilleCases[i][j] instanceof CaseCultivable) {
+                    if (((CaseCultivable) grilleCases[i][j]).getLegume() != null) {
+                        System.out.println(((CaseCultivable) grilleCases[i][j]).getLegume().getDureePourri());
+                        if (((CaseCultivable) grilleCases[i][j]).getLegume().getDureePourri() >= 20) {
+
+                            //on supprime premièrement la case du run de l'ordo pour eviter un nullpointer exception sur la methode run d'une case qui n'est plus dans le vecteur
+                            Ordonnanceur.getOrdonnanceur().remove(grilleCases[i][j]);
+                            //on passe la case en question a null
+                            grilleCases[i][j] = null;
+
+                            //on crée une nouvelle case et on l'ajoute au tableau et a l'ordo
+                            CaseNonRatisser cnt = new CaseNonRatisser();
+                            this.addEntite(cnt, i, j);
+                            Ordonnanceur.getOrdonnanceur().add(cnt);
+
+                        }
+                    }
+
+                }
+            }
+        }
     }
 
+
     public void run (){
-        updateSol();
+        this.updateSol();
+        this.updateBush();
     }
 }

@@ -1,9 +1,8 @@
-package modele.outils;
+package modele.fonctionnalite.outils;
 
 import modele.SimulateurPotager;
-import modele.environnement.Button.ButtonOutil;
 import modele.environnement.Legume.EtatLegume;
-import modele.environnement.Legume.varietes.Legume;
+import modele.environnement.Legume.Legume;
 
 public class Pelle extends Outil {
 

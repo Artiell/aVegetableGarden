@@ -1,11 +1,7 @@
 package modele;
 
-import modele.Ordonnanceur;
-import modele.SimulateurPotager;
 import modele.environnement.Button.Button;
 import modele.environnement.Button.ButtonMeteo;
-import modele.environnement.Button.ButtonOutil;
-import modele.outils.TypeOutil;
 
 public class SimulateurMeteo implements Runnable {
     private int humidite;

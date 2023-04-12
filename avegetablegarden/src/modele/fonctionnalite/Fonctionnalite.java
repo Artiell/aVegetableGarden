@@ -1,4 +1,4 @@
-package modele.outils;
+package modele.fonctionnalite;
 
 public abstract class Fonctionnalite {
     public Fonctionnalite (){}

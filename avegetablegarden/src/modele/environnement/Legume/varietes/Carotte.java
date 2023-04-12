@@ -1,10 +1,10 @@
 package modele.environnement.Legume.varietes;
 
-import com.sun.management.GarbageCollectorMXBean;
 import modele.TypeSol;
 import modele.environnement.Legume.EtatLegume;
+import modele.environnement.Legume.Legume;
 
-public class Carotte extends Legume{
+public class Carotte extends Legume {
 
     @Override
     public Varietes getVariete() {
@@ -50,11 +50,7 @@ public class Carotte extends Legume{
                 }
                 break;
         }
-
-        if(this.getEtatLegume() == EtatLegume.pourri){
-            this.setTempsPourri(this.getTempsDeVieActuel() - this.getNaissance());
-            System.out.println("La carotte est pourrie depuis " + this.getTempsPourri() + " secondes");
-        }
+        this.updatePourri();
 
     }
 }

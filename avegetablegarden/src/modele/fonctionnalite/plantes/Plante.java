@@ -1,6 +1,7 @@
-package modele.outils;
+package modele.fonctionnalite.plantes;
 
-import modele.environnement.Legume.varietes.*;
+import modele.environnement.Legume.Legume;
+import modele.fonctionnalite.Fonctionnalite;
 
 public abstract class Plante extends Fonctionnalite {
     public Plante (){

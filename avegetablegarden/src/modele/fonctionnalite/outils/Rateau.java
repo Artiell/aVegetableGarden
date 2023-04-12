@@ -1,12 +1,13 @@
-package modele.outils;
+package modele.fonctionnalite.outils;
 
 import modele.Ordonnanceur;
 import modele.SimulateurPotager;
 import modele.environnement.Case.Case;
 import modele.environnement.Case.CaseCultivable;
 import modele.environnement.Case.CaseNonRatisser;
+import modele.fonctionnalite.Fonctionnalite;
 
-public class Rateau extends Fonctionnalite{
+public class Rateau extends Fonctionnalite {
     public Rateau (){
        super();
     }
