@@ -4,34 +4,16 @@ import modele.SimulateurTemps;
 import modele.TypeSol;
 import modele.environnement.Legume.EtatLegume;
 
-import java.time.LocalTime;
-
 public abstract class Legume {
-
     private int tempsDeVieActuel;
-    private EtatLegume etatLegume; //pas utilisé encore
+    private EtatLegume etatLegume;
     private int Naissance; //nb de secondes à laquelle le légume est créer
-
-    public void setTempsPourri(int tempsPourri) {
-        this.tempsPourri = tempsPourri;
-    }
-
-    private int tempsPourri;
-
-    public int getTempsPourri() {
-        return tempsPourri;
-    }
-
-    public int getNaissance() {
-        return Naissance;
-    }
 
     public Legume() {
 
         this.Naissance = SimulateurTemps.getSimuTemps().getS();
         this.tempsDeVieActuel = 0;
         this.etatLegume = EtatLegume.germe;
-        this.tempsPourri = 0;
 
     }
     public void vieillir (){

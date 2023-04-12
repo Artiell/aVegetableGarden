@@ -1,8 +1,6 @@
 
 import VueControleur.VueControleurPotager;
 import modele.Ordonnanceur;
-import modele.SimulateurGraines;
-import modele.SimulateurOutil;
 import modele.SimulateurPotager;
 
 /*

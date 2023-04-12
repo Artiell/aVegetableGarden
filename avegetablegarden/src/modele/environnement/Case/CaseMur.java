@@ -1,13 +1,11 @@
 package modele.environnement.Case;
 
-import modele.SimulateurOutil;
-import modele.SimulateurGraines;
 import modele.SimulateurPotager;
 
 public class CaseMur extends CaseNonCultivable{
     private TypeMur typeMur;
-    public CaseMur (SimulateurPotager _simulateurPotager, SimulateurGraines _simulateurGraines, SimulateurOutil _simOutil, TypeMur _typeMur) {
-        super(_simulateurPotager, _simulateurGraines, _simOutil);
+    public CaseMur (TypeMur _typeMur) {
+        super();
         typeMur = _typeMur;
     }
     public TypeMur getTypeMur (){
