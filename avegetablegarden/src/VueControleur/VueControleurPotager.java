@@ -35,7 +35,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
     private SimulateurGraines simulateurGraines;
     private SimulateurOutil simulateurOutil;
-    private SimulateurMeteo2 simulateurMeteo2;
+    private SimulateurMeteo simulateurMeteo;
     private int sizeX; // taille de la grille affichée
     private int sizeY;
     private int NbVariete;
@@ -75,7 +75,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         simulateurPotager = _simulateurPotager;
         simulateurGraines = simulateurPotager.getSimulateurGraines();
         simulateurOutil = simulateurPotager.getSimulateurOutil();
-        simulateurMeteo2 = simulateurPotager.getSimulateurMeteo2();
+        simulateurMeteo = simulateurPotager.getSimulateurMeteo();
 
         NbVariete = simulateurGraines.NB_VARIETE_MAX;
         NbOutils = simulateurOutil.NB_OUTIL_MAX;
@@ -391,7 +391,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         JComponent MeteoGrille = new JPanel(new GridLayout());
 
-        int sizeMeteo = simulateurMeteo2.NB_METEO_MAX;
+        int sizeMeteo = simulateurMeteo.NB_METEO_MAX;
         JPanel panelMeteo = new JPanel();
         tabMeteo = new JLabel[sizeMeteo];
 
@@ -405,7 +405,7 @@ public class VueControleurPotager extends JFrame implements Observer {
             tabMeteo[x].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    simulateurMeteo2.actionUtilisateur(0, xx);
+                    simulateurMeteo.actionUtilisateur(0, xx);
                 }
             });
         }
@@ -434,11 +434,11 @@ public class VueControleurPotager extends JFrame implements Observer {
                 + SimulateurTemps.getSimuTemps().getS()%60 + "       ");
 
         //Mise à jour du pourcentage d'humidite
-        pourcentageHumidite.setText("Pourcentage d'humidité : "+ simulateurMeteo2.getHumidite()+ "   ");
+        pourcentageHumidite.setText("Pourcentage d'humidité : "+ simulateurMeteo.getHumidite()+ "   ");
 
         // Affiche les boutons de la météo
-        for (int x = 0; x < simulateurMeteo2.NB_METEO_MAX; x++) {
-            ButtonMeteo meteo = (ButtonMeteo) simulateurMeteo2.getGrilleDeMeteo()[x];
+        for (int x = 0; x < simulateurMeteo.NB_METEO_MAX; x++) {
+            ButtonMeteo meteo = (ButtonMeteo) simulateurMeteo.getGrilleDeMeteo()[x];
             int i=0;
             int j=-1;
             switch (meteo.getTypeMeteo()) {

@@ -1,7 +1,5 @@
 package modele.environnement.Button;
 
-import modele.SimulateurPotager;
-import modele.outils.Outil;
 import modele.outils.TypeOutil;
 
 public class ButtonOutil extends Button{

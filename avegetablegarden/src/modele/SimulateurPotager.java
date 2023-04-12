@@ -21,7 +21,7 @@ public class SimulateurPotager {
 
     private SimulateurGraines simulateurGraines;
     private SimulateurOutil simulateurOutil;
-    private SimulateurMeteo2 simulateurMeteo2;
+    private SimulateurMeteo simulateurMeteo;
     TypeSol sol;
 
     public int[] getTabInventaireLegume() {
@@ -38,8 +38,8 @@ public class SimulateurPotager {
     public SimulateurPotager() {
         simulateurGraines = new SimulateurGraines();
         simulateurOutil = new SimulateurOutil();
-        simulateurMeteo2 = new SimulateurMeteo2();
-        Ordonnanceur.getOrdonnanceur().add(simulateurMeteo2);
+        simulateurMeteo = new SimulateurMeteo();
+        Ordonnanceur.getOrdonnanceur().add(simulateurMeteo);
         initialisationDesEntites();
         sol = TypeSol.normal;
 
@@ -62,7 +62,7 @@ public class SimulateurPotager {
     public SimulateurOutil getSimulateurOutil(){
         return simulateurOutil;
     }
-    public SimulateurMeteo2 getSimulateurMeteo2() { return simulateurMeteo2; }
+    public SimulateurMeteo getSimulateurMeteo() { return simulateurMeteo; }
     public Case[][] getPlateau() {
         return grilleCases;
     }
@@ -97,13 +97,14 @@ public class SimulateurPotager {
         addEntite(cc3,0, SIZE_Y - 1);
         addEntite(cc4, SIZE_X-1, SIZE_Y - 1);
 
-        for (int x = 1; x < SIZE_X-1; x++) {
-            Case cc = new CaseNonRatisser(this,simulateurGraines, simulateurOutil);
-            //Case cc1 = new CaseNonRatisser(this,simulateurGraines, simulateurOutil);
-            addEntite(cc, x, 1);
-            //addEntite(cc1, x, SIZE_Y - 2);
-            Ordonnanceur.getOrdonnanceur().add(cc);
-            Ordonnanceur.getOrdonnanceur().add(cc1);
+        for (int x = 0; x < 20; x++) {
+            int xRnd = (int) (Math.random() * (SIZE_X-2) + 1);
+            int yRnd = (int) (Math.random() * (SIZE_Y-2) + 1);
+            if (grilleCases[xRnd][yRnd] == null){
+                Case cc = new CaseNonRatisser(this,simulateurGraines, simulateurOutil);
+                addEntite(cc, xRnd, yRnd);
+                Ordonnanceur.getOrdonnanceur().add(cc);
+            }
         }
 
 
@@ -144,9 +145,9 @@ public class SimulateurPotager {
     }
 
     public void updateSol (){
-        if (simulateurMeteo2.getHumidite() > 75){
+        if (simulateurMeteo.getHumidite() > 75){
             sol = TypeSol.humide;
-        } else if (simulateurMeteo2.getHumidite() < 25){
+        } else if (simulateurMeteo.getHumidite() < 25){
             sol = TypeSol.sec;
         }else {
             sol = TypeSol.normal;

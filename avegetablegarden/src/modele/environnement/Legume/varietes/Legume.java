@@ -3,9 +3,6 @@ package modele.environnement.Legume.varietes;
 import modele.SimulateurTemps;
 import modele.TypeSol;
 import modele.environnement.Legume.EtatLegume;
-import modele.outils.Compteur;
-
-import java.time.LocalTime;
 
 public abstract class Legume {
 

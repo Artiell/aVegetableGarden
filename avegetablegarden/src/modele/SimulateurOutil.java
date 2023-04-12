@@ -1,13 +1,8 @@
 package modele;
 
 import modele.environnement.Button.Button;
-import modele.environnement.Button.ButtonGraine;
 import modele.environnement.Button.ButtonOutil;
-import modele.environnement.Legume.varietes.Varietes;
-import modele.outils.Outil;
 import modele.outils.TypeOutil;
-
-import java.lang.reflect.Type;
 
 public class SimulateurOutil {
 
