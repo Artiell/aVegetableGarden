@@ -33,9 +33,6 @@ import modele.fonctionnalite.plantes.GraineTomate;
  */
 public class VueControleurPotager extends JFrame implements Observer {
     private SimulateurPotager simulateurPotager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
-    private SimulateurMeteo simulateurMeteo;
-    private final int sizeX; // taille de la grille affichée
-    private final int sizeY;
     private final int NbVariete;
     private final int NbOutils;
 
@@ -67,11 +64,6 @@ public class VueControleurPotager extends JFrame implements Observer {
 
     public VueControleurPotager(SimulateurPotager _simulateurPotager) {
         simulateurPotager = _simulateurPotager;
-
-        sizeX = SimulateurPotager.SIZE_X;
-        sizeY = SimulateurPotager.SIZE_Y;
-
-        simulateurMeteo = simulateurPotager.getSimulateurMeteo();
 
         NbVariete = Varietes.values().length;
         NbOutils = TypeOutil.values().length;
@@ -237,12 +229,12 @@ public class VueControleurPotager extends JFrame implements Observer {
         add(grilleInfosGauche, BorderLayout.WEST);
 
     // Affichage Partie du milieu
-        JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
+        JComponent grilleJLabels = new JPanel(new GridLayout(SimulateurPotager.SIZE_Y, SimulateurPotager.SIZE_X)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
 
-        tabJLabel = new JLabel[sizeX][sizeY];
+        tabJLabel = new JLabel[SimulateurPotager.SIZE_X][SimulateurPotager.SIZE_Y];
 
-        for (int y = 0; y < sizeY; y++) {
-            for (int x = 0; x < sizeX; x++) {
+        for (int y = 0; y < SimulateurPotager.SIZE_Y; y++) {
+            for (int x = 0; x < SimulateurPotager.SIZE_X; x++) {
                 JLabel jlab = new JLabel();
 
                 tabJLabel[x][y] = jlab; // on conserve les cases graphiques dans tabJLabel pour avoir un accès pratique à celles-ci (voir mettreAJourAffichage() )
@@ -253,8 +245,8 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         // écouter les évènements
 
-        for (int y = 0; y < sizeY; y++) {
-            for (int x = 0; x < sizeX; x++) {
+        for (int y = 0; y < SimulateurPotager.SIZE_Y; y++) {
+            for (int x = 0; x < SimulateurPotager.SIZE_X; x++) {
                 final int xx = x; // constantes utiles au fonctionnement de la classe anonyme
                 final int yy = y;
                 tabJLabel[x][y].addMouseListener(new MouseAdapter() {
@@ -380,7 +372,7 @@ public class VueControleurPotager extends JFrame implements Observer {
             tabMeteo[x].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    simulateurMeteo.actionUtilisateur(xx);
+                    simulateurPotager.getSimulateurMeteo().actionUtilisateur(xx);
                 }
             });
         }
@@ -409,11 +401,11 @@ public class VueControleurPotager extends JFrame implements Observer {
                 + SimulateurTemps.getSimuTemps().getS()%60 + "       ");
 
         //Mise à jour du pourcentage d'humidite
-        pourcentageHumidite.setText("Pourcentage d'humidité : "+ simulateurMeteo.getHumidite()+ "   ");
+        pourcentageHumidite.setText("Pourcentage d'humidité : "+ simulateurPotager.getSimulateurMeteo().getHumidite()+ "   ");
 
         // Affiche les boutons de la météo
         for (int x = 0; x < SimulateurMeteo.NB_METEO_MAX; x++) {
-            ButtonMeteo meteo = (ButtonMeteo) simulateurMeteo.getGrilleDeMeteo()[x];
+            ButtonMeteo meteo = (ButtonMeteo) simulateurPotager.getSimulateurMeteo().getGrilleDeMeteo()[x];
             int i=0;
             int j = switch (meteo.getTypeMeteo()) {
                 case soleil -> 0;
@@ -456,8 +448,8 @@ public class VueControleurPotager extends JFrame implements Observer {
             }
         }
 
-        for (int x = 0; x < sizeX; x++) {
-            for (int y = 0; y < sizeY; y++) {
+        for (int x = 0; x < SimulateurPotager.SIZE_X; x++) {
+            for (int y = 0; y < SimulateurPotager.SIZE_Y; y++) {
                 int j = switch (simulateurPotager.getSol()) {
                     case normal -> 0;
                     case sec -> 1;

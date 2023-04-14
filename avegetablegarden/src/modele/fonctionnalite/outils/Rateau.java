@@ -5,9 +5,10 @@ import modele.SimulateurPotager;
 import modele.environnement.Case.Case;
 import modele.environnement.Case.CaseCultivable;
 import modele.environnement.Case.CaseNonRatisser;
+import modele.environnement.Legume.Legume;
 import modele.fonctionnalite.Fonctionnalite;
 
-public class Rateau extends Fonctionnalite {
+public class Rateau extends Outil {
     public Rateau (){
        super();
     }
@@ -20,5 +21,8 @@ public class Rateau extends Fonctionnalite {
             simulateurPotager.addEntite(cc, x, y);
             Ordonnanceur.getOrdonnanceur().add(cc);
         }
+    }
+    public Legume actionOutil (Legume legume, SimulateurPotager simulateurPotager){
+        return legume;
     }
 }
