@@ -1,9 +1,7 @@
 package modele.environnement.Legume;
 
-import modele.Ordonnanceur;
 import modele.SimulateurTemps;
 import modele.TypeSol;
-import modele.environnement.Legume.EtatLegume;
 import modele.environnement.Legume.varietes.Varietes;
 
 public abstract class Legume {
@@ -11,16 +9,9 @@ public abstract class Legume {
     private EtatLegume etatLegume;
 
     private int dureePourri; // durée durant laquelle le légume est pourri
-    public int getDureePourri() {
-        return dureePourri;
-    }
-
     private int tPourri; // moment t de l'ordonnanceur à laquelle le légume est pourri
 
-    private int naissance; //nb de secondes à laquelle le légume est créer
-    public int getNaissance() {
-        return naissance;
-    }
+    private final int naissance; //nb de secondes à laquelle le légume est créer
 
     public Legume() {
 
@@ -29,6 +20,10 @@ public abstract class Legume {
         this.etatLegume = EtatLegume.germe;
         this.tPourri = 0;
         this.dureePourri = 0;
+    }
+
+    public int getDureePourri() {
+        return dureePourri;
     }
     public void vieillir (){
         this.tempsDeVieActuel = SimulateurTemps.getSimuTemps().getS() - this.naissance;
@@ -45,13 +40,9 @@ public abstract class Legume {
         return tempsDeVieActuel;
     }
 
-    public abstract Varietes getVariete();
-
     public void nextStep(TypeSol sol) {
         croissance(sol);
     }
-
-    protected abstract void croissance(TypeSol sol); // définir selon les conditions
 
     public void updatePourri(){
         if(this.tPourri == 0 && this.getEtatLegume() == EtatLegume.pourri){
@@ -61,4 +52,8 @@ public abstract class Legume {
             this.dureePourri = SimulateurTemps.getSimuTemps().getS() - this.tPourri;
         }
     }
+
+    public abstract Varietes getVariete();
+
+    protected abstract void croissance(TypeSol sol); // définir selon les conditions
 }

@@ -13,38 +13,38 @@ public class Tomate extends Legume {
     @Override
     protected void croissance(TypeSol sol) {
 
-        switch (sol){
-            case normal :
-                if (this.getTempsDeVieActuel() >= 30){
+        switch (sol) {
+            case normal -> {
+                if (this.getTempsDeVieActuel() >= 30) {
                     this.setEtatLegume(EtatLegume.jeune);
                 }
-                if (this.getTempsDeVieActuel() >= 60){
+                if (this.getTempsDeVieActuel() >= 60) {
                     this.setEtatLegume(EtatLegume.mature);
                 }
-                if (this.getTempsDeVieActuel() >= 120){
+                if (this.getTempsDeVieActuel() >= 120) {
                     this.setEtatLegume(EtatLegume.pourri);
                 }
-                break;
-            case humide:
-                if (this.getTempsDeVieActuel() >= 2){
+            }
+            case humide -> {
+                if (this.getTempsDeVieActuel() >= 2) {
                     this.setEtatLegume(EtatLegume.jeune);
                 }
-                if (this.getTempsDeVieActuel() >= 8){
+                if (this.getTempsDeVieActuel() >= 8) {
                     this.setEtatLegume(EtatLegume.pourri);
                 }
-                break;
+            }
             // A changer
-            case sec:
-                if (this.getTempsDeVieActuel() >= 10){
+            case sec -> {
+                if (this.getTempsDeVieActuel() >= 10) {
                     this.setEtatLegume(EtatLegume.jeune);
                 }
-                if (this.getTempsDeVieActuel() >= 20){
+                if (this.getTempsDeVieActuel() >= 20) {
                     this.setEtatLegume(EtatLegume.mature);
                 }
-                if (this.getTempsDeVieActuel() >= 25){
+                if (this.getTempsDeVieActuel() >= 25) {
                     this.setEtatLegume(EtatLegume.pourri);
                 }
-                break;
+            }
         }
         this.updatePourri();
     }

@@ -1,9 +1,7 @@
 package modele.environnement.Case;
 
-import modele.SimulateurPotager;
-
 public class CaseMur extends CaseNonCultivable{
-    private TypeMur typeMur;
+    private final TypeMur typeMur;
     public CaseMur (TypeMur _typeMur) {
         super();
         typeMur = _typeMur;

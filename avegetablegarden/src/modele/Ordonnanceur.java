@@ -7,22 +7,17 @@ import static java.lang.Thread.*;
 public class Ordonnanceur extends Observable implements Runnable {
 
     private static Ordonnanceur ordonnanceur;
+    private Vector<Runnable> lst = new Vector<Runnable>(); // liste synchronisée
+    private long pause;
 
     // design pattern singleton
+
     public static Ordonnanceur getOrdonnanceur() {
         if (ordonnanceur == null) {
             ordonnanceur = new Ordonnanceur();
         }
         return ordonnanceur;
     }
-
-    private SimulateurPotager simulateurPotager;
-
-    private long pause;
-    private Vector<Runnable> lst = new Vector<Runnable>(); // liste synchronisée
-
-
-
 
     public void start(long _pause) {
         pause = _pause;

@@ -34,10 +34,10 @@ import modele.fonctionnalite.plantes.GraineTomate;
 public class VueControleurPotager extends JFrame implements Observer {
     private SimulateurPotager simulateurPotager; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
     private SimulateurMeteo simulateurMeteo;
-    private int sizeX; // taille de la grille affichée
-    private int sizeY;
-    private int NbVariete;
-    private int NbOutils;
+    private final int sizeX; // taille de la grille affichée
+    private final int sizeY;
+    private final int NbVariete;
+    private final int NbOutils;
 
     // icones affichées dans la grille
     private ImageIcon[][] icoSalade;
@@ -48,7 +48,6 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon[][] icoGraine;
     private ImageIcon[][] icoMeteo;
     private ImageIcon icoVide;
-    private ImageIcon icoMur;
     private ImageIcon[][] gardenFence;
     private ImageIcon[] icoBuisson;
     private ImageIcon icoPauseButton;
@@ -67,10 +66,11 @@ public class VueControleurPotager extends JFrame implements Observer {
     JTextField pourcentageHumidite;
 
     public VueControleurPotager(SimulateurPotager _simulateurPotager) {
-        sizeX = simulateurPotager.SIZE_X;
-        sizeY = _simulateurPotager.SIZE_Y;
-
         simulateurPotager = _simulateurPotager;
+
+        sizeX = SimulateurPotager.SIZE_X;
+        sizeY = SimulateurPotager.SIZE_Y;
+
         simulateurMeteo = simulateurPotager.getSimulateurMeteo();
 
         NbVariete = Varietes.values().length;
@@ -154,9 +154,6 @@ public class VueControleurPotager extends JFrame implements Observer {
         }
 
         icoVide = chargerIcone("Images/Vide.png");
-        icoMur = chargerIcone("Images/Mur.png");
-
-        //this.gardenFence = this.chargerIcone("Images/spriteTerrain/gardenFence.png");
 
         this.icoLeftArrowButton = this.chargerIcone("Images/leftArrowButton.png");
         this.icoRightArrowButton = this.chargerIcone("Images/rightArrowButton.png");
@@ -170,11 +167,9 @@ public class VueControleurPotager extends JFrame implements Observer {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
         //Permet l'affichage de la partie de droite
-        JLabel[][] infosDroite = new JLabel[3][1];
         JComponent grilleInfo = new JPanel(new GridLayout(4, 1));
 
        // Correspond à l'affichage d'info diverses
-        infosDroite[0][0] = new JLabel();
         JTextField jtf = new JTextField("infos diverses"); // TODO inclure dans mettreAJourAffichage ...
         jtf.setHorizontalAlignment(JTextField.CENTER);
         jtf.setEditable(false);
@@ -218,11 +213,9 @@ public class VueControleurPotager extends JFrame implements Observer {
 
 
         //Permet l'affichage de la partie de gauche
-        JLabel[][] infosGauche = new JLabel[3][1];
         JComponent grilleInfosGauche = new JPanel(new GridLayout(4, 1));
 
         // Correspond à l'affichage d'info diverses
-        infosGauche[0][0] = new JLabel();
         JTextField jtf3 = new JTextField("Choix des graines"); // TODO inclure dans mettreAJourAffichage ...
         jtf3.setHorizontalAlignment(JTextField.CENTER);
         jtf3.setEditable(false);
@@ -275,7 +268,6 @@ public class VueControleurPotager extends JFrame implements Observer {
         for (int y = 0; y < 1; y++) {
             for (int x = 0; x < NbVariete; x++) {
                 final int xx = x; // constantes utiles au fonctionnement de la classe anonyme
-                final int yy = y;
                 tabGraines[y][x].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -289,7 +281,6 @@ public class VueControleurPotager extends JFrame implements Observer {
         for (int y = 0; y < 1; y++) {
             for (int x = 0; x < NbOutils; x++) {
                 final int xx = x; // constantes utiles au fonctionnement de la classe anonyme
-                final int yy = y;
                 tabOutils[y][x].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -375,7 +366,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         JComponent MeteoGrille = new JPanel(new GridLayout());
 
-        int sizeMeteo = simulateurMeteo.NB_METEO_MAX;
+        int sizeMeteo = SimulateurMeteo.NB_METEO_MAX;
         JPanel panelMeteo = new JPanel();
         tabMeteo = new JLabel[sizeMeteo];
 
@@ -389,7 +380,7 @@ public class VueControleurPotager extends JFrame implements Observer {
             tabMeteo[x].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    simulateurMeteo.actionUtilisateur(0, xx);
+                    simulateurMeteo.actionUtilisateur(xx);
                 }
             });
         }
@@ -421,15 +412,14 @@ public class VueControleurPotager extends JFrame implements Observer {
         pourcentageHumidite.setText("Pourcentage d'humidité : "+ simulateurMeteo.getHumidite()+ "   ");
 
         // Affiche les boutons de la météo
-        for (int x = 0; x < simulateurMeteo.NB_METEO_MAX; x++) {
+        for (int x = 0; x < SimulateurMeteo.NB_METEO_MAX; x++) {
             ButtonMeteo meteo = (ButtonMeteo) simulateurMeteo.getGrilleDeMeteo()[x];
             int i=0;
-            int j=-1;
-            switch (meteo.getTypeMeteo()) {
-                case soleil: j=0; break;
-                case nuage: j=1; break;
-                case pluie: j=2; break;
-            }
+            int j = switch (meteo.getTypeMeteo()) {
+                case soleil -> 0;
+                case nuage -> 1;
+                case pluie -> 2;
+            };
             if (meteo.getActivite()) {
                 i=1;
             }
@@ -468,33 +458,26 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
-                int j = -1;
-                switch (simulateurPotager.getSol()) {
-                    case normal: j = 0; break;
-                    case sec: j = 1; break;
-                    case humide: j = 2; break;
-                }
+                int j = switch (simulateurPotager.getSol()) {
+                    case normal -> 0;
+                    case sec -> 1;
+                    case humide -> 2;
+                };
                 if (simulateurPotager.getPlateau()[x][y] instanceof CaseCultivable) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
 
                     Legume legume = ((CaseCultivable) simulateurPotager.getPlateau()[x][y]).getLegume();
                     int i = -1;
                     if (legume != null) {
-                        switch (legume.getEtatLegume()) {
-                            case germe: i = 0; break;
-                            case jeune: i = 1; break;
-                            case mature: i = 2; break;
-                            case pourri: i = 3; break;
-                        }
+                        i = switch (legume.getEtatLegume()) {
+                            case germe -> 0;
+                            case jeune -> 1;
+                            case mature -> 2;
+                            case pourri -> 3;
+                        };
                         switch (legume.getVariete()) {
-                            case salade:
-                                tabJLabel[x][y].setIcon(icoSalade[i][j]);
-                                break;
-                            case carotte:
-                                tabJLabel[x][y].setIcon(icoCarotte[i][j]);
-                                break;
-                            case tomate:
-                                tabJLabel[x][y].setIcon(icoTomate[i][j]);
-                                break;
+                            case salade -> tabJLabel[x][y].setIcon(icoSalade[i][j]);
+                            case carotte -> tabJLabel[x][y].setIcon(icoCarotte[i][j]);
+                            case tomate -> tabJLabel[x][y].setIcon(icoTomate[i][j]);
                         }
 
                     } else {
@@ -505,17 +488,16 @@ public class VueControleurPotager extends JFrame implements Observer {
                     //BufferedImage bi = getImage("Images/smick.png", 0, 0, 20, 20);
                     //tabJLabel[x][y].getGraphics().drawImage(bi, 0, 0, null)
                 }else if (simulateurPotager.getPlateau()[x][y] instanceof CaseMur) {
-                    int i = -1;
-                    switch (((CaseMur) simulateurPotager.getPlateau()[x][y]).getTypeMur()){
-                        case tournantHautGauche : i = 0;break;
-                        case haut: i= 1; break;
-                        case tournantHautDroit: i = 2;break;
-                        case droit: i=3; break;
-                        case tournantBasDroit: i=4; break;
-                        case bas: i=5; break;
-                        case tournantBasGauche: i=6;break;
-                        case gauche:i=7; break;
-                    }
+                    int i = switch (((CaseMur) simulateurPotager.getPlateau()[x][y]).getTypeMur()) {
+                        case tournantHautGauche -> 0;
+                        case haut -> 1;
+                        case tournantHautDroit -> 2;
+                        case droit -> 3;
+                        case tournantBasDroit -> 4;
+                        case bas -> 5;
+                        case tournantBasGauche -> 6;
+                        case gauche -> 7;
+                    };
                     tabJLabel[x][y].setIcon(gardenFence[j][i]);
                 } else if (simulateurPotager.getPlateau()[x][y] instanceof CaseNonRatisser) {
                     tabJLabel[x][y].setIcon(icoBuisson[j]);

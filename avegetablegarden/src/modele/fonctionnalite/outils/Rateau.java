@@ -14,7 +14,6 @@ public class Rateau extends Fonctionnalite {
     public Fonctionnalite actionUtilisateur (int xx){return null;}
     public void actionUtilisateur(Case cases,int x, int y, SimulateurPotager simulateurPotager){
 
-        System.out.println("Rateau");
         if (cases instanceof CaseNonRatisser){
             cases = null;
             CaseCultivable cc = new CaseCultivable(simulateurPotager);

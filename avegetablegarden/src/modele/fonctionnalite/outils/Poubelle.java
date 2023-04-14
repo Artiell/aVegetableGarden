@@ -9,7 +9,7 @@ public class Poubelle extends Outil{
         super();
     }
     public Legume actionOutil(Legume legume, SimulateurPotager simulateurPotager){
-            System.out.println("Poubelle");
+
             if(legume != null && legume.getEtatLegume() == EtatLegume.pourri){
                 legume = null;
             }

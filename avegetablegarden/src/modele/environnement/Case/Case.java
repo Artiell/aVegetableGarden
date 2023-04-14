@@ -5,11 +5,7 @@
  */
 package modele.environnement.Case;
 
-import modele.SimulateurPotager;
-
 public abstract class Case implements Runnable {
     public Case() {}
     public abstract void actionUtilisateur();
-
-
   }

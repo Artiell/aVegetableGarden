@@ -8,7 +8,7 @@ import modele.fonctionnalite.plantes.Plante;
 public class CaseCultivable extends Case {
 
     private Legume legume;
-    SimulateurPotager simulateurPotager;
+    private final SimulateurPotager simulateurPotager;
     public CaseCultivable(SimulateurPotager _simulateurPotager) {
         super();
         simulateurPotager = _simulateurPotager;
@@ -19,11 +19,9 @@ public class CaseCultivable extends Case {
 
         // gere la pelle la botte et la poubelle
 
-        if (simulateurPotager.getFonctionnalite() instanceof Outil) {
-            Outil outil = (Outil) simulateurPotager.getFonctionnalite();
+        if (simulateurPotager.getFonctionnalite() instanceof Outil outil) {
             legume = outil.actionOutil(legume, simulateurPotager);
-        } else if (simulateurPotager.getFonctionnalite() instanceof Plante) {
-            Plante plante = (Plante) simulateurPotager.getFonctionnalite();
+        } else if (simulateurPotager.getFonctionnalite() instanceof Plante plante) {
             legume = plante.action();
         }
 

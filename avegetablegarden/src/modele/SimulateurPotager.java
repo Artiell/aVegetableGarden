@@ -19,25 +19,23 @@ import modele.fonctionnalite.plantes.GraineTomate;
 
 
 public class SimulateurPotager implements Runnable{
-    Fonctionnalite fonctionnalite;
-
+    private Fonctionnalite fonctionnalite;
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 15;
-
-    private SimulateurMeteo simulateurMeteo;
+    private final SimulateurMeteo simulateurMeteo;
     TypeSol sol;
+    private int[] tabInventaireLegume;
+
+    private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
 
     public int[] getTabInventaireLegume() {
         return tabInventaireLegume;
     }
+
     public void incrTabInventaireLegume(int x) {
         tabInventaireLegume[x]++;
     }
-
-    private int[] tabInventaireLegume;
-
     // private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
-    private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
     public SimulateurPotager() {
         fonctionnalite = null;
 
@@ -132,69 +130,68 @@ public class SimulateurPotager implements Runnable{
             grilleCases[x][y].actionUtilisateur();
         }
         //Gère l'outil le rateau
-        if (fonctionnalite instanceof Rateau){
-            Rateau r = (Rateau) fonctionnalite;
+        if (fonctionnalite instanceof Rateau r){
             r.actionUtilisateur(grilleCases[x][y], x, y,this);
         }
 
     }
     public void actionUtilisateurOutils(int x) {
-        switch (x){
-            case 0:
-                if (fonctionnalite instanceof Pelle){
+        switch (x) {
+            case 0 -> {
+                if (fonctionnalite instanceof Pelle) {
                     fonctionnalite = null;
-                }else {
+                } else {
                     fonctionnalite = new Pelle();
                 }
-                break;
-            case 1:
-                if (fonctionnalite instanceof Rateau){
+            }
+            case 1 -> {
+                if (fonctionnalite instanceof Rateau) {
                     fonctionnalite = null;
-                }else {
+                } else {
                     fonctionnalite = new Rateau();
                 }
-                break;
-            case 2:
-                if (fonctionnalite instanceof Botte){
+            }
+            case 2 -> {
+                if (fonctionnalite instanceof Botte) {
                     fonctionnalite = null;
-                }else {
+                } else {
                     fonctionnalite = new Botte();
                 }
-                break;
-            case 3:
-                if (fonctionnalite instanceof Poubelle){
+            }
+            case 3 -> {
+                if (fonctionnalite instanceof Poubelle) {
                     fonctionnalite = null;
-                }else {
+                } else {
                     fonctionnalite = new Poubelle();
                 }
-                break;
+            }
         }
 
     }
 
     public void actionUtilisateurGraines(int _x) {
         switch (_x) {
-            case 0:
+            case 0 -> {
                 if (fonctionnalite instanceof GraineSalade) {
                     fonctionnalite = null;
-                }else {
+                } else {
                     fonctionnalite = new GraineSalade();
                 }
-                break;
-            case 1:
+            }
+            case 1 -> {
                 if (fonctionnalite instanceof GraineCarotte) {
                     fonctionnalite = null;
-                }else{
+                } else {
                     fonctionnalite = new GraineCarotte();
                 }
-                break;
-            case 2:
+            }
+            case 2 -> {
                 if (fonctionnalite instanceof GraineTomate) {
                     fonctionnalite = null;
-                }else {
+                } else {
                     fonctionnalite = new GraineTomate();
                 }
-                break;
+            }
         }
     }
 
@@ -238,7 +235,6 @@ public class SimulateurPotager implements Runnable{
             }
         }
     }
-
 
     public void run (){
         this.updateSol();
