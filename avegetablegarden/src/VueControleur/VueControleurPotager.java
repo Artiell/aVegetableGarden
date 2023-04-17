@@ -51,6 +51,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon icoPlayButton;
     private ImageIcon icoLeftArrowButton;
     private ImageIcon icoRightArrowButton;
+    private ImageIcon icoPiece;
 
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -58,6 +59,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     private JLabel[][] tabInventaire;
     private JLabel[] tabMeteo;
     private JLabel[][] tabGraines;
+    private JLabel[] nbPiece;
     JTextField vitesseDuJeu;
     JTextField tempsDuJeu;
     JTextField pourcentageHumidite;
@@ -151,6 +153,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         this.icoRightArrowButton = this.chargerIcone("Images/rightArrowButton.png");
         this.icoPauseButton = this.chargerIcone("Images/pauseButton.png");
         this.icoPlayButton = this.chargerIcone("Images/playButton.png");
+        icoPiece = chargerIcone("Images/icoPiece.png");
     }
 
     private void placerLesComposantsGraphiques() {
@@ -215,17 +218,37 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         // Permet l'affichage de la grille d'outils à droite
         int size_x_graine = NbVariete;
-        int size_y_graine = 1;
-        JComponent grilleGraine = new JPanel(new GridLayout(size_y_graine, size_x_graine));
-        tabGraines = new JLabel[size_y_graine][size_x_graine];
+        int size_y_graine = 3;
+        JComponent grilleGraine = new JPanel(new GridLayout(size_x_graine, size_y_graine));
+        tabGraines = new JLabel[size_x_graine][size_y_graine];
 
-        for (int i=0; i<size_y_graine; i++){
-            for (int j= 0; j<size_x_graine; j++){
+        for (int i=0; i<size_x_graine; i++){
+            for (int j= 0; j<size_y_graine; j++){
                 tabGraines[i][j] = new JLabel();
                 grilleGraine.add(tabGraines[i][j]);
             }
         }
+        for (int x = 0; x < NbVariete; x++) {
+            tabGraines[x][2].setIcon(icoPiece);
+        }
+
         grilleInfosGauche.add(grilleGraine);
+
+        JTextField jtf4 = new JTextField("Nombre de pièces"); // TODO inclure dans mettreAJourAffichage ...
+        jtf4.setHorizontalAlignment(JTextField.CENTER);
+        jtf4.setEditable(false);
+        grilleInfosGauche.add(jtf4);
+
+        JComponent grillePiece = new JPanel();
+        nbPiece = new JLabel[2];
+        for (int i=0; i<2; i++) {
+            nbPiece[i] = new JLabel();
+            grillePiece.add(nbPiece[i]);
+        }
+        nbPiece[1].setIcon(icoPiece);
+        grilleInfosGauche.add(grillePiece);
+
+
         add(grilleInfosGauche, BorderLayout.WEST);
 
     // Affichage Partie du milieu
@@ -260,7 +283,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         for (int y = 0; y < 1; y++) {
             for (int x = 0; x < NbVariete; x++) {
                 final int xx = x; // constantes utiles au fonctionnement de la classe anonyme
-                tabGraines[y][x].addMouseListener(new MouseAdapter() {
+                tabGraines[x][y].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         simulateurPotager.actionUtilisateurGraines(xx);
@@ -425,15 +448,19 @@ public class VueControleurPotager extends JFrame implements Observer {
         }
 
         // Affiche la partie sur les sprite des graine
-        for (int y = 0; y < 1; y++) {
-            for (int x = 0; x < NbVariete; x++) {
-                int j = 0;
-                if (simulateurPotager.getFonctionnalite() instanceof GraineSalade && x == 0) j=1;
-                if (simulateurPotager.getFonctionnalite() instanceof GraineCarotte && x == 1) j=1;
-                if (simulateurPotager.getFonctionnalite() instanceof GraineTomate && x == 2) j=1;
-                tabGraines[y][x].setIcon(icoGraine[x][j]);
-            }
+        for (int x = 0; x < NbVariete; x++) {
+            int j = 0;
+            if (simulateurPotager.getFonctionnalite() instanceof GraineSalade && x == 0) j=1;
+            if (simulateurPotager.getFonctionnalite() instanceof GraineCarotte && x == 1) j=1;
+            if (simulateurPotager.getFonctionnalite() instanceof GraineTomate && x == 2) j=1;
+            tabGraines[x][0].setIcon(icoGraine[x][j]);
         }
+        // A changer et mettre les prix qu'on aura défini dans la classe
+        tabGraines[0][1].setText("          8");
+        tabGraines[1][1].setText("         10");
+        tabGraines[2][1].setText("         15");
+
+        nbPiece[0].setText("nbpiece");
 
         // Affiche les sprites des outils
         for (int y = 0; y < 1; y++) {
