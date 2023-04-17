@@ -209,14 +209,13 @@ public class SimulateurPotager implements Runnable{
         }
     }
 
-    public synchronized void updateBush() {
+    public void updateBush() {
         for (int i = 0; i < SIZE_X; i++) {
             for (int j = 0; j < SIZE_Y; j++) {
 
                 if (grilleCases[i][j] instanceof CaseCultivable) {
                     if (((CaseCultivable) grilleCases[i][j]).getLegume() != null) {
-                        System.out.println(((CaseCultivable) grilleCases[i][j]).getLegume().getDureePourri());
-                        if (((CaseCultivable) grilleCases[i][j]).getLegume().getDureePourri() >= 20) {
+                        if (((CaseCultivable) grilleCases[i][j]).getLegume().getDureePourri() >= 10) {
 
                             //on supprime premièrement la case du run de l'ordo pour eviter un nullpointer exception sur la methode run d'une case qui n'est plus dans le vecteur
                             Ordonnanceur.getOrdonnanceur().remove(grilleCases[i][j]);

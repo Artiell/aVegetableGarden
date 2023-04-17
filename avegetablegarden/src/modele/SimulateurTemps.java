@@ -56,10 +56,6 @@ public class SimulateurTemps {
         return this.s/3600;
     }
 
-    public int getDay(){
-        return this.s/86400;
-    }
-
 
     public void stop(){
         isStop = true;

@@ -9,7 +9,7 @@ public abstract class Legume {
     private EtatLegume etatLegume;
 
     private int dureePourri; // durée durant laquelle le légume est pourri
-    private int tPourri; // moment t de l'ordonnanceur à laquelle le légume est pourri
+    private int tPourri; // moment t des secondes écoulés dans le simmulateurTemps à laquelle le légume est pourri
 
     private final int naissance; //nb de secondes à laquelle le légume est créer
 
