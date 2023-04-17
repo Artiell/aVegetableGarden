@@ -298,7 +298,7 @@ public class VueControleurPotager extends JFrame implements Observer {
             @Override
             public void mouseClicked(MouseEvent e) {
                 SimulateurTemps.getSimuTemps().play();
-                System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
+                //System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
             }
         });
 
@@ -307,7 +307,7 @@ public class VueControleurPotager extends JFrame implements Observer {
             @Override
             public void mouseClicked(MouseEvent e) {
                 SimulateurTemps.getSimuTemps().stop();
-                System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
+                //System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
             }
         });
 
@@ -316,7 +316,7 @@ public class VueControleurPotager extends JFrame implements Observer {
             @Override
             public void mouseClicked(MouseEvent e) {
                 SimulateurTemps.getSimuTemps().decelerer();
-                System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
+                //System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
             }
         });
 
@@ -325,7 +325,7 @@ public class VueControleurPotager extends JFrame implements Observer {
             @Override
             public void mouseClicked(MouseEvent e) {
                 SimulateurTemps.getSimuTemps().accelerer();
-                System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
+                //System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
             }
         });
 
