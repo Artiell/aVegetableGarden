@@ -21,8 +21,8 @@ import modele.fonctionnalite.plantes.GraineTomate;
 public class SimulateurPotager implements Runnable{
     private boolean finPartie;
     private Fonctionnalite fonctionnalite;
-    public static final int SIZE_X = 20;
-    public static final int SIZE_Y = 15; // enlever static
+    public final int SIZE_X = 20;
+    public final int SIZE_Y = 15; // enlever static
     private final SimulateurMeteo simulateurMeteo;
     private final Magasin magasin;
     TypeSol sol;
@@ -30,6 +30,8 @@ public class SimulateurPotager implements Runnable{
     private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
 
 
+    public int getSIZE_X (){return SIZE_X;}
+    public int getSIZE_Y (){return SIZE_Y;}
     public int[] getTabInventaireLegume() {
         return tabInventaireLegume;
     }
@@ -164,6 +166,7 @@ public class SimulateurPotager implements Runnable{
         //Gère l'outil le rateau
         if (fonctionnalite instanceof Rateau r){
             r.actionUtilisateur(grilleCases[x][y], x, y,this);
+            magasin.updateMalus(3);
         }
 
     }

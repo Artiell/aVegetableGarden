@@ -4,7 +4,7 @@ import modele.Magasin;
 import modele.environnement.Legume.Legume;
 import modele.environnement.Legume.varietes.Salade;
 
-public class GraineSalade extends Plante{
+public class GraineSalade extends Planter{
     public GraineSalade(){
         super();
     }

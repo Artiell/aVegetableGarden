@@ -4,7 +4,7 @@ import modele.Magasin;
 import modele.environnement.Legume.varietes.Carotte;
 import modele.environnement.Legume.Legume;
 
-public class GraineCarotte extends Plante{
+public class GraineCarotte extends Planter{
     public GraineCarotte(){
         super();
     }

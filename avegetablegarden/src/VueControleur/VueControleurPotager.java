@@ -264,12 +264,12 @@ public class VueControleurPotager extends JFrame implements Observer {
         add(grilleInfosGauche, BorderLayout.WEST);
 
     // Affichage Partie du milieu
-        JComponent grilleJLabels = new JPanel(new GridLayout(SimulateurPotager.SIZE_Y, SimulateurPotager.SIZE_X)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
+        JComponent grilleJLabels = new JPanel(new GridLayout(simulateurPotager.getSIZE_Y(), simulateurPotager.getSIZE_X())); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
 
-        tabJLabel = new JLabel[SimulateurPotager.SIZE_X][SimulateurPotager.SIZE_Y];
+        tabJLabel = new JLabel[simulateurPotager.getSIZE_X()][simulateurPotager.getSIZE_Y()];
 
-        for (int y = 0; y < SimulateurPotager.SIZE_Y; y++) {
-            for (int x = 0; x < SimulateurPotager.SIZE_X; x++) {
+        for (int y = 0; y < simulateurPotager.getSIZE_Y(); y++) {
+            for (int x = 0; x < simulateurPotager.getSIZE_X(); x++) {
                 JLabel jlab = new JLabel();
 
                 tabJLabel[x][y] = jlab; // on conserve les cases graphiques dans tabJLabel pour avoir un accès pratique à celles-ci (voir mettreAJourAffichage() )
@@ -280,14 +280,14 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         // écouter les évènements
 
-        for (int y = 0; y < SimulateurPotager.SIZE_Y; y++) {
-            for (int x = 0; x < SimulateurPotager.SIZE_X; x++) {
+        for (int y = 0; y < simulateurPotager.getSIZE_Y(); y++) {
+            for (int x = 0; x < simulateurPotager.getSIZE_X(); x++) {
                 final int xx = x; // constantes utiles au fonctionnement de la classe anonyme
                 final int yy = y;
                 tabJLabel[x][y].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if (!simulateurPotager.getFinPartie()){
+                        if (!simulateurPotager.getFinPartie() && SimulateurTemps.getSimuTemps().getVitesseSimulation() != 0){
                             simulateurPotager.actionUtilisateur(xx, yy);
                         }
                     }
@@ -300,7 +300,7 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabGraines[x][y].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if (!simulateurPotager.getFinPartie()){
+                        if (!simulateurPotager.getFinPartie() && SimulateurTemps.getSimuTemps().getVitesseSimulation() != 0){
                             simulateurPotager.actionUtilisateurGraines(xx);
                         }
 
@@ -315,7 +315,7 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabOutils[y][x].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if (!simulateurPotager.getFinPartie()){
+                        if (!simulateurPotager.getFinPartie() && SimulateurTemps.getSimuTemps().getVitesseSimulation() != 0){
                             simulateurPotager.actionUtilisateurOutils(xx);
                         }
                     }
@@ -368,7 +368,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         leftArrowButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!simulateurPotager.getFinPartie()){
+                if (!simulateurPotager.getFinPartie() && SimulateurTemps.getSimuTemps().getVitesseSimulation() != 0){
                     SimulateurTemps.getSimuTemps().decelerer();
                 }
                 //System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
@@ -379,7 +379,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         rightArrowButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!simulateurPotager.getFinPartie()){
+                if (!simulateurPotager.getFinPartie() && SimulateurTemps.getSimuTemps().getVitesseSimulation() != 0){
                     SimulateurTemps.getSimuTemps().accelerer();
                 }
                 //System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
@@ -432,7 +432,7 @@ public class VueControleurPotager extends JFrame implements Observer {
             tabMeteo[x].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if (!simulateurPotager.getFinPartie()){
+                    if (!simulateurPotager.getFinPartie() && SimulateurTemps.getSimuTemps().getVitesseSimulation() != 0){
                         simulateurPotager.getSimulateurMeteo().actionUtilisateur(xx);
                     }
                 }
@@ -512,8 +512,8 @@ public class VueControleurPotager extends JFrame implements Observer {
             }
         }
 
-        for (int x = 0; x < SimulateurPotager.SIZE_X; x++) {
-            for (int y = 0; y < SimulateurPotager.SIZE_Y; y++) {
+        for (int x = 0; x < simulateurPotager.getSIZE_X(); x++) {
+            for (int y = 0; y < simulateurPotager.getSIZE_Y(); y++) {
                 int j = switch (simulateurPotager.getSol()) {
                     case normal -> 0;
                     case sec -> 1;

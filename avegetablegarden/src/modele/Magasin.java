@@ -5,13 +5,16 @@ import modele.environnement.Legume.varietes.Varietes;
 public class Magasin {
     private final int[] tabPrix;
     private int[] tabRecompense;
+    private int[] tabMalus;
     private int nbPiece;
     private String message;
 
     public Magasin (){
         tabPrix = new int[Varietes.values().length];
+        tabMalus = new int[Varietes.values().length+1];
         initialisationPrix();
         initialisationRecompense();
+        initialisationMalus();
         nbPiece = 15;
         message = null;
 
@@ -32,6 +35,12 @@ public class Magasin {
         tabPrix[0] = 3; //prix salade
         tabPrix[1] = 5; //prix carotte
         tabPrix[2] = 8; //prix tomate
+    }
+    private void initialisationMalus(){
+        tabMalus[0] = 3; //malus salade
+        tabMalus[1] = 5; //malus carotte
+        tabMalus[2] = 8; //malus tomate
+        tabMalus[3] = 2; //malus suppression buisson
     }
     private void initialisationRecompense(){
         tabRecompense = new int[Varietes.values().length];
@@ -54,23 +63,15 @@ public class Magasin {
     public boolean decrNbPiece (int ind){
         if (nbPiece-tabPrix[ind] < 0){
             message = "Pas assez de pièces";
-            verifFinPartie();
             return false;
         }else {
             message = " - "+tabPrix[ind];
             nbPiece-= tabPrix[ind];
-            verifFinPartie();
             return true;
         }
     }
     public void updateMalus(int ind){
-        nbPiece -= tabPrix[ind];
-        message = " MALUS : - "+ tabPrix[ind];
-        verifFinPartie();
-    }
-    private void verifFinPartie(){
-        if (nbPiece < -10){
-            message = "FIN DE LA PARTIE";
-        }
+        nbPiece -= tabMalus[ind];
+        message = " MALUS : - "+ tabMalus[ind];
     }
 }
