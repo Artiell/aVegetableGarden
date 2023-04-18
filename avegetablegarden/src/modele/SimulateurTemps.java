@@ -67,7 +67,9 @@ public class SimulateurTemps {
 
     public void stop(){
         isStop = true;
-        this.vitesseAvantPause = vitesseSimulation;
+        if (vitesseSimulation != 0){
+            this.vitesseAvantPause = vitesseSimulation;
+        }
         vitesseSimulation = 0;
     }
 
