@@ -154,7 +154,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         this.icoRightArrowButton = this.chargerIcone("Images/rightArrowButton.png");
         this.icoPauseButton = this.chargerIcone("Images/pauseButton.png");
         this.icoPlayButton = this.chargerIcone("Images/playButton.png");
-        icoResetButton = chargerIcone("Images/Vide.png");
+        icoResetButton = chargerIcone("Images/resetbutton.png");
         icoPiece = chargerIcone("Images/icoPiece.png");
     }
 
