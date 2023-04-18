@@ -10,9 +10,9 @@ public abstract class Planter extends Fonctionnalite {
     }
     public Fonctionnalite actionUtilisateur (int xx){
         return switch (xx) {
-            case 0 -> new GraineSalade();
-            case 1 -> new GraineCarotte();
-            case 2 -> new GraineTomate();
+            case 0 -> new PlanterGraineSalade();
+            case 1 -> new PlanterGraineCarotte();
+            case 2 -> new PlanterGraineTomate();
             default -> null;
         };
     }

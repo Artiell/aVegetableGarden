@@ -9,7 +9,7 @@ public class SimulateurMeteo implements Runnable {
     private int debutBouton;
     private int tempsAvantUpdateMeteo;
     private int update;
-    public static final int NB_METEO_MAX = TypeMeteo.values().length;
+    private final int NB_METEO_MAX = TypeMeteo.values().length;
     private final ButtonMeteo[] grilleDeMeteo = new ButtonMeteo[NB_METEO_MAX]; //Va permettre de savoir si on a activé le bouton pour planter le légume ou pas
 
     public SimulateurMeteo() {
@@ -20,6 +20,10 @@ public class SimulateurMeteo implements Runnable {
         initialisationDeMeteo();
         humidite = 50;
         grilleDeMeteo[1].setActivite(true);
+    }
+
+    public int getNB_METEO_MAX (){
+        return NB_METEO_MAX;
     }
     public void resetMeteo(){
         humidite = 50;

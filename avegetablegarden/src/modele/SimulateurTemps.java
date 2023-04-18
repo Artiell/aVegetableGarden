@@ -98,6 +98,5 @@ public class SimulateurTemps {
             default -> this.setVitesseSimulation(this.vitesseSimulation);
         }
     }
-    public void arret(){}
 
 }

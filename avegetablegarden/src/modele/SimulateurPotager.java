@@ -13,16 +13,16 @@ import modele.fonctionnalite.outils.Botte;
 import modele.fonctionnalite.outils.Pelle;
 import modele.fonctionnalite.outils.Poubelle;
 import modele.fonctionnalite.outils.Rateau;
-import modele.fonctionnalite.plantes.GraineCarotte;
-import modele.fonctionnalite.plantes.GraineSalade;
-import modele.fonctionnalite.plantes.GraineTomate;
+import modele.fonctionnalite.plantes.PlanterGraineCarotte;
+import modele.fonctionnalite.plantes.PlanterGraineSalade;
+import modele.fonctionnalite.plantes.PlanterGraineTomate;
 
 
 public class SimulateurPotager implements Runnable{
     private boolean finPartie;
     private Fonctionnalite fonctionnalite;
-    public final int SIZE_X = 20;
-    public final int SIZE_Y = 15; // enlever static
+    private final int SIZE_X = 20;
+    private final int SIZE_Y = 15; // enlever static
     private final SimulateurMeteo simulateurMeteo;
     private final Magasin magasin;
     TypeSol sol;
@@ -207,24 +207,24 @@ public class SimulateurPotager implements Runnable{
     public void actionUtilisateurGraines(int _x) {
         switch (_x) {
             case 0 -> {
-                if (fonctionnalite instanceof GraineSalade) {
+                if (fonctionnalite instanceof PlanterGraineSalade) {
                     fonctionnalite = null;
                 } else {
-                    fonctionnalite = new GraineSalade();
+                    fonctionnalite = new PlanterGraineSalade();
                 }
             }
             case 1 -> {
-                if (fonctionnalite instanceof GraineCarotte) {
+                if (fonctionnalite instanceof PlanterGraineCarotte) {
                     fonctionnalite = null;
                 } else {
-                    fonctionnalite = new GraineCarotte();
+                    fonctionnalite = new PlanterGraineCarotte();
                 }
             }
             case 2 -> {
-                if (fonctionnalite instanceof GraineTomate) {
+                if (fonctionnalite instanceof PlanterGraineTomate) {
                     fonctionnalite = null;
                 } else {
-                    fonctionnalite = new GraineTomate();
+                    fonctionnalite = new PlanterGraineTomate();
                 }
             }
         }

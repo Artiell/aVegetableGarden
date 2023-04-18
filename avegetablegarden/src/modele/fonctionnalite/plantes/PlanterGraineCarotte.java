@@ -1,16 +1,16 @@
 package modele.fonctionnalite.plantes;
 
 import modele.Magasin;
+import modele.environnement.Legume.varietes.Carotte;
 import modele.environnement.Legume.Legume;
-import modele.environnement.Legume.varietes.Salade;
 
-public class GraineSalade extends Planter{
-    public GraineSalade(){
+public class PlanterGraineCarotte extends Planter{
+    public PlanterGraineCarotte(){
         super();
     }
     public Legume action (Magasin magasin){
-        if (magasin.decrNbPiece(0)){
-            return new Salade();
+        if (magasin.decrNbPiece(1)){
+            return new Carotte();
         }else {
             System.out.println("Pas assez de piece");
             return null;

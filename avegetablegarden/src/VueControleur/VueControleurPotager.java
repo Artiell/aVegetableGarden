@@ -21,9 +21,9 @@ import modele.environnement.Case.CaseNonRatisser;
 import modele.environnement.Legume.Legume;
 import modele.environnement.Legume.varietes.Varietes;
 import modele.fonctionnalite.outils.*;
-import modele.fonctionnalite.plantes.GraineCarotte;
-import modele.fonctionnalite.plantes.GraineSalade;
-import modele.fonctionnalite.plantes.GraineTomate;
+import modele.fonctionnalite.plantes.PlanterGraineCarotte;
+import modele.fonctionnalite.plantes.PlanterGraineSalade;
+import modele.fonctionnalite.plantes.PlanterGraineTomate;
 
 
 /** Cette classe a deux fonctions :
@@ -418,7 +418,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         JComponent MeteoGrille = new JPanel(new GridLayout());
 
-        int sizeMeteo = SimulateurMeteo.NB_METEO_MAX;
+        int sizeMeteo = simulateurPotager.getSimulateurMeteo().getNB_METEO_MAX();
         JPanel panelMeteo = new JPanel();
         tabMeteo = new JLabel[sizeMeteo];
 
@@ -466,7 +466,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         pourcentageHumidite.setText("Pourcentage d'humidité : "+ simulateurPotager.getSimulateurMeteo().getHumidite()+ "   ");
 
         // Affiche les boutons de la météo
-        for (int x = 0; x < SimulateurMeteo.NB_METEO_MAX; x++) {
+        for (int x = 0; x < simulateurPotager.getSimulateurMeteo().getNB_METEO_MAX(); x++) {
             ButtonMeteo meteo = (ButtonMeteo) simulateurPotager.getSimulateurMeteo().getGrilleDeMeteo()[x];
             int i=0;
             int j = switch (meteo.getTypeMeteo()) {
@@ -489,9 +489,9 @@ public class VueControleurPotager extends JFrame implements Observer {
         // Affiche la partie sur les sprite des graine
         for (int x = 0; x < NbVariete; x++) {
             int j = 0;
-            if (simulateurPotager.getFonctionnalite() instanceof GraineSalade && x == 0) j=1;
-            if (simulateurPotager.getFonctionnalite() instanceof GraineCarotte && x == 1) j=1;
-            if (simulateurPotager.getFonctionnalite() instanceof GraineTomate && x == 2) j=1;
+            if (simulateurPotager.getFonctionnalite() instanceof PlanterGraineSalade && x == 0) j=1;
+            if (simulateurPotager.getFonctionnalite() instanceof PlanterGraineCarotte && x == 1) j=1;
+            if (simulateurPotager.getFonctionnalite() instanceof PlanterGraineTomate && x == 2) j=1;
             tabGraines[x][0].setIcon(icoGraine[x][j]);
         }
 
