@@ -22,7 +22,7 @@ public class CaseCultivable extends Case {
         if (simulateurPotager.getFonctionnalite() instanceof Outil outil) {
             legume = outil.actionOutil(legume, simulateurPotager);
         } else if (simulateurPotager.getFonctionnalite() instanceof Planter planter) {
-            if (legume != null){
+            if (legume == null){
                 legume = planter.action(simulateurPotager.getMagasin());
             }
         }
