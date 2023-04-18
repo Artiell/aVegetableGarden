@@ -13,7 +13,7 @@ public class SimulateurTemps {
         return vitesseSimulation;
     }
 
-    private void setVitesseSimulation(int vitesseSimulation) {
+    public void setVitesseSimulation(int vitesseSimulation) {
         this.vitesseSimulation = vitesseSimulation;
     }
     //Représente les ms, secondes, minutes, heurs, jours écoulés depuis le début de la simulation
@@ -98,5 +98,6 @@ public class SimulateurTemps {
             default -> this.setVitesseSimulation(this.vitesseSimulation);
         }
     }
+    public void arret(){}
 
 }

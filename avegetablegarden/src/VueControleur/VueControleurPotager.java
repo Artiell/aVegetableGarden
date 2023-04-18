@@ -287,7 +287,9 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabJLabel[x][y].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        simulateurPotager.actionUtilisateur(xx, yy);
+                        if (!simulateurPotager.getFinPartie()){
+                            simulateurPotager.actionUtilisateur(xx, yy);
+                        }
                     }
                 });
             }
@@ -298,7 +300,9 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabGraines[x][y].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        simulateurPotager.actionUtilisateurGraines(xx);
+                        if (!simulateurPotager.getFinPartie()){
+                            simulateurPotager.actionUtilisateurGraines(xx);
+                        }
 
                     }
                 });
@@ -311,7 +315,9 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabOutils[y][x].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        simulateurPotager.actionUtilisateurOutils(xx);
+                        if (!simulateurPotager.getFinPartie()){
+                            simulateurPotager.actionUtilisateurOutils(xx);
+                        }
                     }
                 });
             }
@@ -340,7 +346,9 @@ public class VueControleurPotager extends JFrame implements Observer {
         playButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SimulateurTemps.getSimuTemps().play();
+                if (!simulateurPotager.getFinPartie()){
+                    SimulateurTemps.getSimuTemps().play();
+                }
                 //System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
             }
         });
@@ -349,7 +357,9 @@ public class VueControleurPotager extends JFrame implements Observer {
         pauseButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SimulateurTemps.getSimuTemps().stop();
+                if (!simulateurPotager.getFinPartie()){
+                    SimulateurTemps.getSimuTemps().stop();
+                }
                 //System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
             }
         });
@@ -358,7 +368,9 @@ public class VueControleurPotager extends JFrame implements Observer {
         leftArrowButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SimulateurTemps.getSimuTemps().decelerer();
+                if (!simulateurPotager.getFinPartie()){
+                    SimulateurTemps.getSimuTemps().decelerer();
+                }
                 //System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
             }
         });
@@ -367,7 +379,9 @@ public class VueControleurPotager extends JFrame implements Observer {
         rightArrowButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SimulateurTemps.getSimuTemps().accelerer();
+                if (!simulateurPotager.getFinPartie()){
+                    SimulateurTemps.getSimuTemps().accelerer();
+                }
                 //System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
             }
         });
@@ -418,7 +432,9 @@ public class VueControleurPotager extends JFrame implements Observer {
             tabMeteo[x].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    simulateurPotager.getSimulateurMeteo().actionUtilisateur(xx);
+                    if (!simulateurPotager.getFinPartie()){
+                        simulateurPotager.getSimulateurMeteo().actionUtilisateur(xx);
+                    }
                 }
             });
         }

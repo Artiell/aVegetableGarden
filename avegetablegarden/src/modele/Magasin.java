@@ -21,6 +21,9 @@ public class Magasin {
         return message;
     }
 
+    public void setMessage(String msg){
+        message = msg;
+    }
     public void resetMagasin (){
         nbPiece=15;
         message = null;

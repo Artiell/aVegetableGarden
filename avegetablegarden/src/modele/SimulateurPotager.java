@@ -19,9 +19,10 @@ import modele.fonctionnalite.plantes.GraineTomate;
 
 
 public class SimulateurPotager implements Runnable{
+    private boolean finPartie;
     private Fonctionnalite fonctionnalite;
     public static final int SIZE_X = 20;
-    public static final int SIZE_Y = 15;
+    public static final int SIZE_Y = 15; // enlever static
     private final SimulateurMeteo simulateurMeteo;
     private final Magasin magasin;
     TypeSol sol;
@@ -38,6 +39,7 @@ public class SimulateurPotager implements Runnable{
     }
     // private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
     public SimulateurPotager() {
+        finPartie = false;
         fonctionnalite = null;
         magasin = new Magasin();
         simulateurMeteo = new SimulateurMeteo();
@@ -52,6 +54,14 @@ public class SimulateurPotager implements Runnable{
         initialisationInventaire();
 
     }
+    public boolean getFinPartie(){
+        return finPartie;
+    }
+
+    public void setFinPartie(boolean _finPartie) {
+        this.finPartie = _finPartie;
+    }
+
     public TypeSol getSol (){
         return sol;
     }
@@ -277,10 +287,19 @@ public class SimulateurPotager implements Runnable{
         magasin.resetMagasin();
         simulateurMeteo.resetMeteo();
         SimulateurTemps.getSimuTemps().resetTemps();
+        finPartie = false;
+    }
+    public void verifFinPartie (){
+        if (magasin.getNbPiece() < -10){
+            finPartie = true;
+            SimulateurTemps.getSimuTemps().setVitesseSimulation(0);
+            magasin.setMessage("FIN DE LA PARTIE");
+        }
     }
 
     public void run (){
         this.updateSol();
         this.updateBush();
+        verifFinPartie();
     }
 }
