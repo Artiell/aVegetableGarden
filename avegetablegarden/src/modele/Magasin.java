@@ -5,19 +5,25 @@ import modele.environnement.Legume.varietes.Varietes;
 public class Magasin {
     private final int[] tabPrix;
     private int[] tabRecompense;
-    private int[] tabMalus;
     private int nbPiece;
+    private String message;
 
     public Magasin (){
         tabPrix = new int[Varietes.values().length];
         initialisationPrix();
         initialisationRecompense();
-        initialisationMalus();
         nbPiece = 15;
+        message = null;
 
     }
-    public void resetNbPiece (){
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void resetMagasin (){
         nbPiece=15;
+        message = null;
     }
     private void initialisationPrix(){
         tabPrix[0] = 3; //prix salade
@@ -30,12 +36,6 @@ public class Magasin {
         tabRecompense[1] = 9;
         tabRecompense[2] = 12;
     }
-    private void initialisationMalus(){
-        tabMalus = new int[Varietes.values().length];
-        tabMalus[0] = 1;
-        tabMalus[1] = 2;
-        tabMalus[2] = 4;
-    }
     public int[] getTabPrix() {
         return tabPrix;
     }
@@ -46,18 +46,28 @@ public class Magasin {
 
     public void incrNbPiece (int ind){
         nbPiece+= tabRecompense[ind];
-        System.out.println(" + "+tabRecompense[ind]);
+        message = " + "+tabRecompense[ind];
     }
     public boolean decrNbPiece (int ind){
         if (nbPiece-tabPrix[ind] < 0){
+            message = "Pas assez de pièces";
+            verifFinPartie();
             return false;
         }else {
+            message = " - "+tabPrix[ind];
             nbPiece-= tabPrix[ind];
+            verifFinPartie();
             return true;
         }
     }
     public void updateMalus(int ind){
-        nbPiece -= tabMalus[ind];
-        System.out.println(" MALUS : - "+ tabMalus[ind]);
+        nbPiece -= tabPrix[ind];
+        message = " MALUS : - "+ tabPrix[ind];
+        verifFinPartie();
+    }
+    private void verifFinPartie(){
+        if (nbPiece < -10){
+            message = "FIN DE LA PARTIE";
+        }
     }
 }

@@ -274,7 +274,7 @@ public class SimulateurPotager implements Runnable{
         initialisationDesEntites();
         initialisationInventaire();
         initialisationSol();
-        magasin.resetNbPiece();
+        magasin.resetMagasin();
         simulateurMeteo.resetMeteo();
         SimulateurTemps.getSimuTemps().resetTemps();
     }

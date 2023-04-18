@@ -64,6 +64,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     JTextField vitesseDuJeu;
     JTextField tempsDuJeu;
     JTextField pourcentageHumidite;
+    JTextField message;
 
     public VueControleurPotager(SimulateurPotager _simulateurPotager) {
         simulateurPotager = _simulateurPotager;
@@ -160,7 +161,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
     private void placerLesComposantsGraphiques() {
         setTitle("A vegetable garden");
-        setSize(1365, 820);
+        setSize(1365, 890);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
         //Permet l'affichage de la partie de droite
@@ -210,7 +211,7 @@ public class VueControleurPotager extends JFrame implements Observer {
 
 
         //Permet l'affichage de la partie de gauche
-        JComponent grilleInfosGauche = new JPanel(new GridLayout(4, 1));
+        JComponent grilleInfosGauche = new JPanel(new GridLayout(5, 1));
 
         // Correspond à l'affichage d'info diverses
         JTextField jtf3 = new JTextField("Choix des graines"); // TODO inclure dans mettreAJourAffichage ...
@@ -254,6 +255,11 @@ public class VueControleurPotager extends JFrame implements Observer {
         nbPiece[1].setIcon(icoPiece);
         grilleInfosGauche.add(grillePiece);
 
+        message=new JTextField();
+        message.setBorder(null);
+        message.setBackground(null);
+        message.setHorizontalAlignment(JTextField.CENTER);
+        grilleInfosGauche.add(message);
 
         add(grilleInfosGauche, BorderLayout.WEST);
 
@@ -474,6 +480,8 @@ public class VueControleurPotager extends JFrame implements Observer {
         }
 
         nbPiece[0].setText("    "+ simulateurPotager.getMagasin().getNbPiece());
+
+        message.setText(simulateurPotager.getMagasin().getMessage());
 
         // Affiche les sprites des outils
         for (int y = 0; y < 1; y++) {
