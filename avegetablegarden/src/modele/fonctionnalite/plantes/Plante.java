@@ -9,12 +9,12 @@ public abstract class Plante extends Fonctionnalite {
         super();
     }
     public Fonctionnalite actionUtilisateur (int xx){
-        switch (xx){
-            case 0: return new GraineSalade();
-            case 1: return new GraineCarotte();
-            case 2: return new GraineTomate();
-            default: return null;
-        }
+        return switch (xx) {
+            case 0 -> new GraineSalade();
+            case 1 -> new GraineCarotte();
+            case 2 -> new GraineTomate();
+            default -> null;
+        };
     }
     public abstract Legume action (Magasin magasin);
 }

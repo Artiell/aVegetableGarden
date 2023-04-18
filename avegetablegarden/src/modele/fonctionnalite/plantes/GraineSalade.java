@@ -2,7 +2,6 @@ package modele.fonctionnalite.plantes;
 
 import modele.Magasin;
 import modele.environnement.Legume.Legume;
-import modele.environnement.Legume.varietes.Carotte;
 import modele.environnement.Legume.varietes.Salade;
 
 public class GraineSalade extends Plante{

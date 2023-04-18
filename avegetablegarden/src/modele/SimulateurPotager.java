@@ -7,10 +7,6 @@ package modele;
 
 
 import modele.environnement.Case.*;
-import modele.environnement.Legume.Legume;
-import modele.environnement.Legume.varietes.Carotte;
-import modele.environnement.Legume.varietes.Salade;
-import modele.environnement.Legume.varietes.Tomate;
 import modele.environnement.Legume.varietes.Varietes;
 import modele.fonctionnalite.*;
 import modele.fonctionnalite.outils.Botte;

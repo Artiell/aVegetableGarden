@@ -3,7 +3,7 @@ package modele;
 import modele.environnement.Legume.varietes.Varietes;
 
 public class Magasin {
-    private int[] tabPrix;
+    private final int[] tabPrix;
     private int[] tabRecompense;
     private int[] tabMalus;
     private int nbPiece;
@@ -46,7 +46,7 @@ public class Magasin {
 
     public void incrNbPiece (int ind){
         nbPiece+= tabRecompense[ind];
-        System.out.println(" + "+String.valueOf(tabRecompense[ind]));
+        System.out.println(" + "+tabRecompense[ind]);
     }
     public boolean decrNbPiece (int ind){
         if (nbPiece-tabPrix[ind] < 0){
@@ -58,6 +58,6 @@ public class Magasin {
     }
     public void updateMalus(int ind){
         nbPiece -= tabMalus[ind];
-        System.out.println(" MALUS : - "+String.valueOf(tabMalus[ind]));
+        System.out.println(" MALUS : - "+ tabMalus[ind]);
     }
 }

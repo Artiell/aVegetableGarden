@@ -16,7 +16,7 @@ public class Rateau extends Outil {
     public void actionUtilisateur(Case cases,int x, int y, SimulateurPotager simulateurPotager){
 
         if (cases instanceof CaseNonRatisser){
-            cases = null;
+            Ordonnanceur.getOrdonnanceur().remove(simulateurPotager.getPlateau()[x][y]);
             CaseCultivable cc = new CaseCultivable(simulateurPotager);
             simulateurPotager.addEntite(cc, x, y);
             Ordonnanceur.getOrdonnanceur().add(cc);

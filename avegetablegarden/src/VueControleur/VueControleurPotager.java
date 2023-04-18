@@ -232,7 +232,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         }
         // On met les prix qu'on a définis dans le magasin
         for (int i = 0; i<NbVariete; i++){
-            tabGraines[i][1].setText("         "+String.valueOf(simulateurPotager.getMagasin().getTabPrix()[i]));
+            tabGraines[i][1].setText("         "+simulateurPotager.getMagasin().getTabPrix()[i]);
         }
         for (int x = 0; x < NbVariete; x++) {
             tabGraines[x][2].setIcon(icoPiece);
@@ -473,7 +473,7 @@ public class VueControleurPotager extends JFrame implements Observer {
             tabGraines[x][0].setIcon(icoGraine[x][j]);
         }
 
-        nbPiece[0].setText("    "+ String.valueOf(simulateurPotager.getMagasin().getNbPiece()));
+        nbPiece[0].setText("    "+ simulateurPotager.getMagasin().getNbPiece());
 
         // Affiche les sprites des outils
         for (int y = 0; y < 1; y++) {
