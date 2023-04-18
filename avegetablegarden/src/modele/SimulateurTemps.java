@@ -40,6 +40,14 @@ public class SimulateurTemps {
         return instance;
     }
 
+    public void resetTemps (){
+        this.ms = 0;
+        this.s = 0;
+        this.vitesseAvantPause = 0;
+        this.vitesseSimulation = 1;
+        this.isStop = false;
+    }
+
     public void Incr(int time){
         this.ms += time;
         if (this.ms >= 1000) {

@@ -1,5 +1,6 @@
 package modele.fonctionnalite.plantes;
 
+import modele.Magasin;
 import modele.environnement.Legume.Legume;
 import modele.fonctionnalite.Fonctionnalite;
 
@@ -15,5 +16,5 @@ public abstract class Plante extends Fonctionnalite {
             default: return null;
         }
     }
-    public abstract Legume action ();
+    public abstract Legume action (Magasin magasin);
 }

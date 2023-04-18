@@ -12,20 +12,23 @@ public class Pelle extends Outil {
     public Legume actionOutil(Legume legume, SimulateurPotager simulateurPotager){
 
             if (legume != null && legume.getEtatLegume() == EtatLegume.mature){
+                int i =-1;
                 switch (legume.getVariete()) {
                     case salade -> {
-                        simulateurPotager.incrTabInventaireLegume(0);
+                        i=0;
                         legume = null;
                     }
                     case carotte -> {
-                        simulateurPotager.incrTabInventaireLegume(1);
+                        i=1;
                         legume = null;
                     }
                     case tomate -> {
-                        simulateurPotager.incrTabInventaireLegume(2);
+                        i=2;
                         legume = null;
                     }
                 }
+                simulateurPotager.incrTabInventaireLegume(i);
+                simulateurPotager.getMagasin().incrNbPiece(i);
             }
 
         return legume;

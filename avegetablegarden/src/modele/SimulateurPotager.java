@@ -7,6 +7,10 @@ package modele;
 
 
 import modele.environnement.Case.*;
+import modele.environnement.Legume.Legume;
+import modele.environnement.Legume.varietes.Carotte;
+import modele.environnement.Legume.varietes.Salade;
+import modele.environnement.Legume.varietes.Tomate;
 import modele.environnement.Legume.varietes.Varietes;
 import modele.fonctionnalite.*;
 import modele.fonctionnalite.outils.Botte;
@@ -23,10 +27,11 @@ public class SimulateurPotager implements Runnable{
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 15;
     private final SimulateurMeteo simulateurMeteo;
+    private final Magasin magasin;
     TypeSol sol;
     private int[] tabInventaireLegume;
-
     private Case[][] grilleCases = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
+
 
     public int[] getTabInventaireLegume() {
         return tabInventaireLegume;
@@ -38,20 +43,17 @@ public class SimulateurPotager implements Runnable{
     // private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
     public SimulateurPotager() {
         fonctionnalite = null;
-
+        magasin = new Magasin();
         simulateurMeteo = new SimulateurMeteo();
 
         Ordonnanceur.getOrdonnanceur().add(simulateurMeteo);
 
         initialisationDesEntites();
-        sol = TypeSol.normal;
+        initialisationSol();
 
         //initialisation de l'inventaire
         this.tabInventaireLegume = new int[Varietes.values().length];
-        //on initialise toutes les cases à 0
-        for(int i=0; i<Varietes.values().length; i++){
-            tabInventaireLegume[i] = 0;
-        }
+        initialisationInventaire();
 
     }
     public TypeSol getSol (){
@@ -66,6 +68,9 @@ public class SimulateurPotager implements Runnable{
     public SimulateurMeteo getSimulateurMeteo() { return simulateurMeteo; }
     public Case[][] getPlateau() {
         return grilleCases;
+    }
+    public Magasin getMagasin (){
+        return magasin;
     }
 
     private void initialisationDesEntites() {
@@ -97,16 +102,11 @@ public class SimulateurPotager implements Runnable{
         addEntite(cc2, SIZE_X-1, 0);
         addEntite(cc3,0, SIZE_Y - 1);
         addEntite(cc4, SIZE_X-1, SIZE_Y - 1);
+        Ordonnanceur.getOrdonnanceur().add(cc1);
+        Ordonnanceur.getOrdonnanceur().add(cc2);
+        Ordonnanceur.getOrdonnanceur().add(cc3);
+        Ordonnanceur.getOrdonnanceur().add(cc4);
 
-        for (int x = 0; x < 20; x++) {
-            int xRnd = (int) (Math.random() * (SIZE_X-2) + 1);
-            int yRnd = (int) (Math.random() * (SIZE_Y-2) + 1);
-            if (grilleCases[xRnd][yRnd] == null){
-                Case cc = new CaseNonRatisser();
-                addEntite(cc, xRnd, yRnd);
-                Ordonnanceur.getOrdonnanceur().add(cc);
-            }
-        }
 
 
 
@@ -115,7 +115,12 @@ public class SimulateurPotager implements Runnable{
 
         for(int i=1; i<SIZE_X-1; i++){
             for(int j=1; j<SIZE_Y-1; j++){
-                if(grilleCases[i][j] == null){
+                if(grilleCases[i][j] != null) {
+                    Ordonnanceur.getOrdonnanceur().remove(grilleCases[i][j]);
+                    CaseCultivable cc = new CaseCultivable(this);
+                    addEntite(cc, i, j);
+                    Ordonnanceur.getOrdonnanceur().add(cc);
+                }else {
                     CaseCultivable cc = new CaseCultivable(this);
                     addEntite(cc, i, j);
                     Ordonnanceur.getOrdonnanceur().add(cc);
@@ -123,6 +128,27 @@ public class SimulateurPotager implements Runnable{
             }
         }
 
+        for (int x = 0; x < 20; x++) {
+            int xRnd = (int) (Math.random() * (SIZE_X-2) + 1);
+            int yRnd = (int) (Math.random() * (SIZE_Y-2) + 1);
+            if (grilleCases[xRnd][yRnd] != null){
+                Ordonnanceur.getOrdonnanceur().remove(grilleCases[xRnd][yRnd]);
+                Case cc = new CaseNonRatisser();
+                addEntite(cc, xRnd, yRnd);
+                Ordonnanceur.getOrdonnanceur().add(cc);
+            }
+        }
+    }
+
+    private void initialisationInventaire (){
+        //on initialise toutes les cases à 0
+        for(int i=0; i<Varietes.values().length; i++){
+            tabInventaireLegume[i] = 0;
+        }
+    }
+
+    private void initialisationSol () {
+        sol = TypeSol.normal;
     }
 
     public void actionUtilisateur(int x, int y) {
@@ -213,26 +239,48 @@ public class SimulateurPotager implements Runnable{
         for (int i = 0; i < SIZE_X; i++) {
             for (int j = 0; j < SIZE_Y; j++) {
 
-                if (grilleCases[i][j] instanceof CaseCultivable) {
-                    if (((CaseCultivable) grilleCases[i][j]).getLegume() != null) {
-                        if (((CaseCultivable) grilleCases[i][j]).getLegume().getDureePourri() >= 10) {
+                if (grilleCases[i][j] instanceof CaseCultivable
+                        && (((CaseCultivable) grilleCases[i][j]).getLegume() != null)
+                        && (((CaseCultivable) grilleCases[i][j]).getLegume().getDureePourri() >= 30)) {
 
-                            //on supprime premièrement la case du run de l'ordo pour eviter un nullpointer exception sur la methode run d'une case qui n'est plus dans le vecteur
-                            Ordonnanceur.getOrdonnanceur().remove(grilleCases[i][j]);
-                            //on passe la case en question a null
-                            grilleCases[i][j] = null;
-
-                            //on crée une nouvelle case et on l'ajoute au tableau et a l'ordo
-                            CaseNonRatisser cnt = new CaseNonRatisser();
-                            this.addEntite(cnt, i, j);
-                            Ordonnanceur.getOrdonnanceur().add(cnt);
-
-                        }
+                    //mise à jour du malus
+                    switch (((CaseCultivable) grilleCases[i][j]).getLegume().getVariete()){
+                        case salade -> magasin.updateMalus(0);
+                        case carotte -> magasin.updateMalus(1);
+                        case tomate -> magasin.updateMalus(2);
                     }
+
+                    //on supprime premièrement la case du run de l'ordo pour eviter un nullpointer exception sur la methode run d'une case qui n'est plus dans le vecteur
+                    Ordonnanceur.getOrdonnanceur().remove(grilleCases[i][j]);
+                    //on passe la case en question a null
+                    grilleCases[i][j] = null;
+
+                    //on crée une nouvelle case et on l'ajoute au tableau et a l'ordo
+                    CaseNonRatisser cnt = new CaseNonRatisser();
+                    this.addEntite(cnt, i, j);
+                    Ordonnanceur.getOrdonnanceur().add(cnt);
 
                 }
             }
         }
+    }
+    private void suppressionEntite (){
+        for (int i =0; i<SIZE_X; i++){
+            for(int j=0; j<SIZE_Y; j++){
+                Ordonnanceur.getOrdonnanceur().remove(grilleCases[i][j]);
+            }
+        }
+    }
+    public void reset (){
+        suppressionEntite();
+        System.out.println("on recommence à 0");
+        fonctionnalite = null;
+        initialisationDesEntites();
+        initialisationInventaire();
+        initialisationSol();
+        magasin.resetNbPiece();
+        simulateurMeteo.resetMeteo();
+        SimulateurTemps.getSimuTemps().resetTemps();
     }
 
     public void run (){

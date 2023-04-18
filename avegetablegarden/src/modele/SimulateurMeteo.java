@@ -21,7 +21,16 @@ public class SimulateurMeteo implements Runnable {
         humidite = 50;
         grilleDeMeteo[1].setActivite(true);
     }
-
+    public void resetMeteo(){
+        humidite = 50;
+        grilleDeMeteo[0].setActivite(false);
+        grilleDeMeteo[2].setActivite(false);
+        tempsAppuyer = 0;
+        debutBouton = 0;
+        update = 0;
+        tempsAvantUpdateMeteo = 0;
+        grilleDeMeteo[1].setActivite(true);
+    }
     public float getHumidite (){
         return humidite;
     }

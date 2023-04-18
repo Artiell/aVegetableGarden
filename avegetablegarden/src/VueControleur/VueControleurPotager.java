@@ -49,6 +49,7 @@ public class VueControleurPotager extends JFrame implements Observer {
     private ImageIcon[] icoBuisson;
     private ImageIcon icoPauseButton;
     private ImageIcon icoPlayButton;
+    private ImageIcon icoResetButton;
     private ImageIcon icoLeftArrowButton;
     private ImageIcon icoRightArrowButton;
     private ImageIcon icoPiece;
@@ -153,6 +154,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         this.icoRightArrowButton = this.chargerIcone("Images/rightArrowButton.png");
         this.icoPauseButton = this.chargerIcone("Images/pauseButton.png");
         this.icoPlayButton = this.chargerIcone("Images/playButton.png");
+        icoResetButton = chargerIcone("Images/Vide.png");
         icoPiece = chargerIcone("Images/icoPiece.png");
     }
 
@@ -227,6 +229,10 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabGraines[i][j] = new JLabel();
                 grilleGraine.add(tabGraines[i][j]);
             }
+        }
+        // On met les prix qu'on a définis dans le magasin
+        for (int i = 0; i<NbVariete; i++){
+            tabGraines[i][1].setText("         "+String.valueOf(simulateurPotager.getMagasin().getTabPrix()[i]));
         }
         for (int x = 0; x < NbVariete; x++) {
             tabGraines[x][2].setIcon(icoPiece);
@@ -315,6 +321,14 @@ public class VueControleurPotager extends JFrame implements Observer {
         vitesseDuJeu.setBorder(null);
 
         speedGrille.add(vitesseDuJeu);
+        JButton resetButton = new JButton(this.icoResetButton);
+        resetButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                simulateurPotager.reset();
+                //System.out.println("le systeme est en x" + SimulateurTemps.getSimuTemps().getVitesseSimulation());
+            }
+        });
 
         JButton playButton = new JButton(this.icoPlayButton);
         playButton.addMouseListener(new MouseAdapter() {
@@ -352,16 +366,19 @@ public class VueControleurPotager extends JFrame implements Observer {
             }
         });
 
+        resetButton.setContentAreaFilled(false);
         playButton.setContentAreaFilled(false);
         pauseButton.setContentAreaFilled(false);
         leftArrowButton.setContentAreaFilled(false);
         rightArrowButton.setContentAreaFilled(false);
 
+        resetButton.setBorderPainted(false);
         playButton.setBorderPainted(false);
         pauseButton.setBorderPainted(false);
         leftArrowButton.setBorderPainted(false);
         rightArrowButton.setBorderPainted(false);
 
+        speedGrille.add(resetButton);
         speedGrille.add(playButton);
         speedGrille.add(pauseButton);
         speedGrille.add(leftArrowButton);
@@ -455,12 +472,8 @@ public class VueControleurPotager extends JFrame implements Observer {
             if (simulateurPotager.getFonctionnalite() instanceof GraineTomate && x == 2) j=1;
             tabGraines[x][0].setIcon(icoGraine[x][j]);
         }
-        // A changer et mettre les prix qu'on aura défini dans la classe
-        tabGraines[0][1].setText("          8");
-        tabGraines[1][1].setText("         10");
-        tabGraines[2][1].setText("         15");
 
-        nbPiece[0].setText("nbpiece");
+        nbPiece[0].setText("    "+ String.valueOf(simulateurPotager.getMagasin().getNbPiece()));
 
         // Affiche les sprites des outils
         for (int y = 0; y < 1; y++) {
