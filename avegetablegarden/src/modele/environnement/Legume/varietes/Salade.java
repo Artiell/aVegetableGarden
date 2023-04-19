@@ -14,7 +14,7 @@ public class Salade extends Legume {
     protected void croissance(TypeSol sol) {
 
         switch (sol) {
-            case normal -> {
+            case normal :
                 if (this.getTempsDeVieActuel() >= 30) {
                     this.setEtatLegume(EtatLegume.jeune);
                 }
@@ -24,17 +24,17 @@ public class Salade extends Legume {
                 if (this.getTempsDeVieActuel() >= 120) {
                     this.setEtatLegume(EtatLegume.pourri);
                 }
-            }
-            case humide -> {
+                break;
+            case humide :
                 if (this.getTempsDeVieActuel() >= 2) {
                     this.setEtatLegume(EtatLegume.jeune);
                 }
                 if (this.getTempsDeVieActuel() >= 8) {
                     this.setEtatLegume(EtatLegume.pourri);
                 }
-            }
+                break;
             // A changer
-            case sec -> {
+            case sec :
                 if (this.getTempsDeVieActuel() >= 10) {
                     this.setEtatLegume(EtatLegume.jeune);
                 }
@@ -44,7 +44,7 @@ public class Salade extends Legume {
                 if (this.getTempsDeVieActuel() >= 25) {
                     this.setEtatLegume(EtatLegume.pourri);
                 }
-            }
+                break;
         }
         this.updatePourri();
     }

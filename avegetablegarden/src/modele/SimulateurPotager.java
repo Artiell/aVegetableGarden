@@ -164,7 +164,8 @@ public class SimulateurPotager implements Runnable{
             grilleCases[x][y].actionUtilisateur();
         }
         //Gère l'outil le rateau
-        if (fonctionnalite instanceof Rateau r){
+        if (fonctionnalite instanceof Rateau){
+            Rateau r = (Rateau) fonctionnalite;
             r.actionUtilisateur(grilleCases[x][y], x, y,this);
             magasin.updateMalus(3);
         }
@@ -172,61 +173,61 @@ public class SimulateurPotager implements Runnable{
     }
     public void actionUtilisateurOutils(int x) {
         switch (x) {
-            case 0 -> {
+            case 0 :
                 if (fonctionnalite instanceof Pelle) {
                     fonctionnalite = null;
                 } else {
                     fonctionnalite = new Pelle();
                 }
-            }
-            case 1 -> {
+                break;
+            case 1 :
                 if (fonctionnalite instanceof Rateau) {
                     fonctionnalite = null;
                 } else {
                     fonctionnalite = new Rateau();
                 }
-            }
-            case 2 -> {
+                break;
+            case 2 :
                 if (fonctionnalite instanceof Botte) {
                     fonctionnalite = null;
                 } else {
                     fonctionnalite = new Botte();
                 }
-            }
-            case 3 -> {
+                break;
+            case 3 :
                 if (fonctionnalite instanceof Poubelle) {
                     fonctionnalite = null;
                 } else {
                     fonctionnalite = new Poubelle();
                 }
-            }
+                break;
         }
 
     }
 
     public void actionUtilisateurGraines(int _x) {
         switch (_x) {
-            case 0 -> {
+            case 0 :
                 if (fonctionnalite instanceof PlanterGraineSalade) {
                     fonctionnalite = null;
                 } else {
                     fonctionnalite = new PlanterGraineSalade();
                 }
-            }
-            case 1 -> {
+                break;
+            case 1 :
                 if (fonctionnalite instanceof PlanterGraineCarotte) {
                     fonctionnalite = null;
                 } else {
                     fonctionnalite = new PlanterGraineCarotte();
                 }
-            }
-            case 2 -> {
+                break;
+            case 2 :
                 if (fonctionnalite instanceof PlanterGraineTomate) {
                     fonctionnalite = null;
                 } else {
                     fonctionnalite = new PlanterGraineTomate();
                 }
-            }
+                break;
         }
     }
 
@@ -254,9 +255,9 @@ public class SimulateurPotager implements Runnable{
 
                     //mise à jour du malus
                     switch (((CaseCultivable) grilleCases[i][j]).getLegume().getVariete()){
-                        case salade -> magasin.updateMalus(0);
-                        case carotte -> magasin.updateMalus(1);
-                        case tomate -> magasin.updateMalus(2);
+                        case salade : magasin.updateMalus(0);break;
+                        case carotte : magasin.updateMalus(1);break;
+                        case tomate : magasin.updateMalus(2);break;
                     }
 
                     //on supprime premièrement la case du run de l'ordo pour eviter un nullpointer exception sur la methode run d'une case qui n'est plus dans le vecteur

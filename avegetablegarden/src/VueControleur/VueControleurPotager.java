@@ -103,9 +103,9 @@ public class VueControleurPotager extends JFrame implements Observer {
                 icoSalade[j][i] = new ImageIcon();
                 icoCarotte[j][i] = new ImageIcon();
                 icoTomate[j][i] = new ImageIcon();
-                icoSalade[j][i] = chargerIcone("Images/spriteTerrain/Salade/" + i + "dirtCenterSalade" + j + ".png");
-                icoCarotte[j][i] = chargerIcone("Images/spriteTerrain/Carotte/" + i + "dirtCenterCarotte" + j + ".png");
-                icoTomate[j][i] = chargerIcone("Images/spriteTerrain/Tomate/" + i + "dirtCenterTomate" + j + ".png");
+                icoSalade[j][i] = chargerIcone("src/Images/spriteTerrain/Salade/" + i + "dirtCenterSalade" + j + ".png");
+                icoCarotte[j][i] = chargerIcone("src/Images/spriteTerrain/Carotte/" + i + "dirtCenterCarotte" + j + ".png");
+                icoTomate[j][i] = chargerIcone("src/Images/spriteTerrain/Tomate/" + i + "dirtCenterTomate" + j + ".png");
             }
         }
         icoTerre = new ImageIcon[3];
@@ -113,15 +113,15 @@ public class VueControleurPotager extends JFrame implements Observer {
         for (int i = 0; i < 3; i++) {
             icoTerre[i] = new ImageIcon();
             icoBuisson[i] = new ImageIcon();
-            icoTerre[i] = chargerIcone("Images/spriteTerrain/dirtCenter"+i+".png");
-            icoBuisson[i] = chargerIcone("Images/spriteTerrain/"+i+"buisson.png");
+            icoTerre[i] = chargerIcone("src/Images/spriteTerrain/dirtCenter"+i+".png");
+            icoBuisson[i] = chargerIcone("src/Images/spriteTerrain/"+i+"buisson.png");
         }
 
         icoOutils = new ImageIcon[4][2];
         for (int j = 0; j< 4; j++) {
             for (int i = 0; i < 2; i++) {
                 icoOutils[j][i] = new ImageIcon();
-                icoOutils[j][i] = chargerIcone("Images/Outils/Outils"+j+"Etat"+ i + ".png");
+                icoOutils[j][i] = chargerIcone("src/Images/Outils/Outils"+j+"Etat"+ i + ".png");
             }
         }
 
@@ -129,7 +129,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         for (int j = 0; j< 8; j++) {
             for (int i = 0; i < 3; i++) {
                 gardenFence[i][j] = new ImageIcon();
-                gardenFence[i][j] = chargerIcone("Images/spriteTerrain/"+i+"fence"+ j + ".png");
+                gardenFence[i][j] = chargerIcone("src/Images/spriteTerrain/"+i+"fence"+ j + ".png");
             }
         }
 
@@ -137,7 +137,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         for (int j = 0; j< 3; j++) {
             for (int i = 0; i < 2; i++) {
                 icoGraine[j][i] = new ImageIcon();
-                icoGraine[j][i] = chargerIcone("Images/Graines/Graine"+j+"Etat"+ i + ".png");
+                icoGraine[j][i] = chargerIcone("src/Images/Graines/Graine"+j+"Etat"+ i + ".png");
             }
         }
 
@@ -145,18 +145,18 @@ public class VueControleurPotager extends JFrame implements Observer {
         for (int j = 0; j< 3; j++) {
             for (int i = 0; i < 2; i++) {
                 icoMeteo[j][i] = new ImageIcon();
-                icoMeteo[j][i] = chargerIcone("Images/Meteo/Meteo"+j+"Etat"+ i + ".png");
+                icoMeteo[j][i] = chargerIcone("src/Images/Meteo/Meteo"+j+"Etat"+ i + ".png");
             }
         }
 
-        icoVide = chargerIcone("Images/Vide.png");
+        icoVide = chargerIcone("src/Images/Vide.png");
 
-        this.icoLeftArrowButton = this.chargerIcone("Images/leftArrowButton.png");
-        this.icoRightArrowButton = this.chargerIcone("Images/rightArrowButton.png");
-        this.icoPauseButton = this.chargerIcone("Images/pauseButton.png");
-        this.icoPlayButton = this.chargerIcone("Images/playButton.png");
-        icoResetButton = chargerIcone("Images/resetbutton.png");
-        icoPiece = chargerIcone("Images/icoPiece.png");
+        this.icoLeftArrowButton = this.chargerIcone("src/Images/leftArrowButton.png");
+        this.icoRightArrowButton = this.chargerIcone("src/Images/rightArrowButton.png");
+        this.icoPauseButton = this.chargerIcone("src/Images/pauseButton.png");
+        this.icoPlayButton = this.chargerIcone("src/Images/playButton.png");
+        icoResetButton = chargerIcone("src/Images/resetbutton.png");
+        icoPiece = chargerIcone("src/Images/icoPiece.png");
     }
 
     private void placerLesComposantsGraphiques() {
@@ -469,11 +469,12 @@ public class VueControleurPotager extends JFrame implements Observer {
         for (int x = 0; x < simulateurPotager.getSimulateurMeteo().getNB_METEO_MAX(); x++) {
             ButtonMeteo meteo = (ButtonMeteo) simulateurPotager.getSimulateurMeteo().getGrilleDeMeteo()[x];
             int i=0;
-            int j = switch (meteo.getTypeMeteo()) {
-                case soleil -> 0;
-                case nuage -> 1;
-                case pluie -> 2;
-            };
+            int j = -1;
+            switch (meteo.getTypeMeteo()) {
+                case soleil : j=0;break;
+                case nuage : j=1;break;
+                case pluie : j=2;break;
+            }
             if (meteo.getActivite()) {
                 i=1;
             }
@@ -514,26 +515,27 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         for (int x = 0; x < simulateurPotager.getSIZE_X(); x++) {
             for (int y = 0; y < simulateurPotager.getSIZE_Y(); y++) {
-                int j = switch (simulateurPotager.getSol()) {
-                    case normal -> 0;
-                    case sec -> 1;
-                    case humide -> 2;
-                };
+                int j = -1;
+                switch (simulateurPotager.getSol()) {
+                    case normal : j=0; break;
+                    case sec : j=1;break;
+                    case humide : j=2;break;
+                }
                 if (simulateurPotager.getPlateau()[x][y] instanceof CaseCultivable) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
 
                     Legume legume = ((CaseCultivable) simulateurPotager.getPlateau()[x][y]).getLegume();
                     int i = -1;
                     if (legume != null) {
-                        i = switch (legume.getEtatLegume()) {
-                            case germe -> 0;
-                            case jeune -> 1;
-                            case mature -> 2;
-                            case pourri -> 3;
-                        };
+                        switch (legume.getEtatLegume()) {
+                            case germe : i=0; break;
+                            case jeune : i=1;break;
+                            case mature : i=2;break;
+                            case pourri : i=3;break;
+                        }
                         switch (legume.getVariete()) {
-                            case salade -> tabJLabel[x][y].setIcon(icoSalade[i][j]);
-                            case carotte -> tabJLabel[x][y].setIcon(icoCarotte[i][j]);
-                            case tomate -> tabJLabel[x][y].setIcon(icoTomate[i][j]);
+                            case salade : tabJLabel[x][y].setIcon(icoSalade[i][j]);break;
+                            case carotte : tabJLabel[x][y].setIcon(icoCarotte[i][j]);break;
+                            case tomate : tabJLabel[x][y].setIcon(icoTomate[i][j]);break;
                         }
 
                     } else {
@@ -544,15 +546,16 @@ public class VueControleurPotager extends JFrame implements Observer {
                     //BufferedImage bi = getImage("Images/smick.png", 0, 0, 20, 20);
                     //tabJLabel[x][y].getGraphics().drawImage(bi, 0, 0, null)
                 }else if (simulateurPotager.getPlateau()[x][y] instanceof CaseMur) {
-                    int i = switch (((CaseMur) simulateurPotager.getPlateau()[x][y]).getTypeMur()) {
-                        case tournantHautGauche -> 0;
-                        case haut -> 1;
-                        case tournantHautDroit -> 2;
-                        case droit -> 3;
-                        case tournantBasDroit -> 4;
-                        case bas -> 5;
-                        case tournantBasGauche -> 6;
-                        case gauche -> 7;
+                    int i = -1;
+                    switch (((CaseMur) simulateurPotager.getPlateau()[x][y]).getTypeMur()) {
+                        case tournantHautGauche : i=0;break;
+                        case haut : i=1;break;
+                        case tournantHautDroit : i=2;break;
+                        case droit : i=3;break;
+                        case tournantBasDroit : i=4;break;
+                        case bas : i=5;break;
+                        case tournantBasGauche : i=6;break;
+                        case gauche : i=7;break;
                     };
                     tabJLabel[x][y].setIcon(gardenFence[j][i]);
                 } else if (simulateurPotager.getPlateau()[x][y] instanceof CaseNonRatisser) {
@@ -585,6 +588,7 @@ public class VueControleurPotager extends JFrame implements Observer {
         try {
             image = ImageIO.read(new File(urlIcone));
         } catch (IOException ex) {
+            System.out.println(urlIcone);
             Logger.getLogger(VueControleurPotager.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }

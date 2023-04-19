@@ -3,6 +3,7 @@ package modele.environnement.Case;
 import modele.SimulateurPotager;
 import modele.environnement.Legume.Legume;
 import modele.fonctionnalite.outils.Outil;
+import modele.fonctionnalite.outils.Rateau;
 import modele.fonctionnalite.plantes.Planter;
 
 public class CaseCultivable extends Case {
@@ -19,9 +20,11 @@ public class CaseCultivable extends Case {
 
         // gere la pelle la botte et la poubelle
 
-        if (simulateurPotager.getFonctionnalite() instanceof Outil outil) {
+        if (simulateurPotager.getFonctionnalite() instanceof Outil) {
+            Outil outil = (Outil) simulateurPotager.getFonctionnalite();
             legume = outil.actionOutil(legume, simulateurPotager);
-        } else if (simulateurPotager.getFonctionnalite() instanceof Planter planter) {
+        } else if (simulateurPotager.getFonctionnalite() instanceof Planter) {
+            Planter planter = (Planter) simulateurPotager.getFonctionnalite();
             if (legume == null){
                 legume = planter.action(simulateurPotager.getMagasin());
             }

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="avegetablegarden:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/avegetablegarden_jar</output-path>
+    <root id="archive" name="avegetablegarden.jar">
+      <element id="module-output" name="avegetablegarden" />
+    </root>
+  </artifact>
+</component>

@@ -82,20 +82,20 @@ public class SimulateurTemps {
 
     public void accelerer(){
         switch (vitesseSimulation) {
-            case 1 -> this.setVitesseSimulation(2);
-            case 2 -> this.setVitesseSimulation(5);
-            case 5 -> this.setVitesseSimulation(10);
-            case 10 -> this.setVitesseSimulation(50);
-            default -> this.setVitesseSimulation(this.vitesseSimulation);
+            case 1 : this.setVitesseSimulation(2); break;
+            case 2 : this.setVitesseSimulation(5);break;
+            case 5 : this.setVitesseSimulation(10);break;
+            case 10 : this.setVitesseSimulation(50);break;
+            default : this.setVitesseSimulation(this.vitesseSimulation);
         }
     }
     public void decelerer(){
         switch (vitesseSimulation) {
-            case 50 -> this.setVitesseSimulation(10);
-            case 10 -> this.setVitesseSimulation(5);
-            case 5 -> this.setVitesseSimulation(2);
-            case 2 -> this.setVitesseSimulation(1);
-            default -> this.setVitesseSimulation(this.vitesseSimulation);
+            case 50 : this.setVitesseSimulation(10); break;
+            case 10 : this.setVitesseSimulation(5);break;
+            case 5 : this.setVitesseSimulation(2);break;
+            case 2 : this.setVitesseSimulation(1);break;
+            default : this.setVitesseSimulation(this.vitesseSimulation);
         }
     }
 

@@ -9,13 +9,13 @@ public abstract class Outil extends Fonctionnalite {
         super();
     }
     public Fonctionnalite actionUtilisateur (int xx){
-        return switch (xx) {
-            case 0 -> new Pelle();
-            case 1 -> new Rateau();
-            case 2 -> new Botte();
-            case 3 -> new Poubelle();
-            default -> null;
-        };
+        switch (xx) {
+            case 0 : return new Pelle();
+            case 1 : return new Rateau();
+            case 2 : return new Botte();
+            case 3 : return new Poubelle();
+            default : return null;
+        }
     }
     public abstract Legume actionOutil(Legume legume, SimulateurPotager simulateurPotager);
 }
